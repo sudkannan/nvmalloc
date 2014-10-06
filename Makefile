@@ -100,7 +100,7 @@ JEMALLOC_OBJS= 	$(src_path)/jemalloc.o $(src_path)/arena.o $(src_path)/atomic.o 
 	    $(src_path)/rtree.o $(src_path)/stats.o $(src_path)/tcache.o \
 	    $(src_path)/util.o $(src_path)/tsd.o $(src_path)/chunk.o \
 		$(src_path)/bitmap.o $(src_path)/chunk_mmap.o $(src_path)/chunk_dss.o \
-		$(src_path)/np_malloc.o $(src_path)/malloc_hook.o
+		$(src_path)/np_malloc.o #$(src_path)/malloc_hook.o
 
 RBTREE_OBJS= 	$(src_path)/rbtree.o
 
