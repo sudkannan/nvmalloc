@@ -361,7 +361,7 @@ unsigned int BASEID_GET(){
 
 int nvinit_(UINT pid) {
 
-	my_init_hook();
+	//my_init_hook();
 	return 0; 
 }
 

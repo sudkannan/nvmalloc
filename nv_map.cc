@@ -2160,7 +2160,7 @@ size_t  disable_alloc_prot(void *addr){
 	size_t protect_len =0;
 
 
-	disable_malloc_hook();
+	//disable_malloc_hook();
 	gt_spin_lock(&spinlock_fault);
 
 	//alloc_prot_map[addr] = 0;
@@ -2197,7 +2197,7 @@ size_t  disable_alloc_prot(void *addr){
 		fprintf(stderr,"g_fault_count %u %u\n",g_fault_count, allocmap.size());
 		//print_stat();
 	}
-	enable_malloc_hook();
+	//enable_malloc_hook();
 	gt_spin_unlock(&spinlock_fault);
 	//gt_spin_unlock(&spin_lock);
 	return size;
