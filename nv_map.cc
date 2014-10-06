@@ -1999,7 +1999,6 @@ void add_map(void* ptr, size_t size){
     }
 	add_alloc_map(ptr, size);
 }
-
 static void fault_handler (int sig, siginfo_t *si, void *unused)
 {
     disable_alloc_prot((void *)si->si_addr);
