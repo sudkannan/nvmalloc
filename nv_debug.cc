@@ -24,7 +24,8 @@ void DEBUG(const char* format, ... ) {
 		FILE *fp;
         va_list args;
         va_start( args, format );
-        vfprintf( stdout, format, args );
+        vfprintf(stderr, format, args );
+        //printf(format, args );
         va_end( args );
 #endif
 }
@@ -104,9 +105,9 @@ void DEBUG_CHUNKOBJ_T(chunkobj_s *chunkobj) {
 #ifndef _NVDEBUG
 	fprintf(stdout,"----------------------\n");
 	fprintf(stdout,"chunkobj: chunkid %u\n", chunkobj->chunkid);
-	fprintf(stdout,"chunkobj: length %ld\n", chunkobj->length);
-	fprintf(stdout,"chunkobj: vma_id %d\n", chunkobj->vma_id);
-	fprintf(stdout,"chunkobj: offset %ld\n", chunkobj->offset);
+	fprintf(stdout,"chunkobj: length %u\n", chunkobj->length);
+	fprintf(stdout,"chunkobj: vma_id %u\n", chunkobj->vma_id);
+	fprintf(stdout,"chunkobj: offset %u\n", chunkobj->offset);
 	fprintf(stdout,"chunkobj: nvptr %lu\n", (ULONG)chunkobj->nv_ptr);
 	fprintf(stdout,"----------------------\n");
 #endif

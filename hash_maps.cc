@@ -75,12 +75,14 @@ hashtable_t *ht_create( int size ) {
 	if( size < 1 ) return NULL;
  
 	/* Allocate the table itself. */
-	if( ( hashtable = malloc( sizeof( hashtable_t ) ) ) == NULL ) {
+	if( ( hashtable = (hashtable_t *)malloc( 
+			sizeof( hashtable_t ) ) ) == NULL ) {
 		return NULL;
 	}
  
 	/* Allocate pointers to the head nodes. */
-	if( ( hashtable->table = malloc( sizeof( entry_t * ) * size ) ) == NULL ) {
+	if( ( hashtable->table = (entry_t **)malloc( 
+			sizeof( entry_t * ) * size ) ) == NULL ) {
 		return NULL;
 	}
 	for( i = 0; i < size; i++ ) {
@@ -112,7 +114,7 @@ int ht_hash( hashtable_t *hashtable, char *key ) {
 entry_t *ht_newpair( char *key, unsigned int value ) {
 	entry_t *newpair;
  
-	if( ( newpair = malloc( sizeof( entry_t ) ) ) == NULL ) {
+	if( ( newpair = (entry_t *)malloc( sizeof( entry_t ) ) ) == NULL ) {
 		return NULL;
 	}
 	if( ( newpair->key = strdup( key ) ) == NULL ) {
@@ -185,7 +187,7 @@ unsigned int ht_get( hashtable_t *hashtable, char *key ) {
  
 	/* Did we actually find anything? */
 	if( pair == NULL || pair->key == NULL || strcmp( key, pair->key ) != 0 ) {
-		return NULL;
+		return 0;
  
 	} else {
 		return pair->value;
@@ -238,8 +240,8 @@ size_t get_alloc_size(void *ptr, unsigned long *faddr){
 		return allocmap[ptr];
 	}*/
    for( alloc_itr= allocmap.begin(); alloc_itr!=allocmap.end(); ++alloc_itr){
-        void *addr = (void *)(*alloc_itr).first;
-		void *endaddr = addr + (size_t)(*alloc_itr).second;
+        addr = (unsigned long)(*alloc_itr).first;
+		endaddr = (unsigned long) (addr + (size_t)(*alloc_itr).second);
 		if((unsigned long)ptr >= addr && (unsigned long)ptr <= endaddr) {
 			*faddr = (unsigned long)addr;
 			return (size_t)(*alloc_itr).second;

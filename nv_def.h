@@ -3,6 +3,11 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #define __NR_nv_mmap_pgoff     314
 //#define __NR_nv_mmap_pgoff     301
 
@@ -81,5 +86,10 @@ typedef intptr_t nvword_t;
 
 //PAGE Size
 #define PAGESIZE 4096
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

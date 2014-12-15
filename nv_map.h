@@ -87,11 +87,16 @@ void* check_if_init();
 void* create_new_process(struct rqst_struct *rqst);
 void* nv_map_read(struct rqst_struct *, void *);
 int nv_commit(struct rqst_struct *);
+int nv_commit_len(rqst_s *rqst, size_t size);
+int nv_delete(rqst_s *rqst);
+
 int nv_munmap(void *addr);
 unsigned int generate_vmaid(const char *key);
 ULONG findoffset(UINT proc_id, ULONG curr_addr);
 int nv_record_chunk(rqst_s *rqst, ULONG);
 //void nvmalloc(void);
+void nv_rename(rqst_s *rqst, char *dest);
+chunkobj_s * get_chunk(rqst_s *rqst);
 
 //Should be first called
 int initialize_nv(int sema);
@@ -109,14 +114,11 @@ void print_mmapobj(struct mmapobj *mmapobj);
 ULONG  get_proc_strtaddress(struct rqst_struct *);
 /*function to get process mmmapobj num*/
 int get_proc_num_maps(int pid);
-
 void *map_nvram_state(rqst_s *rqst);
-
 proc_s* read_map_from_pmem(int pid);
-
 int nv_chkpt_all(rqst_s *, int);
-
 proc_s* load_process(int pid, int perm);
+proc_s* find_process(int pid);
 
 
 static inline void PRINT(const char* format, ... ) {

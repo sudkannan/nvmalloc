@@ -52,7 +52,7 @@
 #endif
 
 
-//#define SINGLE_LARGE_MMAP
+#define SINGLE_LARGE_MMAP
 #ifdef SINGLE_LARGE_MMAP
 #define MAX 1024*1024*1024*1
 static void *g_ptr=NULL;

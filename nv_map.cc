@@ -1,3 +1,6 @@
+#include "nv_map.h"
+#include "nv_def.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -23,8 +26,6 @@
 #include <unordered_map>
 #include <sstream>
 
-#include "nv_map.h"
-#include "nv_def.h"
 #include "checkpoint.h"
 #include "util_func.h"
 #include "time_delay.h"
@@ -59,6 +60,7 @@ int dummy_var = 0;
 int proc_list_init = 0;
 ULONG proc_map_start;
 int g_file_desc = -1;
+int g_initialized;
 
 nvarg_s nvarg;
 rbtree map_tree;
@@ -114,7 +116,7 @@ void print_stat();
 #ifdef _ENABLE_SWIZZLING
 #define handle_error(msg) \
 		do { perror(msg); exit(EXIT_FAILURE); } while (0)
-
+///////////////////////MACROS///////////////////////////////////////////////////
 static void handler(int sig, siginfo_t *si, void *unused)
 {
 
@@ -171,7 +173,7 @@ int IntComp(node n, void* a, void* b) {
 #ifdef _USEPIN
 int num_maps;
 void init_pin() {
-    //CreateSharedMem();
+	//CreateSharedMem();
 }
 #endif
 
@@ -180,6 +182,7 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 
 	void* nvmap;
 	pthread_mutex_lock( &chkpt_mutex );
+
 #ifdef _USE_FAKE_NVMAP
 	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
 #else
@@ -191,18 +194,18 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 #endif
 
 #ifdef _USEPIN
-    //creates shared memory. if shared memory already created
-    // then returns pointer
-    init_pin();
-    num_maps++;
-    //printf("Writing line %lu %lu %d\n", nvmap,nvmap+size,num_maps);
-    Writeline((unsigned long)nvmap, (unsigned long)nvmap+size);
+	//creates shared memory. if shared memory already created
+	// then returns pointer
+	init_pin();
+	num_maps++;
+	//printf("Writing line %lu %lu %d\n", nvmap,nvmap+size,num_maps);
+	Writeline((unsigned long)nvmap, (unsigned long)nvmap+size);
 #endif
-
 	pthread_mutex_unlock(&chkpt_mutex);
-
 	return nvmap;
 }
+
+
 
 int init_chunk_tree(mmapobj_s *mmapobj) {
 
@@ -211,6 +214,44 @@ int init_chunk_tree(mmapobj_s *mmapobj) {
 	mmapobj->chunk_tree_init = 1;
 	return 0;
 }
+
+chunkobj_s *check_if_chunk_exists(rqst_s *rqst){
+
+	chunkobj_s *chunk = get_chunk(rqst);
+
+	if( chunk && chunk->length && rqst->var_name) {
+		chunk->chunkid = gen_id_from_str(rqst->var_name);
+		printf("FOUND COLLISION CHUNKNAME %s \n",rqst->var_name);
+		return chunk;
+	}else {
+		//assert(chunk);
+		//assert(chunk->length);
+		DEBUG("NO NAME COLLISION \n");
+		return NULL;
+	}
+	return NULL;
+}
+
+
+
+/*Rename from one object to other object name*/
+void nv_rename(rqst_s *rqst, char *dest) {
+
+	chunkobj_s *chunk = get_chunk(rqst);
+
+	if( chunk && chunk->length ) {
+		chunk->chunkid = gen_id_from_str(dest);
+		printf("FOUND source chunk source name %s "
+				"dest name %s \n",rqst->var_name, dest);
+	}else {
+		//assert(chunk);
+		//assert(chunk->length);
+		fprintf(stdout, "FAIL: could not find chunk from addr \n");
+	}
+	return;
+}
+
+
 
 int copy_chunkoj(chunkobj_s *dest, chunkobj_s *src) {
 	assert(dest);
@@ -277,12 +318,11 @@ static mmapobj_s* create_mmapobj(rqst_s *rqst, ULONG curr_offset,
 	sprintf(fileid_str, "%d", rqst->id);
 	strcat(file_name,"_");
 	strcat(file_name, fileid_str);
+	//fprintf(stderr,"mmap file %s\n",file_name);
 	int fd = setup_map_file(file_name, rqst->bytes);
 	assert(fd);
 	addr = (ULONG) mmap(0, rqst->bytes,
 			PROT_NV_RW, MAP_SHARED, fd, 0);
-	//fprintf(stdout,"creating mmap obj %s of size %u\n",
-	//		file_name,rqst->bytes);
 #else
 	addr = (ULONG) (map_nvram_state(rqst));
 #endif
@@ -320,6 +360,11 @@ static void update_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj,
 #endif
 }
 
+static void clear_chunkobj(chunkobj_s *chunkobj) {
+	memset(chunkobj->nv_ptr, chunkobj->length, 0);
+}
+
+
 /*creates mmapobj object.sets object variables to app. value*/
 static chunkobj_s* create_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj) {
 
@@ -355,6 +400,7 @@ static chunkobj_s* create_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj) {
 	return chunkobj;
 }
 
+
 /*Function to return the process object to which mmapobj belongs
  @ mmapobj: process to which the mmapobj belongs
  @ return: process object
@@ -373,8 +419,10 @@ chunkobj_s* find_chunk(mmapobj_s *t_mmapobj, unsigned int chunkid) {
 	chunkobj_s *chunkobj = NULL;
 	if (t_mmapobj) {
 		if (t_mmapobj->chunkobj_tree) {
-			chunkobj = (chunkobj_s *) rbtree_lookup(t_mmapobj->chunkobj_tree,
-					(void*) chunkid, IntComp);
+			chunkobj = (chunkobj_s *)rbtree_lookup(
+				t_mmapobj->chunkobj_tree,
+				(void*)(intptr_t)chunkid, IntComp);
+
 			if (chunkobj) {
 				return chunkobj;
 			}
@@ -432,8 +480,6 @@ mmapobj_s* find_mmapobj_from_chunkid(unsigned int chunkid, proc_s *proc_obj) {
 		return NULL;
 	}
 	if (proc_obj->mmapobj_tree) {
-
-		//print_tree(proc_obj->mmapobj_tree);
 		vmid_l = find_vmaid_from_chunk(proc_obj->mmapobj_tree->root, chunkid);
 		if (!vmid_l) {
 			goto exit;
@@ -457,7 +503,7 @@ mmapobj_s* find_mmapobj(UINT vmid_l, proc_s *proc_obj) {
 		return NULL;
 	}
 	t_mmapobj = (mmapobj_s*) rbtree_lookup(proc_obj->mmapobj_tree,
-			(void *) vmid_l, IntComp);
+			(void *)(intptr_t)vmid_l, IntComp);
 	return t_mmapobj;
 }
 
@@ -475,8 +521,9 @@ static int add_mmapobj(mmapobj_s *mmapobj, proc_s *proc_obj) {
 
 	//RB tree code
 	assert(proc_obj->mmapobj_tree);
-	rbtree_insert(proc_obj->mmapobj_tree, (void*) mmapobj->vma_id, mmapobj,
-			IntComp);
+	rbtree_insert(proc_obj->mmapobj_tree, 
+			(void*)(intptr_t) mmapobj->vma_id, 
+			mmapobj, IntComp);
 	//set the process obj to which mmapobj belongs
 	mmapobj->proc_obj = proc_obj;
 
@@ -522,7 +569,8 @@ static int add_chunkobj(mmapobj_s *mmapobj, chunkobj_s *chunk_obj) {
 		init_chunk_tree(mmapobj);
 	}
 	assert(mmapobj->chunkobj_tree);
-	rbtree_insert(mmapobj->chunkobj_tree, (void*)(chunk_obj->chunkid),
+	rbtree_insert(mmapobj->chunkobj_tree, 
+			(void*)(intptr_t)(chunk_obj->chunkid),
 			(void*)chunk_obj, IntComp);
 	//set the process obj to which mmapobj belongs
 	//chunk_obj->mmapobj = mmapobj;
@@ -600,19 +648,19 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 	fd = open(file_name, O_RDWR);
 	//assert(fp);
 	//fd = fileno(fp);
-        if(fd < 0) {
-	  fprintf(stderr,"file_name %s \n",file_name);	
-	  assert(fd > -1);	
+	if(fd < 0) {
+		//fprintf(stderr,"error: file_name %s \n",file_name);
+		assert(fd > -1);
 	}
 	mmapobj->data_addr = (ULONG)mmap(0, datarq.bytes ,PROT_NV_RW, MAP_SHARED, fd, 0);
 
 #ifdef _USEPIN
-    //creates shared memory. if shared memory already created
-    // then returns pointer
-    init_pin();
-    num_maps++;
-    printf("Writing line %lu %lu %d\n", mmapobj->data_addr,mmapobj->data_addr+datarq.bytes,num_maps);
-    Writeline((unsigned long)mmapobj->data_addr, (unsigned long)mmapobj->data_addr+datarq.bytes);
+	//creates shared memory. if shared memory already created
+	// then returns pointer
+	init_pin();
+	num_maps++;
+	printf("Writing line %lu %lu %d\n", mmapobj->data_addr,mmapobj->data_addr+datarq.bytes,num_maps);
+	Writeline((unsigned long)mmapobj->data_addr, (unsigned long)mmapobj->data_addr+datarq.bytes);
 #endif
 
 
@@ -725,8 +773,14 @@ static proc_s * create_or_load_proc_obj(int pid) {
 	char file_name[256];
 	int fd = -1;
 
-	/*proc_obj = (proc_s *) mmap(0, PROC_METADAT_SZ, PROT_NV_RW,
-			MAP_ANONYMOUS | MAP_PRIVATE, proc_map, 0);*/
+	/*First check if the process obj is alive
+	 * if so just return
+	 */
+	proc_obj = find_process(pid);
+	if(proc_obj){
+		return proc_obj;
+	}
+
 	bzero(file_name, 256);
 	generate_file_name((char *)PROCMETADATA_PATH, pid, file_name);
 
@@ -735,11 +789,11 @@ static proc_s * create_or_load_proc_obj(int pid) {
 	if(fd < 0) {
 		fd = setup_map_file(file_name, PROC_METADAT_SZ);
 		assert(fd > -1);
+		//fprintf(stdout,"file_name %s\n",file_name);
 		proc_obj = (proc_s *) mmap(0, PROC_METADAT_SZ, PROT_NV_RW,
 				MAP_SHARED, fd, 0);
 		assert(proc_obj != MAP_FAILED);
-		memset ((void *)proc_obj,0,bytes)
-		;
+		memset ((void *)proc_obj,0,bytes);
 		intialize_proc_obj(pid,proc_obj);
 
 	}else{
@@ -773,7 +827,8 @@ static proc_s *find_proc_obj(int proc_id) {
 		proc_list_init = 1;
 		return NULL;
 	}
-	proc_obj = (proc_s *) rbtree_lookup(proc_tree, (void *) proc_id, IntComp);
+	proc_obj = (proc_s *) rbtree_lookup(proc_tree, 
+						(void *)(intptr_t)proc_id, IntComp);
 
 	if (enable_optimze) {
 		prev_proc_obj = proc_obj;
@@ -796,7 +851,9 @@ static int add_proc_obj(proc_s *proc_obj) {
 		proc_tree = rbtree_create();
 		proc_list_init = 1;
 	}
-	rbtree_insert(proc_tree, (void *) proc_obj->pid, proc_obj, IntComp);
+	rbtree_insert(proc_tree, 
+				(void *)(intptr_t)proc_obj->pid, 
+				proc_obj, IntComp);
 
 	/*we flush the proc obj*/
 	if (useCacheFlush) {
@@ -815,7 +872,8 @@ proc_s* find_process(int pid) {
 	if (!proc_list_init) {
 		return NULL;
 	}
-	t_proc_obj = (proc_s*) rbtree_lookup(proc_tree, (void *) pid, IntComp);
+	t_proc_obj = (proc_s*) rbtree_lookup(proc_tree, 
+			(void *)(intptr_t) pid, IntComp);
 	if(t_proc_obj)
 		DEBUG("find_mmapobj found t_mmapobj %u \n", t_proc_obj->pid);
 	return t_proc_obj;
@@ -846,6 +904,13 @@ ULONG get_proc_strtaddress(rqst_s *rqst) {
 int nv_initialize(UINT pid) {
 
 	proc_s	*procobj=NULL;
+
+	/*If we have already initialized
+	 * then return silently
+	 */
+	  if(g_initialized){
+		  return 0;
+	  }
 
 #ifdef _USE_CACHEFLUSH
 	useCacheFlush=1;
@@ -894,11 +959,14 @@ int nv_initialize(UINT pid) {
 		assert(!initialize_logmgr(pid, 1));
 	}
 
-	//procobj = load_process(pid, 0);
-	//if (!procobj) {
-		//assert(procobj);
-	//}	
+	/*Finished intialization */
+	g_initialized = 1;
 
+	procobj = load_process(pid, 0);
+	if (!procobj) {
+		fprintf(stdout,"no process with persistent state exists\n");
+	}
+	return 0;
 }
 
 
@@ -959,6 +1027,7 @@ ULONG findoffset(UINT proc_id, ULONG curr_addr) {
 	return 0;
 }
 
+
 /* update offset for a mmapobj relative to start address
  * @params: proc_id
  * @params: vma_id
@@ -975,13 +1044,17 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	ULONG start_addr = 0;
 	rqst_s lcl_rqst;
 
-	//fprintf(stdout,"******************RECORD CHUNK1*****\n");
-	assert(rqst);
+
+	assert(g_initialized);
+
+	if(!rqst){
+		fprintf(stdout,"nv_record_chunk: failed as rqst structure null");
+		return -1;
+	}
+
 	/*check if the process is already in memory*/
 	proc_id = rqst->pid;
 	proc_obj = find_proc_obj(proc_id);
-
-
 
 	/*Try loading process from persistent memory*/
 	if (!proc_obj) {
@@ -997,6 +1070,13 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 		}
 	}
 	assert(proc_obj);
+
+	chunk = check_if_chunk_exists(rqst);
+	if(chunk) {
+		DEBUG_CHUNKOBJ(chunk);
+		clear_chunkobj(chunk);
+		return SUCCESS;
+	}
 
 	//fprintf(stdout,"******************RECORD CHUNK2*****\n");
 	if (use_map_cache) {
@@ -1028,15 +1108,14 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	/*find the mmapobj using vma id
 	 if application has supplied request id, neglect*/
 	if (rqst->var_name) {
-
 		lcl_rqst.id = gen_id_from_str(rqst->var_name);
-		DEBUG("generated chunkid %u from "
-				"variable %s\n",lcl_rqst.id, rqst->var_name);
+		DEBUG("generated chunkid %u from variable $$%s$$ \n",lcl_rqst.id, rqst->var_name);
 	} else {
 		lcl_rqst.id = rqst->id;
-		fprintf(stdout,"using id for alloc %u \n", lcl_rqst.id);
+		DEBUG("using id for alloc %u \n", lcl_rqst.id);
 	}
 	assert(lcl_rqst.id);
+
 
 	//fprintf(stdout,"chunkid %u \n", lcl_rqst.id);
 
@@ -1073,12 +1152,13 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 #if 1
 	{
 		chunk = add_chunk_to_mmapobj(mmapobj, proc_obj, &lcl_rqst);
+
 #ifdef _NVSTATS
 		chunk->chunk_cnt = mmapobj->numchunks;
 #endif
 		mmapobj->numchunks++;
 		DEBUG_CHUNKOBJ(chunk);
-		DEBUG("adding chunk %s id: %d of size %u:"
+		DEBUG("adding chunk %s id: %u of size %u:"
 				"to vma_id %u\n",
 				rqst->var_name,
 				lcl_rqst.id,
@@ -1101,11 +1181,7 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	}
 #endif
 #endif
-
 	record_chunks(chunk->nv_ptr, chunk);
-
-
-	//fprintf(stdout,"******************END RECORD CHUNK*****\n");
 	//gt_spinlock_init(&chunk->chunk_lock);
 	//add_record(chunk);
 	return SUCCESS;
@@ -1187,32 +1263,18 @@ proc_s* load_process(int pid, int perm) {
 	char file_name[256];
 	int wrt_perm = 0;
 
-	//fprintf(stdout,"******************LOAD PROCESS*****\n");
-	nv_initialize(pid);
+	/* nv_initialize should be called
+	 *
+	 */
+	assert(g_initialized);
 
-	/*bzero(file_name, 256);
-	bytes = sizeof(proc_s);
-	generate_file_name((char *) PROCMETADATA_PATH, pid, file_name);
-	fd = open(file_name, O_RDWR);
-	if (fd == -1) {
-		file_error(file_name);
-		return NULL;
-	}
-	map = (proc_s *) mmap(0, PROC_METADAT_SZ,
-			PROT_NV_RW, MAP_SHARED, fd, 0);
-
-	nv_proc_obj = (proc_s *) map;
-	if (nv_proc_obj == MAP_FAILED) {
-		close(fd);
-		DEBUG("Error mmapobjping the file %s\n", file_name);
-		return NULL;
-	}*/
 	nv_proc_obj = (proc_s *)create_or_load_proc_obj(pid);
 
 	/*Check if process has write permission to modify
 	 *metadata
 	 */
 	wrt_perm = check_modify_access(perm);
+	DEBUG("WRITE permission %d\n", wrt_perm);
 
 	/*Start reading the mmapobjs
 	 *add the process to proc_obj tree
@@ -1220,8 +1282,6 @@ proc_s* load_process(int pid, int perm) {
 	 */
 	addr = (ULONG) nv_proc_obj;
 	addr = addr + sizeof(proc_s);
-
-	DEBUG("WRITE permission %d\n", wrt_perm);
 
 	if (wrt_perm) {
 		proc_obj = nv_proc_obj;
@@ -1244,7 +1304,6 @@ proc_s* load_process(int pid, int perm) {
 	if (!proc_obj->mmapobj_initialized) {
 		initialize_mmapobj_tree(proc_obj);
 	}
-
 	DEBUG_PROCOBJ(proc_obj);
 
 	//Read all the mmapobjs
@@ -1544,16 +1603,17 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 
 	mmapobj_ptr = find_mmapobj_from_chunkid(chunk_id, proc_obj);
 	if (!mmapobj_ptr) {
-		fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
-		assert(0);
+		//fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
+		//assert(0);
 		goto error;
 	}
 
 	//Get the the start address and then end address of mmapobj
 	/*Every malloc call will lead to a mmapobj creation*/
 	tree_ptr = mmapobj_ptr->chunkobj_tree;
-	chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr, (void*) chunk_id,
-			IntComp);
+	chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr, 
+				(void*)(intptr_t)chunk_id,
+				IntComp);
 
 	assert(chunkobj);
 	assert(chunkobj->nv_ptr);
@@ -1567,6 +1627,7 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 #endif
 	rqst->nv_ptr = chunkobj->nv_ptr;
 	rqst->bytes = chunkobj->length;
+	rqst->commitsz = chunkobj->commitsz;
 
 #ifdef _NVSTATS
 	if(enable_stats) {
@@ -1581,11 +1642,9 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 			chunkobj->checksum) == 0);
 #endif
 
-	//fprintf(stdout, "nvmmap nvptr: %lu \n",(ULONG)chunkobj->nv_ptr);
-	//fprintf(stdout, "chunk_id: %lu \n",(ULONG)chunk_id);
-
 	return (void *) rqst->nv_ptr;
-	error: rqst->nv_ptr = NULL;
+error: 
+	rqst->nv_ptr = NULL;
 	rqst->log_ptr = NULL;
 	return NULL;
 }
@@ -1696,8 +1755,9 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	char file_name[MAX_FPATH_SZ];
 	char fileid_str[64];
 	//fprintf(stdout,"%zu \n",size);
-	if(size >= 33550336){
-	//if(1){
+	//if(size >= 33550336)
+	if(1){
+		//if(1){
 		bzero(file_name,256);
 		generate_file_name((char *) PROCMAPDATAPATH,a->proc_id, file_name);
 		sprintf(fileid_str, "%d", a->vma_id);
@@ -1711,12 +1771,12 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 		ret = mmap_wrap(addr, size,PROT_NV_RW, MAP_SHARED , fd, 0, a);
 	}
 	else{
-         ret = mmap_wrap(addr, size, mode, prot, fd, offset, a);
-		 //ret = malloc(size);
+		ret = mmap_wrap(addr, size, mode, prot, fd, offset, a);
+		//ret = malloc(size);
 	}
 #else
-    //if(size >= 33550336){
-		ret = mmap_wrap(addr, size, mode, prot, fd, offset, a);
+	//if(size >= 33550336){
+	ret = mmap_wrap(addr, size, mode, prot, fd, offset, a);
 	//}else{
 	//	ret = mmap (addr, size, mode, prot, fd, offset);
 	//}
@@ -1756,31 +1816,43 @@ chunkobj_s * get_chunk(rqst_s *rqst) {
 		assert(rqst->bytes);
 	}
 
-	process_id = rqst->pid;
-	assert(process_id);
-
-	if (enable_trans) {
-		ops = rqst->ops;
-	}
-	proc_obj = find_proc_obj(process_id);
-	assert(proc_obj);
 	/*find the mmapobj if application has
 	 supplied request id, neglect
 	 can just supply the transaction ID*/
 	if (!rqst->id) {
-		if (rqst->var_name)
+		if (rqst->var_name) {
 			chunkid = gen_id_from_str(rqst->var_name);
-		else
+		}
+		else {
 			printf("nv_commit:error generating vma id \n");
+		}
 	} else {
 		chunkid = rqst->id;
 	}
 	/*we always make assumption the
 	 chunk id is always greater than 1*/
 	assert(chunkid);
+
+	if (enable_trans) {
+		ops = rqst->ops;
+	}
+
+	process_id = rqst->pid;
+	assert(process_id);
+
+	proc_obj = find_proc_obj(process_id);
+	if(!proc_obj) {
+		//assert(proc_obj);
+		return NULL;
+	}
+
 	//we verify if such a chunk exists
 	mmapobj_ptr = find_mmapobj_from_chunkid(chunkid, proc_obj);
-	assert(mmapobj_ptr);
+	if(!mmapobj_ptr) {
+		//fprintf(stdout,"chunkid %u \n", chunkid);
+		//assert(mmapobj_ptr);
+		return NULL;
+	}
 	return find_chunk(mmapobj_ptr, chunkid);
 }
 
@@ -1797,13 +1869,13 @@ int nv_commit(rqst_s *rqst) {
 #ifdef _USE_SHADOWCOPY
 	src = chunk->log_ptr;
 	dest =chunk->nv_ptr;
+	assert(src);
+	assert(dest);
+	memcpy(dest, src, chunk->length);
 #else
 	src = chunk->nv_ptr;
 	dest = chunk->nv_ptr;
 #endif
-	assert(src);
-	assert(dest);
-	memcpy(dest, src, chunk->length);
 
 #ifdef _USE_TRANSACTION
 	chunk->dirty = 1;
@@ -1814,6 +1886,83 @@ int nv_commit(rqst_s *rqst) {
 #endif
 	return 0;
 }
+
+
+int nv_commit_len(rqst_s *rqst, size_t size) {
+
+	chunkobj_s *chunk = NULL;
+	void* dest = NULL;
+	void *src = NULL;
+
+	chunk = get_chunk(rqst);
+	chunk->commitsz = size;
+	assert(chunk);
+	assert(chunk->length);
+
+#ifdef _USE_SHADOWCOPY
+	src = chunk->log_ptr;
+	dest =chunk->nv_ptr;
+	assert(src);
+	assert(dest);
+	memcpy(dest, src, chunk->length);
+#else
+	src = chunk->nv_ptr;
+	dest = chunk->nv_ptr;
+#endif
+
+#ifdef _USE_TRANSACTION
+	chunk->dirty = 1;
+#endif
+	return 0;
+}
+
+int nv_delete(rqst_s *rqst) {
+
+	chunkobj_s *chunk = NULL;
+	proc_s *proc_obj = NULL;
+	mmapobj_s *mmapobj = NULL;
+	void *src = NULL;
+
+	UINT process_id = rqst->pid;
+	if(!process_id) {
+		assert(process_id);
+	}
+
+	proc_obj = find_proc_obj(process_id);
+	if(!proc_obj) {
+		assert(proc_obj);
+		return -1;
+	}
+
+	chunk = get_chunk(rqst);
+	if(!chunk) {
+		fprintf(stdout,"error: finding chunk from request \n");
+		return -1;
+	}
+	
+	/*set the commit size to 0
+	and set the chunk to invalid*/
+	chunk->commitsz = 0;
+	chunk->valid = INVALID;
+	
+	//we verify if such a chunk exists
+	mmapobj = find_mmapobj_from_chunkid(chunk->chunkid, proc_obj);
+	if(!mmapobj) {
+		fprintf(stdout,"error: finding chunkid "
+						"from mmapobj %u \n", chunk->chunkid);
+		return -1;
+	}
+
+	//src = chunk->nv_ptr;
+	if (mmapobj) {
+		if (mmapobj->chunkobj_tree) {
+			rbtree_lookup(mmapobj->chunkobj_tree,
+				(void*)(intptr_t)chunk->chunkid, IntComp);
+		}
+	}
+	return 0;
+}
+
 
 int app_exec_finish(int pid) {
 
@@ -1834,9 +1983,10 @@ int app_exec_finish(int pid) {
 #ifdef _USE_TRANSACTION
 	print_trans_stats();
 #endif
-
 	return 0;
 }
+
+
 
 //#ifdef _NVRAM_OPTIMIZE
 void add_to_mmap_cache(mmapobj_s *mmapobj) {
@@ -1875,17 +2025,17 @@ mmapobj_s* get_frm_mmap_cache(void *addr) {
 #ifdef _USE_BASIC_MMAP
 void* create_mmap_file(rqst_s *rqst) {
 
-   void *ret = NULL;
-   ULONG addr = 0;
-   int fd = -1;
-   char file_name[256];
+	void *ret = NULL;
+	ULONG addr = 0;
+	int fd = -1;
+	char file_name[256];
 
-   assert(rqst);
-   assert(rqst->var_name);
+	assert(rqst);
+	assert(rqst->var_name);
 
-   bzero(file_name,256);
-   strcpy(file_name,BASEPATH);
-   strcat(file_name, rqst->var_name);
+	bzero(file_name,256);
+	strcpy(file_name,BASEPATH);
+	strcat(file_name, rqst->var_name);
 
 	fd = setup_map_file(file_name, rqst->bytes);
 	if (fd == -1) {
@@ -1901,68 +2051,68 @@ void* create_mmap_file(rqst_s *rqst) {
 
 void* read_mmap_file( rqst_s* rqst, size_t *len){
 
-   void *mmapfile = NULL;
-   struct stat sb;
-   char file_name[256];
+	void *mmapfile = NULL;
+	struct stat sb;
+	char file_name[256];
 
-   assert(rqst);
-   assert(rqst->var_name);	
+	assert(rqst);
+	assert(rqst->var_name);
 
-   bzero(file_name,256);
-   strcpy(file_name,BASEPATH);
-   strcat(file_name, rqst->var_name);
+	bzero(file_name,256);
+	strcpy(file_name,BASEPATH);
+	strcat(file_name, rqst->var_name);
 
 
-   /*we check if a map already exists*/
-   int fd = check_existing_map_file(file_name);
-   if(fd <= -1){ 	
-   	   fprintf(stdout,"file_name %s \n", file_name);
-	   assert(fd > -1);	
+	/*we check if a map already exists*/
+	int fd = check_existing_map_file(file_name);
+	if(fd <= -1){
+		//fprintf(stdout,"file_name %s \n", file_name);
+		assert(fd > -1);
 	}
 	if (stat(file_name, &sb) == -1) {
-        perror("stat");
-        exit(EXIT_FAILURE);
-    }
-  *len = sb.st_size;
-   mmapfile = (void *) mmap(0,sb.st_size,PROT_NV_RW, MAP_SHARED, fd, 0);
-   assert(mmapfile != MAP_FAILED);
+		perror("stat");
+		exit(EXIT_FAILURE);
+	}
+	*len = sb.st_size;
+	mmapfile = (void *) mmap(0,sb.st_size,PROT_NV_RW, MAP_SHARED, fd, 0);
+	assert(mmapfile != MAP_FAILED);
 
-   close(fd);
+	close(fd);
 
-   return mmapfile;	
+	return mmapfile;
 }
 
 void close_mmap_file( rqst_s* rqst){
 
-   void *mmapfile = NULL;
-   struct stat sb;
-   size_t size=0;
-   int fd = -1;
-   char file_name[256];
+	void *mmapfile = NULL;
+	struct stat sb;
+	size_t size=0;
+	int fd = -1;
+	char file_name[256];
 
-   assert(rqst);
-   assert(rqst->var_name);	
-   assert(rqst->nv_ptr);	
+	assert(rqst);
+	assert(rqst->var_name);
+	assert(rqst->nv_ptr);
 
-   bzero(file_name,256);
-   strcpy(file_name,BASEPATH);
-   strcat(file_name, rqst->var_name);
+	bzero(file_name,256);
+	strcpy(file_name,BASEPATH);
+	strcat(file_name, rqst->var_name);
 
-   /*we check if a map already exists*/
-   //fd = check_existing_map_file(file_name);
-   //if (fd < 0 ) {
+	/*we check if a map already exists*/
+	//fd = check_existing_map_file(file_name);
+	//if (fd < 0 ) {
 	//fprintf(stdout,"file_name %s \n",file_name);
 	//assert(fd > -1);	
-   //}	
-   if (stat(file_name, &sb) == -1) {
-      perror("stat");
-      perror(file_name);
-      exit(EXIT_FAILURE);
-   }
-   size= sb.st_size;
-   nv_munmap(rqst->nv_ptr, size);
-   //if(fd)
-   //close(fd);		
+	//}
+	if (stat(file_name, &sb) == -1) {
+		perror("stat");
+		perror(file_name);
+		exit(EXIT_FAILURE);
+	}
+	size= sb.st_size;
+	nv_munmap(rqst->nv_ptr, size);
+	//if(fd)
+	//close(fd);
 }
 
 #endif
@@ -1983,25 +2133,25 @@ void add_map(void* ptr, size_t size){
 
 	struct sigaction sa;
 
-    memset (&sa, 0, sizeof (sa));
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = fault_handler;
-    sa.sa_flags   = SA_SIGINFO;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction"); 
+	memset (&sa, 0, sizeof (sa));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = fault_handler;
+	sa.sa_flags   = SA_SIGINFO;
+	if (sigaction(SIGSEGV, &sa, NULL) == -1)
+		handle_error("sigaction");
 
 	if(size < 4096) {
 		return;
 	}
 	size = size - size%4096-1;
 	if (mprotect((void *)ptr,size, PROT_READ)==-1) {
-          exit(-1);   
-    }
+		exit(-1);
+	}
 	add_alloc_map(ptr, size);
 }
 static void fault_handler (int sig, siginfo_t *si, void *unused)
 {
-    disable_alloc_prot((void *)si->si_addr);
+	disable_alloc_prot((void *)si->si_addr);
 }
 
 size_t  disable_alloc_prot(void *addr){
@@ -2016,21 +2166,21 @@ size_t  disable_alloc_prot(void *addr){
 	//assert(faddr);
 	//protect_all_chunks();
 	if(faddr){
- 		 laddr = faddr - ((unsigned long)faddr%4096);
-		 //alloc_prot_map[faddr] = 0;
-		 //fault_stat[faddr]++;
+		laddr = faddr - ((unsigned long)faddr%4096);
+		//alloc_prot_map[faddr] = 0;
+		//fault_stat[faddr]++;
 	}
-    else{
-		 laddr = addr - ((unsigned long)addr%4096);
-		  size = 4095;
+	else{
+		laddr = addr - ((unsigned long)addr%4096);
+		size = 4095;
 	}
 	if (mprotect((void *)laddr,size, PROT_READ|PROT_WRITE)==-1) {
-           exit(-1);   
-    }
+		exit(-1);
+	}
 	//gt_spin_unlock(&spinlock_fault);
 	g_fault_count++;
 
-	 return size;
+	return size;
 }
 
 
@@ -2059,7 +2209,7 @@ void  remove_map(void *addr){
 #endif
 
 
-#if 1
+#if 0
 
 unsigned int spin_init =0, g_fault_count=0;
 struct gt_spinlock_t spinlock_fault;
@@ -2091,14 +2241,14 @@ void add_map(void* ptr, size_t size){
 	std::map <void *, size_t>::iterator itr;
 
 
-    memset (&sa, 0, sizeof (sa));
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = fault_handler;
-    sa.sa_flags   = SA_SIGINFO;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction"); 
+	memset (&sa, 0, sizeof (sa));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = fault_handler;
+	sa.sa_flags   = SA_SIGINFO;
+	if (sigaction(SIGSEGV, &sa, NULL) == -1)
+		handle_error("sigaction");
 
-    /*memset (&sa1, 0, sizeof (sa1));
+	/*memset (&sa1, 0, sizeof (sa1));
     sigemptyset(&sa1.sa_mask);
     sa1.sa_handler = SIGABRT_handle;
     sa1.sa_flags   = SA_SIGINFO;
@@ -2125,8 +2275,8 @@ void add_map(void* ptr, size_t size){
 	size = size - size%4096-1;
 	add_alloc_map(ptr, size);
 	if (mprotect((void *)ptr,size, PROT_READ)==-1) {
-          exit(-1);   
-    }
+		exit(-1);
+	}
 	//alloc_prot_map[ptr] = 1;
 
 	/*life_map[ptr]=1;
@@ -2146,7 +2296,7 @@ void add_map(void* ptr, size_t size){
 
 static void fault_handler (int sig, siginfo_t *si, void *unused)
 {
-    disable_alloc_prot((void *)si->si_addr);
+	disable_alloc_prot((void *)si->si_addr);
 }
 
 
@@ -2181,35 +2331,35 @@ size_t  disable_alloc_prot(void *addr){
 		 //fprintf(stdout,"%lu %u\n",faddr, fault_stat[faddr]);
 	}
     else*/{
-		 laddr = addr - ((unsigned long)addr%4096);
-		 size = 4095;
-	}
-
-	//if(g_fault_count % 500 == 0) // && g_fault_count < 50000)
-	//protect_all_chunks();
-
-	if (mprotect((void *)laddr,size, PROT_READ|PROT_WRITE)==-1) {
-           //exit(-1);   
+    	laddr = addr - ((unsigned long)addr%4096);
+    	size = 4095;
     }
-	g_fault_count++;
 
-	if(g_fault_count%10000 == 0){
-		fprintf(stderr,"g_fault_count %u %u\n",g_fault_count, allocmap.size());
-		//print_stat();
-	}
-	//enable_malloc_hook();
-	gt_spin_unlock(&spinlock_fault);
-	//gt_spin_unlock(&spin_lock);
-	return size;
+    //if(g_fault_count % 500 == 0) // && g_fault_count < 50000)
+    //protect_all_chunks();
+
+    if (mprotect((void *)laddr,size, PROT_READ|PROT_WRITE)==-1) {
+    	//exit(-1);
+    }
+    g_fault_count++;
+
+    if(g_fault_count%10000 == 0){
+    	fprintf(stderr,"g_fault_count %u %u\n",g_fault_count, allocmap.size());
+    	//print_stat();
+    }
+    //enable_malloc_hook();
+    gt_spin_unlock(&spinlock_fault);
+    //gt_spin_unlock(&spin_lock);
+    return size;
 }
 
 void protect_all_chunks(){ 
 
-    std::unordered_map<unsigned long, size_t>::iterator itr;
+	std::unordered_map<unsigned long, size_t>::iterator itr;
 
 	//disable_malloc_hook();
-    for( itr= allocmap.begin(); itr!=allocmap.end(); ++itr){
-   	    void *addr = (void *)(*itr).first;
+	for( itr= allocmap.begin(); itr!=allocmap.end(); ++itr){
+		void *addr = (void *)(*itr).first;
 		int isfault; 
 
 		if(!addr) continue;
@@ -2218,7 +2368,7 @@ void protect_all_chunks(){
 		isfault = 0;
 		if(isfault == 0){
 			if (mprotect((void *)addr,(size_t)(*itr).second,PROT_READ)==-1) {
-   		      //exit(-1);   
+				//exit(-1);
 			}
 			alloc_prot_map[addr]=1;
 			//fprintf(stdout,"%lu %u\n",addr, fault_stat[addr]);
@@ -2231,26 +2381,26 @@ void protect_all_chunks(){
 
 void print_stat() {
 
-    std::unordered_map <unsigned long, size_t>::iterator itr;
+	std::unordered_map <unsigned long, size_t>::iterator itr;
 	unsigned int count = 0;
 	size_t size = fault_stat.size();
 	unsigned long addr=0;
 	size_t chunksz=0;
 
-    for( itr= fault_stat.begin(); itr!=fault_stat.end(); ++itr){
-        size_t fcount = (size_t)(*itr).second;
+	for( itr= fault_stat.begin(); itr!=fault_stat.end(); ++itr){
+		size_t fcount = (size_t)(*itr).second;
 
 		if(fcount > 100) {
 
 			addr = (unsigned long)(*itr).first;
 			chunksz = allocmap[addr];	
-	        //fprintf(stderr,"chunk %u, fault_count %zu, "
+			//fprintf(stderr,"chunk %u, fault_count %zu, "
 			//				"num. chunks  %zu chunksz %u "
 			//				"hot chunks %u\n",
 			//				count, fcount, size, chunksz, count);
 			count++;
 		}
-    }
+	}
 	fprintf(stdout,"hot chunks %u\n", count);
 
 	fprintf(stdout,"-----------------\n");
@@ -2265,12 +2415,12 @@ void  remove_map(void *addr){
 	//return 1;
 	//disable_malloc_hook();
 	size = get_alloc_size(addr, &faddr);
-	 //if(faddr && alloc_prot_map.find(faddr) != alloc_prot_map.end() &&  allocmap.find(faddr) != allocmap.end()){
-	 if(faddr && allocmap.find(faddr) != allocmap.end()){
-		 //fprintf(stdout,"removing element \n");
-		 //allocmap.erase(faddr);
-		 //allocmap.erase(addr);
-		 alloc_prot_map.erase(faddr);	
+	//if(faddr && alloc_prot_map.find(faddr) != alloc_prot_map.end() &&  allocmap.find(faddr) != allocmap.end()){
+	if(faddr && allocmap.find(faddr) != allocmap.end()){
+		//fprintf(stdout,"removing element \n");
+		//allocmap.erase(faddr);
+		//allocmap.erase(addr);
+		alloc_prot_map.erase(faddr);
 	}
 	//enable_malloc_hook();
 }
@@ -2290,13 +2440,13 @@ void add_map(void* ptr, size_t size){
 		spin_init =1;
 	}*/
 
-    /* Install segv_handler as the handler for SIGSEGV. */
-    memset (&sa, 0, sizeof (sa));
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = fault_handler;
-    sa.sa_flags   = SA_SIGINFO;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction"); 
+	/* Install segv_handler as the handler for SIGSEGV. */
+	memset (&sa, 0, sizeof (sa));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = fault_handler;
+	sa.sa_flags   = SA_SIGINFO;
+	if (sigaction(SIGSEGV, &sa, NULL) == -1)
+		handle_error("sigaction");
 
 #if 0
 	if(size < 4096) {
@@ -2318,7 +2468,7 @@ void add_map(void* ptr, size_t size){
 	alloc_prot_map[ptr] = 1;
 	life_map[ptr]=1;
 
-    /*for( itr= life_map.begin(); itr!=life_map.end(); ++itr){
+	/*for( itr= life_map.begin(); itr!=life_map.end(); ++itr){
    	    void *addr = (void *)(*itr).first;
 		int lifecount = life_map[addr];
 		if(lifecount > 2) {
@@ -2329,17 +2479,17 @@ void add_map(void* ptr, size_t size){
 	}*/
 
 	if (mprotect((void *)ptr,size, PROT_READ)==-1) {
-        exit(-1);   
-    }
-   	//set_chunk_protection(ptr, size, PROT_READ);
+		exit(-1);
+	}
+	//set_chunk_protection(ptr, size, PROT_READ);
 }
 
 static void fault_handler (int sig, siginfo_t *si, void *unused)
 {
 	fprintf(stdout,"in fault handler \n");
 	gt_spin_lock(&spinlock_fault);
-    disable_alloc_prot((void *)si->si_addr);
-    gt_spin_unlock(&spinlock_fault);
+	disable_alloc_prot((void *)si->si_addr);
+	gt_spin_unlock(&spinlock_fault);
 	fprintf(stdout,"after fault handler \n");
 }
 
@@ -2347,7 +2497,7 @@ int firsttime = 1;
 
 void protect_all_chunks(void *faddr){ 
 
-    std::map <void *, size_t>::iterator itr;
+	std::map <void *, size_t>::iterator itr;
 	struct sigaction sa;
 	size_t mapsize=0;
 
@@ -2355,36 +2505,36 @@ void protect_all_chunks(void *faddr){
 		return;
 	}
 	firsttime++;*/
-    /* Install segv_handler as the handler for SIGSEGV. */
-    memset (&sa, 0, sizeof (sa));
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = fault_handler;
-    sa.sa_flags   = SA_SIGINFO;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction"); 
+	/* Install segv_handler as the handler for SIGSEGV. */
+	memset (&sa, 0, sizeof (sa));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = fault_handler;
+	sa.sa_flags   = SA_SIGINFO;
+	if (sigaction(SIGSEGV, &sa, NULL) == -1)
+		handle_error("sigaction");
 
 
 	mapsize = allocmap.size();
 	//if(mapsize) {
-	    for( itr= allocmap.begin(); itr!=allocmap.end(); ++itr){
-    	    void *addr = (void *)(*itr).first;
-			int isfault = alloc_prot_map[addr];
-			if(isfault == 0 && (addr != faddr)){
-				if (mprotect((void *)addr,(size_t)(*itr).second,PROT_READ)==-1) {
-    	    	  exit(-1);   
-			    }
-				alloc_prot_map[addr]=1;
+	for( itr= allocmap.begin(); itr!=allocmap.end(); ++itr){
+		void *addr = (void *)(*itr).first;
+		int isfault = alloc_prot_map[addr];
+		if(isfault == 0 && (addr != faddr)){
+			if (mprotect((void *)addr,(size_t)(*itr).second,PROT_READ)==-1) {
+				exit(-1);
 			}
-			life_map[addr]++;
-			/*int lifecount = life_map[addr];
+			alloc_prot_map[addr]=1;
+		}
+		life_map[addr]++;
+		/*int lifecount = life_map[addr];
 			if(lifecount > 2 && isfault) {
        			//fprintf(stderr,"life count %u %u \n", lifecount, g_fault_count);
 				//alloc_prot_map.erase(addr);
 				allocmap.erase(addr);
 				//life_map.erase(addr);
 			}*/	
-			//}
-	    }
+		//}
+	}
 	//}
 	fprintf(stdout,"mapsize exiting %u\n", mapsize);
 }
@@ -2397,20 +2547,20 @@ size_t  disable_alloc_prot(void *addr){
 	size_t protect_len =0;
 
 	size = get_alloc_size(addr, &faddr);
-	 //set_chunk_protection((ULONG)faddr,size,PROT_READ|PROT_WRITE);
-	 if(faddr && size ){
- 		 laddr = faddr - ((unsigned long)faddr%4096);
-		 alloc_prot_map[faddr] = 0;
-		 fault_stat[faddr]++;
-	 }
-     else {
-		 laddr = addr - ((unsigned long)addr%4096);
-		 size = 4095;
-		 fault_stat[faddr]++;
+	//set_chunk_protection((ULONG)faddr,size,PROT_READ|PROT_WRITE);
+	if(faddr && size ){
+		laddr = faddr - ((unsigned long)faddr%4096);
+		alloc_prot_map[faddr] = 0;
+		fault_stat[faddr]++;
 	}
-	 if (mprotect((void *)laddr,size, PROT_READ|PROT_WRITE)==-1) {
-           exit(-1);   
-     }
+	else {
+		laddr = addr - ((unsigned long)addr%4096);
+		size = 4095;
+		fault_stat[faddr]++;
+	}
+	if (mprotect((void *)laddr,size, PROT_READ|PROT_WRITE)==-1) {
+		exit(-1);
+	}
 	// protect_all_chunks(faddr);
 
 	g_fault_count++;
@@ -2419,7 +2569,7 @@ size_t  disable_alloc_prot(void *addr){
 		print_stat();
 	}
 
-	 return size;
+	return size;
 }
 
 void  remove_map(void *addr){
@@ -2428,28 +2578,28 @@ void  remove_map(void *addr){
 
 	return 0;
 	size = get_alloc_size(addr, &faddr);
-	 //if(faddr && alloc_prot_map.find(faddr) != alloc_prot_map.end() &&  allocmap.find(faddr) != allocmap.end()){
-	 if(faddr && allocmap.find(faddr) != allocmap.end()){
-		 //fprintf(stdout,"removing element \n");
-		 allocmap.erase(faddr);
-		 alloc_prot_map.erase(faddr);	
-	 }
+	//if(faddr && alloc_prot_map.find(faddr) != alloc_prot_map.end() &&  allocmap.find(faddr) != allocmap.end()){
+	if(faddr && allocmap.find(faddr) != allocmap.end()){
+		//fprintf(stdout,"removing element \n");
+		allocmap.erase(faddr);
+		alloc_prot_map.erase(faddr);
+	}
 
 
 }
 
 void print_stat() {
 
-    std::map <void *, size_t>::iterator itr;
+	std::map <void *, size_t>::iterator itr;
 	unsigned int count = 0;
-	
+
 	size_t size = fault_stat.size();
 
-    for( itr= fault_stat.begin(); itr!=fault_stat.end(); ++itr){
-        size_t fcount = (size_t)(*itr).second;
+	for( itr= fault_stat.begin(); itr!=fault_stat.end(); ++itr){
+		size_t fcount = (size_t)(*itr).second;
 		if(fcount > 1)
-        fprintf(stderr,"chunk %u, fault_count %zu, size %zu\n",count, fcount, size);
+			fprintf(stderr,"chunk %u, fault_count %zu, size %zu\n",count, fcount, size);
 		count++;
-    }
+	}
 }
 #endif

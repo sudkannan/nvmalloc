@@ -11,6 +11,8 @@
  *
  */
 
+
+
 //#define ENABLE_MPI_RANKS
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,20 +20,21 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#include <nv_def.h>
+#include <c_io.h>
+#include <nv_map.h>
+
+
 #ifdef ENABLE_MPI_RANKS
 	#include "mpi.h"
 #endif
 
-#include "nv_map.h"
-#include "c_io.h"
 
 #ifdef USE_NVMALLOC
 	#include "nvmalloc_wrap.h"
 #endif
 
 #include "util_func.h"
-
-#define NULL 0
 
 #define USECSPERSEC 1000000
 #define pthread_attr_default NULL
@@ -46,11 +49,13 @@ static unsigned iteration_count = 100;
 
 extern void *je_malloc_(size_t, rqst_s*);
 
+extern void* nvalloc_( size_t size, char *var, int id);
+
 
 void *run_test(void* val)
 {
 	register unsigned int i;
-	register unsigned request_size = size;
+	register unsigned int request_size = size;
 	register unsigned total_iterations = iteration_count;
 	struct timeval start, end, null, elapsed, adjusted;
 	int rank=0;
@@ -127,7 +132,7 @@ void *run_test(void* val)
 		adjusted.tv_usec += USECSPERSEC;
 	}*/
 	printf("Thread %d adjusted timing: %d.%06d seconds for %d requests"
-		" of %d bytes.\n", pthread_self(),
+		" of %u bytes.\n", (int)pthread_self(),
 		elapsed.tv_sec, elapsed.tv_usec, total_iterations,
 		request_size);
 	//pthread_exit(NULL);

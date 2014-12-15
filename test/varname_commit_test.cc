@@ -31,7 +31,6 @@
 
 #include "util_func.h"
 
-#define NULL 0
 
 #define USECSPERSEC 1000000
 #define pthread_attr_default NULL

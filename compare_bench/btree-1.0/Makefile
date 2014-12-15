@@ -4,20 +4,6 @@
 
 SHELL = /bin/sh
 
-CXX=g++
-CC=gcc
-GNUFLAG :=  -std=gnu99
-
-INCLUDE=$(NVMALLOC_HOME)
-DEFINES := -DMALLOC_PRODUCTION -lstdc++
-CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
-      -funroll-loops  -Wno-implicit -Wno-uninitialized \
-      -Wno-unused-function -Wno-unused-variable -lm -lssl  -fPIC
-LIBS= -L$(NVMALLOC_HOME) -lnvmchkpt -lpthread 
-
-
-
-
 LIB = btree
 
 SRCS = bt_code.c bt_output.c
@@ -40,7 +26,7 @@ LIBOPTS = -DSTATS #-DSAFE_BTREE
 
 srcdir = .
 
-AFLAGS = -Wall -I$(srcdir) -I$(INCLUDE) $(DEBUG) $(OPT) $(LIBOPTS) $(CFLAGS) $(LIBS)
+AFLAGS = -Wall -I$(srcdir) $(DEBUG) $(OPT) $(LIBOPTS) $(CFLAGS)
 
 MAJOR = 1
 ARNAME = lib$(LIB).a
@@ -74,7 +60,7 @@ $(PANAME): $(POBJS)
 	$(AR) rc $@ $(POBJS)
 
 $(TESTPROG): $(TESTOBJS) $(PANAME)
-	$(CXX) -static $(CFLAGS) -o $@ $(TESTOBJS) $(PANAME) $(PROFILE) $(LIBS)
+	$(CC) -static $(CFLAGS) -o $@ $(TESTOBJS) $(PANAME) $(PROFILE)
 
 deepclean: clean
 	rm -f Makefile config.cache config.log config.status configure

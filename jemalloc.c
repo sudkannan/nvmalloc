@@ -839,7 +839,6 @@ je_malloc_(size_t size, rqst_s *rqst)
 		size = 1;
 
 
-
 	if (config_prof && opt_prof) {
 		usize = s2u(size);
 		PROF_ALLOC_PREP(1, usize, cnt);
@@ -900,7 +899,8 @@ label_oom:
 #endif
 
 	rqst->bytes = size;
-	rqst->id = ++malloc_id;
+	//rqst->id = ++malloc_id;
+	rqst->id = 0;
 	rqst->nv_ptr = ret;
 	nv_record_chunk(rqst, (unsigned long)ret);
 

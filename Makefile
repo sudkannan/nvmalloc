@@ -1,10 +1,10 @@
 LOGGING=/usr/lib64/logging
+NVMALLOC_HOME=/home/stewart/codes/nvmalloc
 INCLUDE=$(NVMALLOC_HOME)
 src_path=$(NVMALLOC_HOME)
 LIB_PATH := $(NVMALLOC_HOME)
 BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
-
 
 LDFLAGS=-ldl
 
@@ -13,15 +13,15 @@ LDFLAGS=-ldl
 CPPFLAGS := -fPIC -I$(INCLUDE) -I$(INCLUDE)/jemalloc -I/usr/include -g #-I$(INCLUDE)/pmem_intel/linux-examples_flex/libpmem -g #-O3
 CPPFLAGS:=  $(CPPFLAGS) -lssl -lcrypto -fPIC
 CPPFLAGS := $(CPPFLAGS) -DMALLOC_PRODUCTION -fPIC 
-CPPFLAGS := $(CPPFLAGS)  -Wno-pointer-arith
+CPPFLAGS := $(CPPFLAGS)  -Wno-pointer-arith -Wno-unused-but-set-variable
 CPPFLAGS := $(CPPFLAGS)  -Wno-unused-function
-CPPFLAGS := $(CPPFLAGS)  -Wno-unused-variable -fpermissive
+CPPFLAGS := $(CPPFLAGS)  -Wno-unused-variable #-fpermissive
 CPPFLAGS := $(CPPFLAGS) -cpp 
 CPPFLAGS := $(CPPFLAGS) -D_USENVRAM
 #CPPFLAGS := $(CPPFLAGS) -D_NVDEBUG
 #CPPFLAGS := $(CPPFLAGS) -D_NOCHECKPOINT
 #CPPFLAGS := $(CPPFLAGS) -D_USE_CHECKPOINT
-#CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
+CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
 #CPPFLAGS := $(CPPFLAGS) -D_ENABLE_SWIZZLING
 #CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
 
@@ -79,7 +79,7 @@ CC=gcc
 GNUFLAG :=  -std=gnu99 -fPIC -fopenmp 
 CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
 	  -funroll-loops  -Wno-implicit -Wno-uninitialized \
-	  -Wno-unused-function  -fPIC -fopenmp -g #-larmci 
+	  -Wno-unused-function -fPIC -fopenmp -g #-larmci 
 
 STDFLAGS :=-std=gnu++0x 
 CPPFLAGS := $(CPPFLAGS) -I$(LOGGING)/include -I$(LOGGING)/include/include -I$(LOGGING)/include/port \
@@ -91,7 +91,8 @@ LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl \
 #	   -lpmem \
 #		-lnvmalloc #-llogging
 
-all:  SHARED_LIB BENCHMARK
+all:  SHARED_LIB 
+#BENCHMARK
 
 JEMALLOC_OBJS= 	$(src_path)/jemalloc.o $(src_path)/arena.o $(src_path)/atomic.o \
 		$(src_path)/base.o $(src_path)/ckh.o $(src_path)/ctl.o $(src_path)/extent.o \
@@ -151,13 +152,14 @@ $(src_path)/pin_mapper.o: $(src_path)/pin_mapper.cc
 				
 OBJLIST= $(RBTREE_OBJS) $(NVM_OBJS)  $(JEMALLOC_OBJS)
 SHARED_LIB: $(RBTREE_OBJS) $(JEMALLOC_OBJS) $(NVM_OBJS)
-	$(CC) -c $(RBTREE_OBJS) -I$(INCLUDE) $(CFLAGS) 
-	$(CC) -c $(JEMALLOC_OBJS) -I$(INCLUDE) $(CFLAGS) $(NVFLAGS)
-	$(CXX) -c $(NVM_OBJS) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LDFLAGS)
+	#$(CC) -c $(RBTREE_OBJS) -I$(INCLUDE) $(CFLAGS) 
+	#$(CC) -c $(JEMALLOC_OBJS) -I$(INCLUDE) $(CFLAGS) $(NVFLAGS)
+	#$(CXX) -c $(NVM_OBJS) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LDFLAGS)
+	#ar crf  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)  
+	#ar rv  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)
 	$(CXX) -shared -fPIC -o libnvmchkpt.so $(OBJLIST) $(NVFLAGS) $(LIBS) $(LDFLAGS)
-	ar crf  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)  
-	$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
-
+	#$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
+	#$(CXX) -g varname_commit_test.cc -o varname_commit_test util_func.o -I$(INCLUDE) $(CPPFLAGS) $(LIBS)
 
 BENCHMARK: $(JEMALLOC_OBJS) $(NVM_OBJS) $(BENCHMARK_OBJS)
 	$(CXX) -shared -fPIC -o libnvmchkpt.so $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)  $(LDFLAGS)

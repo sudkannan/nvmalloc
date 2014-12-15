@@ -1433,10 +1433,10 @@ int set_chunk_protection_ulong (unsigned long addr, size_t len, int flag){
    off = protect_len % 4096;      
    protect_len = protect_len -off;
 
-	fprintf(stderr,"in setting protection %d, addr %lu, len %u\n", flag, addr, protect_len); 	
+	fprintf(stderr,"in setting protection %d, addr %lu, len %zu\n", flag, addr, protect_len);
     if (mprotect((void *)addr,protect_len, flag)==-1) {
 		if(prev_proc_id ) {
-			fprintf(stdout,"%lu len %u\n", (unsigned long)addr, len);
+			fprintf(stdout,"%lu len %zu\n", (unsigned long)addr, len);
 	    	perror("mprotect");
 			exit(-1);	
 		}

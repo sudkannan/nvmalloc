@@ -2,10 +2,9 @@
 #define C_IO_H_
 
 
-#include "nv_def.h"
-/*#ifdef __cplusplus
-extern "C" {
-#endif*/
+//#ifdef __cplusplus
+//extern "C" {
+//#endif
 //typedef intptr_t nvword_t
 
 int write_io_( float *f, int *elements, int *num_proc, int *iid);
@@ -22,20 +21,23 @@ void* nvread_(char *var, int id);
 void* nvread_id_(unsigned int varid, int id);
 void npvfree_(void *mem);
 void npv_c_free_(void *mem);
-
-void* nvread(char *var, int id);
 void* nv_shadow_copy(void *src_ptr, size_t size, char *var, int id, size_t commit_size);
+void nv_renameobj(char *src, char *dest);
 void test1();
 
 /*C Interface*/
 void* npv_c_alloc_( size_t size, unsigned long *ptr);
 void* p_c_nvread_(char *var, int id);
+
 //returns also length of chunk
 void* p_c_nvread_len(char *var, int id, size_t *chunksize);
 void* nvread_len(char *var, int id, size_t *chunksize);
+void* nvread(char *var, int id);
+void nvdelete(char *var, int id);
 
 //Both same interface. one for c and other for c++
 void* nvalloc_( size_t size, char *var, int id);
+void* nvallocref_(size_t size, char *var, int id, unsigned long *ptr);
 void nvfree_(void *var);
 void mmap_free(char *varname, void *ptr);
 
@@ -54,6 +56,8 @@ int nvcommitobj(void *addr, int id);
 #define NVCOMMITOBJ(addr, id)  nvcommitobj(addr, id);
 
 int nvcommit_(size_t size, char *var, int id);
+void nvcommitsz(char *ptr, size_t commitsz);
+
 //need to add for c++ apps
 int nvcommitword_(void *wordaddr);
 
@@ -118,8 +122,8 @@ int nvinit_(unsigned int pid);
 
 
 //void test();
-/*#ifdef __cplusplus
-}
-#endif*/
+//#ifdef __cplusplus
+//}
+//#endif
 
 #endif

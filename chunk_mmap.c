@@ -8,7 +8,6 @@ extern int proc_persist_id;
 struct nvmap_arg_struct a;
 unsigned int chunk_id = 1000;
 unsigned int proc_id = 4000;
-#define __NR_nv_mmap_pgoff 301
 #endif
 
 /******************************************************************************/

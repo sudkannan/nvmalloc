@@ -4,7 +4,7 @@
  *   The master task distributes an array to the workers in chunks, zero pads for equal load balancing
  *   The workers sort and return to the master, which does a final merge
  ******************************************************************************/
-#define _GNU_SOURCE
+//#define _GNU_SOURCE
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +40,7 @@
 //#define LOCAL_PROCESSING
 #define FREQUENCY 1
 //#define FREQ_MEASURE
-#define MAXVARLEN 30
+#define MAXVARLEN 256
 
 #ifdef _USE_CMU_NVMALLOC
 #include "nvmalloc.h"
@@ -60,7 +60,6 @@ extern void *run_rmt_checkpoint(void *args); */
 long simulationtime(struct timeval start,
 		struct timeval end );
 
-
 int thread_init = 0, set_affinity=0;
 double startT, stopT;
 double startTime;
@@ -70,11 +69,6 @@ struct timeval g_start, g_end;
 struct timeval g_chkpt_inter_strt, g_chkpt_inter_end;
 int g_mypid=0;
 size_t totalsize;
-
-
-
-
-//flags
 u_int8_t init_chkpt;
 
 
@@ -343,36 +337,20 @@ unsigned int BASEID_GET(){
 	if(!BASEPROCID){
 #ifdef _USERANDOM_PROCID
 
-	  struct timeval currtime;
+		struct timeval currtime;
 
-	  gettimeofday(&currtime, NULL);
+		gettimeofday(&currtime, NULL);
 
-	  BASEPROCID= gen_rand(currtime.tv_usec % 533333, (
-					currtime.tv_usec+1) % 543333);
+		BASEPROCID= gen_rand(currtime.tv_usec % 533333, (
+				currtime.tv_usec+1) % 543333);
 
-	  printf("BASEPROCID %u\n",BASEPROCID);
+		printf("BASEPROCID %u\n",BASEPROCID);
 #else
-	  BASEPROCID = 600;	
+		BASEPROCID = 600;
 #endif
 	}
 	return BASEPROCID;
-
 }
-
-int nvinit_(UINT pid) {
-
-	//my_init_hook();
-	return 0; 
-}
-
-int app_stop_(int pid){
-
-	pid =  BASEID_GET() + 1;
-	return	app_exec_finish(pid);
-}
-
-
-
 extern "C" {
 
 int nvinit(UINT pid) {
@@ -383,13 +361,26 @@ int nvinit(UINT pid) {
 	return nv_initialize(pid);
 }
 
-int c_app_stop_(int mype) {
+int c_app_stop_(int pid) {
 
-   UINT	pid =  BASEID_GET() + 1;
-   return app_stop_(pid);
+	pid =  BASEID_GET() + 1;
+	return	app_exec_finish(pid);
 }
 
 }
+
+int nvinit_(UINT pid) {
+	 return nvinit(pid);
+}
+
+int app_stop_(int pid){
+
+	return c_app_stop_(pid);
+}
+
+
+
+
 
 void *nv_jemalloc(size_t size, rqst_s *rqst) {
 
@@ -400,7 +391,7 @@ void* nvread_(char *var, int id)
 {
 	void *buffer = NULL;
 	rqst_s rqst;
-        size_t len=0;
+	size_t len=0;
 
 	id = BASEID_GET();
 	rqst.pid = id+1;
@@ -410,7 +401,7 @@ void* nvread_(char *var, int id)
 	rqst.no_dram_flg = 1;
 	//fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
 #ifdef _USE_BASIC_MMAP
-       return read_mmap_file(&rqst, &len);
+	return read_mmap_file(&rqst, &len);
 #endif
 	buffer = nv_map_read(&rqst, NULL);
 
@@ -427,27 +418,27 @@ void* nvread_(char *var, int id)
 
 void* nvread_id_(unsigned int varid, int id)
 {
-    void *buffer = NULL;
-    rqst_s rqst;
-        size_t len=0;
+	void *buffer = NULL;
+	rqst_s rqst;
+	size_t len=0;
 
-    id = BASEID_GET();
-    rqst.pid = id+1;
-    rqst.var_name = NULL;
-    rqst.no_dram_flg = 1;
+	id = BASEID_GET();
+	rqst.pid = id+1;
+	rqst.var_name = NULL;
+	rqst.no_dram_flg = 1;
 	rqst.id =  varid;
-    //fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
+	//fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
 #ifdef _USE_BASIC_MMAP
-       return read_mmap_file(&rqst, &len);
+	return read_mmap_file(&rqst, &len);
 #endif
-    buffer = nv_map_read(&rqst, NULL);
+	buffer = nv_map_read(&rqst, NULL);
 
 #ifdef _USE_SHADOWCOPY
-    buffer = rqst.log_ptr;
+	buffer = rqst.log_ptr;
 #endif
-    assert(buffer);
+	assert(buffer);
 
-    return buffer;
+	return buffer;
 }
 
 int mallocid = 0;
@@ -547,18 +538,19 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 	void *buffer = NULL;
 	rqst_s rqst;
 	int id = BASEID_GET();
-
+	size_t varsz=0;
 
 #ifdef _USE_CMU_NVMALLOC
 	if(!cmu_nvallocinit){
-	  nvmalloc_init(MAX_CMU_PAGES, 0);
-	  cmu_nvallocinit = 1;
+		nvmalloc_init(MAX_CMU_PAGES, 0);
+		cmu_nvallocinit = 1;
 	}
 	return nvmalloc(size);
 #endif
 
 	g_mypid = id+1;
 	rqst.pid = id+1;
+	rqst.id =0;
 	rqst.bytes = size;
 	rqst.commitsz = size;
 	rqst.log_ptr = NULL;
@@ -572,26 +564,31 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 
 	if(var !=NULL){
 		rqst.var_name = (char *)malloc(MAXVARLEN);
-		memcpy(rqst.var_name,var,MAXVARLEN);
-		rqst.var_name[MAXVARLEN] = 0;
+		varsz = strlen(var);
+		memcpy(rqst.var_name,var,varsz);
+		rqst.var_name[varsz] = 0;
 	}else{
 		rqst.id = rqstid;
 	}
+
+
 #ifdef _USE_BASIC_MMAP
-	   fprintf(stdout,"creating basic map file \n");	
-       return create_mmap_file(&rqst);
+	fprintf(stdout,"creating basic map file \n");
+	return create_mmap_file(&rqst);
 #endif
 
 #ifdef _ENABLE_RESTART
 	buffer = nv_map_read(&rqst, NULL);
 	if(buffer) {
 		return buffer;
-	 }
+	}else {
+	//fprintf(stdout,"failed loading restart data\n");
+	}
 #endif
 
 
 #ifdef _USE_SHADOWCOPY
-//#ifdef _USE_TRANSACTION
+	//#ifdef _USE_TRANSACTION
 
 #ifdef _USE_UNDO_LOG
 	buffer = je_malloc_((size_t)size, &rqst);
@@ -603,82 +600,76 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 #endif
 
 #else //NOT _USE_SHADOWCOPY
-	buffer = je_malloc_((size_t)size, &rqst);
-
-	assert(buffer);
+	buffer = (void *)je_malloc_((size_t)size, &rqst);
+	//assert(buffer);
+	//fprintf(stdout,"c_io.cc: creating object %s "
+	//		"buffer %lu\n",var, buffer);
 #endif
+
 	if(rqst.var_name)
 		free(rqst.var_name);
 
-    /*struct sigaction sa;
-    struct sched_param param;
-
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_sigaction = fault_handler;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction");
-
-	set_chunk_protection(buffer, size, 1);	*/
 	return buffer;
 }
 
 
 void p_c_mmap_free(char *varname, void *ptr){
 
-  rqst_s  rqst;
+	rqst_s  rqst;
 #ifdef _USE_BASIC_MMAP
 
-  if(varname !=NULL){
-	 rqst.var_name = (char *)malloc(MAXVARLEN);
-	 memcpy(rqst.var_name,varname,MAXVARLEN);
-	 rqst.var_name[MAXVARLEN] = 0;
-   }
-   rqst.nv_ptr = ptr;
-   assert(ptr);	
-   close_mmap_file(&rqst);	
-   if(rqst.var_name)
-        free(rqst.var_name);
+	if(varname !=NULL){
+		rqst.var_name = (char *)malloc(MAXVARLEN);
+		memcpy(rqst.var_name,varname,MAXVARLEN);
+		rqst.var_name[MAXVARLEN] = 0;
+	}
+	rqst.nv_ptr = ptr;
+	assert(ptr);
+	close_mmap_file(&rqst);
+	if(rqst.var_name)
+		free(rqst.var_name);
 #endif
 }
-
 
 void p_c_free_(void *ptr) {
 	//je_free(ptr);
 }
 }
 
+void* nvalloc_( size_t size, char *var, int id){
 
-void* nvalloc_( size_t size, char *var, int id)
-{
-
-	return p_c_nvalloc_(size,var, id);
+	return p_c_nvalloc_(size, var,id);
 }
+
+void* nvallocref_(size_t size, char *var, int id, unsigned long *ptr){
+	void *ref = p_c_nvalloc_(size, var,id);
+	*ptr = (unsigned long)ref;
+}
+
 
 void nvfree_(void *ptr){
 	p_c_free_(ptr);
 }
 
+
 #ifdef _USE_BASIC_MMAP
 void mmap_free(char *varname, void *ptr){
 
-  rqst_s  rqst;
+	rqst_s  rqst;
 
-  if(varname !=NULL){
-	 rqst.var_name = (char *)malloc(MAXVARLEN);
-	 memcpy(rqst.var_name,varname,MAXVARLEN);
-	 rqst.var_name[MAXVARLEN] = 0;
-   }
+	if(varname !=NULL){
+		rqst.var_name = (char *)malloc(MAXVARLEN);
+		memcpy(rqst.var_name,varname,MAXVARLEN);
+		rqst.var_name[MAXVARLEN] = 0;
+	}
 
-   rqst.nv_ptr = ptr;
+	rqst.nv_ptr = ptr;
 
-   close_mmap_file(&rqst);	
-   if(rqst.var_name)
-        free(rqst.var_name);
+	close_mmap_file(&rqst);
+	if(rqst.var_name)
+		free(rqst.var_name);
 }
 #endif
-
-
 
 
 extern "C" {
@@ -700,7 +691,7 @@ void* p_c_nvread_(char *var, int id)
 #endif
 
 #ifdef _USE_BASIC_MMAP
-       return read_mmap_file(&rqst, &len);
+	return read_mmap_file(&rqst, &len);
 #endif
 	fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
 	buffer = nv_map_read(&rqst, NULL);
@@ -726,7 +717,7 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 	strcpy(rqst.var_name,var);
 
 #ifdef _USE_BASIC_MMAP
-       return read_mmap_file(&rqst, chunksize);
+	return read_mmap_file(&rqst, chunksize);
 #endif
 
 
@@ -739,9 +730,8 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 #ifdef  _USE_SHADOWCOPY
 	buffer = rqst.log_ptr;
 #endif
-	*chunksize = rqst.bytes;
 
-
+	*chunksize = rqst.commitsz;
 
 	if(rqst.var_name)
 		free(rqst.var_name);
@@ -752,6 +742,69 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 void* nvread_len(char *var, int id, size_t *chunksize) {
 	p_c_nvread_len(var,id, chunksize);
 }
+
+
+void nvcommitsz(char *ptr, size_t commitsz){
+
+	rqst_s rqst;
+	int id=0;
+	size_t len =0;
+
+	len = strlen(ptr);
+	id = BASEID_GET();
+	rqst.pid = id+1;
+	rqst.id = 0;
+	rqst.var_name = (char *)malloc(MAXVARLEN);
+	memcpy(rqst.var_name,ptr,len);
+	rqst.var_name[len] = 0;
+
+	nv_commit_len(&rqst, commitsz);
+
+	if(rqst.var_name)
+		free(rqst.var_name);
+
+	return;
+}
+
+void nvdelete(char *ptr, int id){
+
+	rqst_s rqst;
+	size_t len =0;
+
+	len = strlen(ptr);
+	id = BASEID_GET();
+	rqst.pid = id+1;
+	rqst.id = 0;
+	rqst.var_name = (char *)malloc(MAXVARLEN);
+	memcpy(rqst.var_name,ptr,len);
+	rqst.var_name[len] = 0;
+	nv_delete(&rqst);
+
+	if(rqst.var_name)
+		free(rqst.var_name);
+
+	return;
+}
+
+
+void nv_renameobj(char *src, char *dest){
+
+	void *buffer = NULL;
+	rqst_s rqst;
+	int id=0;
+	size_t len =0;
+
+	len = strlen(src);
+	id = BASEID_GET();
+	rqst.pid = id+1;
+	rqst.id = 0;
+	rqst.var_name = (char *)malloc(MAXVARLEN);
+	memcpy(rqst.var_name,src,len);
+	rqst.var_name[len] = 0;
+	nv_rename(&rqst,dest);
+	return;
+}
+
 
 
 /*Finds the nvchunk corresponding to 
@@ -1190,56 +1243,56 @@ size_t prev_size=0;
 void* malloc(size_t size){
 
 	void *ptr;	
-  	void* (*libc_malloc)(size_t);
-    struct sigaction sa;
-    struct sched_param param;
+	void* (*libc_malloc)(size_t);
+	struct sigaction sa;
+	struct sched_param param;
 
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_sigaction = fault_handler;
-    if (sigaction(SIGSEGV, &sa, NULL) == -1)
-        handle_error("sigaction");
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = fault_handler;
+	if (sigaction(SIGSEGV, &sa, NULL) == -1)
+		handle_error("sigaction");
 
-  //pthread_mutex_lock(&alloc_mtx);
+	//pthread_mutex_lock(&alloc_mtx);
 #ifdef _USE_CMU_NVMALLOC
-   if(!cmu_nvallocinit){
-     nvmalloc_init(MAX_CMU_PAGES, 0);
-     cmu_nvallocinit = 1;
-  }
-  ptr = nvmalloc(size);	
-#else
-    //ptr = npv_c_alloc_(size, NULL);
-    fprintf(stderr,"before malloc\n");
-    *(void **)(&libc_malloc) = dlsym(RTLD_NEXT, "malloc");
-    fprintf(stderr,"malloco %lu \n", prev_ptr);
-	if(prev_ptr) {
-	    add_map(prev_ptr,prev_size); 	
-    	set_chunk_protection(prev_ptr, prev_size, 1);
+	if(!cmu_nvallocinit){
+		nvmalloc_init(MAX_CMU_PAGES, 0);
+		cmu_nvallocinit = 1;
 	}
-    prev_ptr = libc_malloc(size);
+	ptr = nvmalloc(size);
+#else
+	//ptr = npv_c_alloc_(size, NULL);
+	fprintf(stderr,"before malloc\n");
+	*(void **)(&libc_malloc) = dlsym(RTLD_NEXT, "malloc");
+	fprintf(stderr,"malloco %lu \n", prev_ptr);
+	if(prev_ptr) {
+		add_map(prev_ptr,prev_size);
+		set_chunk_protection(prev_ptr, prev_size, 1);
+	}
+	prev_ptr = libc_malloc(size);
 #endif
 
 	fprintf(stdout,"new: adding map \n");
 	add_map(mem,sz);
 
-  //pthread_mutex_unlock(&alloc_mtx);
-  return prev_ptr;
+	//pthread_mutex_unlock(&alloc_mtx);
+	return prev_ptr;
 }
 
 void* operator new(size_t sz)
 {
-    void* mem;
-    //pthread_mutex_lock(&alloc_mtx);
-    mem = malloc(sz);
-    //pthread_mutex_unlock(&alloc_mtx);
-    return mem;
+	void* mem;
+	//pthread_mutex_lock(&alloc_mtx);
+	mem = malloc(sz);
+	//pthread_mutex_unlock(&alloc_mtx);
+	return mem;
 }
 
 void operator delete(void* ptr)
 {
-    //pthread_mutex_lock(&dealloc_mtx);
+	//pthread_mutex_lock(&dealloc_mtx);
 	free(ptr);
-    //pthread_mutex_unlock(&dealloc_mtx);
+	//pthread_mutex_unlock(&dealloc_mtx);
 }
 #endif
 
@@ -1249,44 +1302,44 @@ void* malloc(size_t size){
 
 	void *ptr;	
 
-  	pthread_mutex_lock(&alloc_mtx);
+	pthread_mutex_lock(&alloc_mtx);
 
 #ifdef _USE_CMU_NVMALLOC
-   if(!cmu_nvallocinit){
-     nvmalloc_init(MAX_CMU_PAGES, 0);
-     cmu_nvallocinit = 1;
-  }
-  ptr = nvmalloc(size);	
+	if(!cmu_nvallocinit){
+		nvmalloc_init(MAX_CMU_PAGES, 0);
+		cmu_nvallocinit = 1;
+	}
+	ptr = nvmalloc(size);
 #else
-  ptr = npv_c_alloc_(size, NULL);
+	ptr = npv_c_alloc_(size, NULL);
 #endif
-  pthread_mutex_unlock(&alloc_mtx);
-  return ptr;
+	pthread_mutex_unlock(&alloc_mtx);
+	return ptr;
 }
 
 void* calloc(size_t typesz, size_t data){
 
-  void *ptr;
-  pthread_mutex_lock(&alloc_mtx);	
+	void *ptr;
+	pthread_mutex_lock(&alloc_mtx);
 #ifdef _USE_CMU_NVMALLOC
-   if(!cmu_nvallocinit){
-     nvmalloc_init(MAX_CMU_PAGES, 0);
-     cmu_nvallocinit = 1;
-  }
+	if(!cmu_nvallocinit){
+		nvmalloc_init(MAX_CMU_PAGES, 0);
+		cmu_nvallocinit = 1;
+	}
 
- ptr = nvmalloc(data*typesz);
+	ptr = nvmalloc(data*typesz);
 #else
-  ptr = npv_c_alloc_(typesz*data, NULL);
+	ptr = npv_c_alloc_(typesz*data, NULL);
 #endif
-  pthread_mutex_unlock(&alloc_mtx);	
-  return ptr;
+	pthread_mutex_unlock(&alloc_mtx);
+	return ptr;
 
 }
 
 void* realloc(void *ptr, size_t size) {
 
-   	pthread_mutex_lock(&alloc_mtx);
-   	//fprintf(stdout,"custome realloc %u\n", size);	
+	pthread_mutex_lock(&alloc_mtx);
+	//fprintf(stdout,"custome realloc %u\n", size);
 	ptr= np_realloc(ptr, size);
 	pthread_mutex_unlock(&alloc_mtx);
 	return ptr;
@@ -1295,48 +1348,48 @@ void* realloc(void *ptr, size_t size) {
 
 void free(void *ptr){
 
-    pthread_mutex_lock(&dealloc_mtx);
+	pthread_mutex_lock(&dealloc_mtx);
 #ifdef _USE_CMU_NVMALLOC
 	//nvfree(ptr);
 #else
-    //np_free(ptr);
+	//np_free(ptr);
 #endif
-    pthread_mutex_unlock(&dealloc_mtx);
+	pthread_mutex_unlock(&dealloc_mtx);
 }
 
 
 void* operator new(size_t sz)
 {
-    void* mem;
+	void* mem;
 
-    pthread_mutex_lock(&alloc_mtx);
+	pthread_mutex_lock(&alloc_mtx);
 
 #ifdef _USE_CMU_NVMALLOC
-	   if(!cmu_nvallocinit){
-	     nvmalloc_init(MAX_CMU_PAGES, 0);
-    	 cmu_nvallocinit = 1;
-	  }
-	 mem = nvmalloc(sz);
+	if(!cmu_nvallocinit){
+		nvmalloc_init(MAX_CMU_PAGES, 0);
+		cmu_nvallocinit = 1;
+	}
+	mem = nvmalloc(sz);
 #else
-    mem = npv_c_alloc_(sz, NULL);
+	mem = npv_c_alloc_(sz, NULL);
 #endif
 
-    pthread_mutex_unlock(&alloc_mtx);
-    return mem;
+	pthread_mutex_unlock(&alloc_mtx);
+	return mem;
 }
 
 
 void operator delete(void* ptr)
 {
-    //fprintf(stdout,"deleting\n");
-    //free(ptr);
-    pthread_mutex_lock(&dealloc_mtx);
+	//fprintf(stdout,"deleting\n");
+	//free(ptr);
+	pthread_mutex_lock(&dealloc_mtx);
 #ifdef _USE_CMU_NVMALLOC
 	//nvfree(ptr);
 #else
-    //np_free(ptr);
+	//np_free(ptr);
 #endif
-    pthread_mutex_unlock(&dealloc_mtx);
+	pthread_mutex_unlock(&dealloc_mtx);
 }
 
 #endif

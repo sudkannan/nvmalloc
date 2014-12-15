@@ -1111,7 +1111,7 @@ unsigned char _BitScanReverse(unsigned long *index, unsigned long mask);
 #define MAP_ANONYMOUS        MAP_ANON
 #endif /* MAP_ANON */
 #ifdef MAP_ANONYMOUS
-#define MMAP_FLAGS           (MAP_PRIVATE|MAP_ANONYMOUS)
+//#define MMAP_FLAGS           (MAP_PRIVATE|MAP_ANONYMOUS)
 #define MMAP_DEFAULT(s)       mmap(0, (s), MMAP_PROT, MMAP_FLAGS, -1, 0)
 #else /* MAP_ANONYMOUS */
 /*
@@ -3540,7 +3540,7 @@ void *np_usenvmap(size_t s ) {
 
 	 struct rqst_struct *rqst = NULL;
      void *ptr = NULL;
-	 size_t sz =0;
+     size_t sz=0;
 
 #ifdef NV_DEBUG
 	fprintf(stdout, "mmaping size %u ", s);
@@ -3591,7 +3591,7 @@ void *np_usenvmap(size_t s ) {
 #else
 		  	  //fprintf(stdout,"calling mmap %u\n", s);
 			  np_nvmap  = (char *)syscall(__NR_nv_mmap_pgoff,0 ,s,  PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, &a);
-			  //fprintf(stdout,"calling nvmmap \n");	
+			  //fprintf(stdout,"calling nvmmap \n");
 			  //np_nvmap  =	(char *)mmap_wrap(0,s, PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, nv_devzero_fd, 0, &a);
 			  //np_nvmap = (char *)nvmalloc((void *)np_mmap_startaddr, np_procid, np_chunk_id ,s, 0);
 #endif
@@ -4752,7 +4752,7 @@ void* dlnvrealloc(void* oldmem, size_t bytes) {
         if (mem != 0) {
           size_t oc = chunksize(oldp) - overhead_for(oldp);
           memcpy(mem, oldmem, (oc < bytes)? oc : bytes);
-	  	  //fprintf(stdout,"re allocating %u bytes \n", bytes);	
+	  	  //fprintf(stdout,"re allocating %u bytes \n", bytes);
           //internal_free(m, oldmem);
         }
       }

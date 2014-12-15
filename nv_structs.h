@@ -7,6 +7,8 @@
 typedef unsigned long ULONG;
 typedef unsigned int  UINT;
 
+#define VALID 0
+#define INVALID 1
 
 /*Every malloc call will lead to a mmapobj creation*/
 struct mmapobj {
@@ -34,8 +36,9 @@ struct chunkobj{
 	UINT chunkid;
 	UINT pid;
 	UINT vma_id;
+	UINT commitsz;
 	void *nv_ptr;
-
+	uint8_t valid;
 
 #ifdef _ENABLE_SWIZZLING
 	void *old_nv_ptr;
@@ -66,7 +69,7 @@ struct chunkobj{
 #endif
 
 	//struct mmapobj *mmapobj;
-	//UINT commitsz;
+	//
 #ifdef _NVSTATS
 	int num_memcpy;
 #endif
