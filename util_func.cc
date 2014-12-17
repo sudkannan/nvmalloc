@@ -14,20 +14,22 @@
 #include <sys/mman.h>
 #include <inttypes.h>
 #include <pthread.h>
-
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include "nv_def.h"
 #include "time_delay.h"
 #include "util_func.h"
 
-
-#define UNIT_SIZE 4096
-
 using namespace std;
+#define UNIT_SIZE 4096
+#define MAXOBJLEN 255
 
 extern pthread_mutex_t chkpt_mutex;
+
+map<std::string,int> objnamemap;
+map<std::string,int>::iterator objmap_it;
 
 
 /* To calculate simulation time */
@@ -141,10 +143,6 @@ unsigned int gen_id_from_str(char *key)
 			//return MurmurHash64A(key,len,10030304);
 	return sdbm(key);
 }
-
-
-
-
 
 
 // Slight variation on the ETH hashing algorithm
@@ -306,11 +304,8 @@ int memcpy_delay_temp(void *dest, void *src, size_t len) {
 	return 0;
 }
 
-
-
 map<std::string,int> mymap;
 map<std::string,int>::iterator it;
-#define UNIT_SIZE 4096
 
 void hash_insert( std::string key, int val )
 {
@@ -458,7 +453,7 @@ void print_all_bw_timestamp() {
 
 		struct BWSTAT *bwstat = (struct BWSTAT *)bw_it->second;
 
-		fprintf(stdout, "%ld  %ld  %u\n",
+		fprintf(stdout, "%ld  %ld  %zu\n",
 				bwstat->start_time.tv_sec*1000000 + bwstat->start_time.tv_usec,
 				bwstat->end_time.tv_sec*1000000 + bwstat->end_time.tv_usec,
 				bwstat->bytes);
@@ -517,7 +512,100 @@ int  check_existing_map_file(char *filepath)
 }
 
 
+#ifdef _OBJNAMEMAP
+//////START - CODE FOR OBJ NAME MAPPING/////////////////////
+void objnamemap_insert( char *key, int val )
+{
 
+	//printf("objnamemap_insert %s\n",key);
+	std::string keystr(key);
+	objnamemap[keystr] = val;
+}
+
+void objnamemap_increment(char *key)
+{
+
+	std::string keystr(key);
+	objnamemap[keystr]++;
+}
+
+
+int objnamemap_find(char *key) {
+
+	std::string keystr(key);
+
+	it =  objnamemap.find(keystr );
+	if ( it != objnamemap.end())
+		return 0;
+
+	return -1;
+}
+
+int objnamemap_clear() {
+
+	objnamemap.clear();
+	return 0;
+}
+
+
+void objnamemap_delete(char *key) {
+
+	std::string keystr(key);
+
+	//printf("objnamemap_delete %s\n",key);
+	it =  objnamemap.find(keystr );
+	if ( it != objnamemap.end())
+	{
+		objnamemap.erase (it);
+
+	}
+}
+
+size_t find_objnamemap_total() {
+
+	size_t total_val =0;
+
+
+	for( objmap_it =  objnamemap.begin();
+			objmap_it != objnamemap.end(); objmap_it++){
+
+		total_val += objmap_it->second;
+	}
+
+	return total_val;
+}
+
+char** get_object_list(int *count){
+
+	char **objnamelist;
+	int i=0, len;
+	std::string objname;
+
+
+	objnamelist = (char **)malloc(sizeof(char *) * objnamemap.size());
+	assert(objnamelist);
+
+	for (i = 0, objmap_it =  objnamemap.begin();
+			i < objnamemap.size(), objmap_it != objnamemap.end();
+			i++, objmap_it++){
+
+		objnamelist[i] = (char *)malloc(sizeof(char)* MAXOBJLEN);
+		assert(objnamelist[i]);
+
+		objname = (std::string) objmap_it->first;
+		len = strlen(objname.c_str());
+		if(len){
+			//fprintf("get_object_list %s \n", objname.c_str());
+			memcpy(objnamelist[i], objname.c_str(),len);
+			objnamelist[i][len]=0;
+		}
+	}
+	*count = objnamemap.size();
+
+	return objnamelist;
+}
+//////END -CODE FOR OBJ NAME MAPPING/////////////////////
+#endif
 
 
 

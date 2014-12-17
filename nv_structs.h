@@ -4,11 +4,15 @@
 #include <inttypes.h>
 #include "gtthread_spinlocks.h"
 
+
+#define VALID 0
+#define INVALID 9
+
 typedef unsigned long ULONG;
 typedef unsigned int  UINT;
 
-#define VALID 0
-#define INVALID 1
+/* Maximum length of each object name */
+#define MAXOBJNAMELEN 255
 
 /*Every malloc call will lead to a mmapobj creation*/
 struct mmapobj {
@@ -25,8 +29,10 @@ struct mmapobj {
 	int numchunks;
 	int mmap_offset;
 	UINT meta_offset;
+	char mmapobjname[MAXOBJNAMELEN];
 };
 typedef struct mmapobj mmapobj_s;
+
 
 
 struct chunkobj{
@@ -39,6 +45,7 @@ struct chunkobj{
 	UINT commitsz;
 	void *nv_ptr;
 	uint8_t valid;
+	char objname[MAXOBJNAMELEN];
 
 #ifdef _ENABLE_SWIZZLING
 	void *old_nv_ptr;
@@ -117,7 +124,9 @@ typedef struct proc_obj proc_s;
 
 struct rqst_struct {
 	size_t bytes;
-	char *var_name;
+
+
+	char var_name[MAXOBJNAMELEN];
 	//unique id on how application wants to identify
 	//this mmapobj;
 	int id;

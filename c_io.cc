@@ -32,7 +32,6 @@
 
 #include "malloc_hook.h"
 
-
 //#define _CHKPTIF_DEBUG
 //#define _NONVMEM
 #define _NVMEM
@@ -40,7 +39,6 @@
 //#define LOCAL_PROCESSING
 #define FREQUENCY 1
 //#define FREQ_MEASURE
-#define MAXVARLEN 256
 
 #ifdef _USE_CMU_NVMALLOC
 #include "nvmalloc.h"
@@ -49,7 +47,6 @@ static unsigned int cmu_nvallocinit=0;
 #endif
 
 static unsigned int BASEPROCID=0;
-
 
 /*void showdata(double *v, int n, int id);
 double * merge(double *A, int asize, double *B, int bsize);
@@ -379,9 +376,6 @@ int app_stop_(int pid){
 }
 
 
-
-
-
 void *nv_jemalloc(size_t size, rqst_s *rqst) {
 
 	return je_malloc_((size_t)size, rqst);
@@ -395,11 +389,12 @@ void* nvread_(char *var, int id)
 
 	id = BASEID_GET();
 	rqst.pid = id+1;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
-	memcpy(rqst.var_name,var,MAXVARLEN);
-	rqst.var_name[MAXVARLEN] = 0;
+
+	len = strlen(var);
+	memcpy(rqst.var_name,var,len);
+	rqst.var_name[len] = 0;
 	rqst.no_dram_flg = 1;
-	//fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
+
 #ifdef _USE_BASIC_MMAP
 	return read_mmap_file(&rqst, &len);
 #endif
@@ -409,10 +404,6 @@ void* nvread_(char *var, int id)
 	buffer = rqst.log_ptr;
 #endif
 	assert(buffer);
-
-	if(rqst.var_name)
-		free(rqst.var_name);
-
 	return buffer;
 }
 
@@ -424,7 +415,6 @@ void* nvread_id_(unsigned int varid, int id)
 
 	id = BASEID_GET();
 	rqst.pid = id+1;
-	rqst.var_name = NULL;
 	rqst.no_dram_flg = 1;
 	rqst.id =  varid;
 	//fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
@@ -554,7 +544,6 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 	rqst.bytes = size;
 	rqst.commitsz = size;
 	rqst.log_ptr = NULL;
-	rqst.var_name = NULL;
 
 #ifdef _USE_SHADOWCOPY
 	rqst.no_dram_flg = 0;
@@ -563,7 +552,6 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 #endif
 
 	if(var !=NULL){
-		rqst.var_name = (char *)malloc(MAXVARLEN);
 		varsz = strlen(var);
 		memcpy(rqst.var_name,var,varsz);
 		rqst.var_name[varsz] = 0;
@@ -580,9 +568,10 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 #ifdef _ENABLE_RESTART
 	buffer = nv_map_read(&rqst, NULL);
 	if(buffer) {
+		//fprintf(stdout,"loading restart data %s \n", rqst.var_name);
 		return buffer;
 	}else {
-	//fprintf(stdout,"failed loading restart data\n");
+
 	}
 #endif
 
@@ -606,9 +595,6 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 	//		"buffer %lu\n",var, buffer);
 #endif
 
-	if(rqst.var_name)
-		free(rqst.var_name);
-
 	return buffer;
 }
 
@@ -619,15 +605,12 @@ void p_c_mmap_free(char *varname, void *ptr){
 #ifdef _USE_BASIC_MMAP
 
 	if(varname !=NULL){
-		rqst.var_name = (char *)malloc(MAXVARLEN);
-		memcpy(rqst.var_name,varname,MAXVARLEN);
-		rqst.var_name[MAXVARLEN] = 0;
+		memcpy(rqst.var_name,varname,MAXOBJNAMELEN);
+		rqst.var_name[MAXOBJNAMELEN] = 0;
 	}
 	rqst.nv_ptr = ptr;
 	assert(ptr);
 	close_mmap_file(&rqst);
-	if(rqst.var_name)
-		free(rqst.var_name);
 #endif
 }
 
@@ -658,16 +641,13 @@ void mmap_free(char *varname, void *ptr){
 	rqst_s  rqst;
 
 	if(varname !=NULL){
-		rqst.var_name = (char *)malloc(MAXVARLEN);
-		memcpy(rqst.var_name,varname,MAXVARLEN);
-		rqst.var_name[MAXVARLEN] = 0;
+		memcpy(rqst.var_name,varname,MAXOBJNAMELEN);
+		rqst.var_name[MAXOBJNAMELEN] = 0;
 	}
 
 	rqst.nv_ptr = ptr;
 
 	close_mmap_file(&rqst);
-	if(rqst.var_name)
-		free(rqst.var_name);
 }
 #endif
 
@@ -681,9 +661,8 @@ void* p_c_nvread_(char *var, int id)
 
 	id = BASEID_GET();
 	rqst.pid = id+1;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
-	memcpy(rqst.var_name,var,MAXVARLEN);
-	rqst.var_name[MAXVARLEN] = 0;
+	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
+	rqst.var_name[MAXOBJNAMELEN] = 0;
 #ifdef  _USE_CHECKPOINT
 	rqst.no_dram_flg = 0;
 #else
@@ -697,9 +676,6 @@ void* p_c_nvread_(char *var, int id)
 	buffer = nv_map_read(&rqst, NULL);
 	//buffer = rqst.log_ptr;
 
-	if(rqst.var_name)
-		free(rqst.var_name);
-
 	return buffer;
 }
 }
@@ -711,9 +687,10 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 	void *buffer = NULL;
 	rqst_s rqst;
 
+	//rqst.commitsz = 0;
+
 	id = BASEID_GET();
 	rqst.pid = id+1;
-	rqst.var_name = (char *)calloc(MAXVARLEN, sizeof(char));
 	strcpy(rqst.var_name,var);
 
 #ifdef _USE_BASIC_MMAP
@@ -730,11 +707,9 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 #ifdef  _USE_SHADOWCOPY
 	buffer = rqst.log_ptr;
 #endif
-
 	*chunksize = rqst.commitsz;
-
-	if(rqst.var_name)
-		free(rqst.var_name);
+	//fprintf(stdout,"var_name %s, commitsz %u\n",
+	//		rqst.var_name, rqst.commitsz);
 	return buffer;
 }
 }
@@ -754,14 +729,10 @@ void nvcommitsz(char *ptr, size_t commitsz){
 	id = BASEID_GET();
 	rqst.pid = id+1;
 	rqst.id = 0;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
 	memcpy(rqst.var_name,ptr,len);
 	rqst.var_name[len] = 0;
 
 	nv_commit_len(&rqst, commitsz);
-
-	if(rqst.var_name)
-		free(rqst.var_name);
 
 	return;
 }
@@ -775,14 +746,9 @@ void nvdelete(char *ptr, int id){
 	id = BASEID_GET();
 	rqst.pid = id+1;
 	rqst.id = 0;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
 	memcpy(rqst.var_name,ptr,len);
 	rqst.var_name[len] = 0;
 	nv_delete(&rqst);
-
-	if(rqst.var_name)
-		free(rqst.var_name);
-
 	return;
 }
 
@@ -798,14 +764,11 @@ void nv_renameobj(char *src, char *dest){
 	id = BASEID_GET();
 	rqst.pid = id+1;
 	rqst.id = 0;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
 	memcpy(rqst.var_name,src,len);
 	rqst.var_name[len] = 0;
 	nv_rename(&rqst,dest);
 	return;
 }
-
-
 
 /*Finds the nvchunk corresponding to 
 the pointer and flushes the cache*/
@@ -813,6 +776,18 @@ int nvsync(void *ptr, size_t len){
 	//return nv_sync_obj(ptr);
 	return nv_sync_chunk(ptr,len);
 }
+
+
+#ifdef _OBJNAMEMAP
+/*Get the object name list
+ * Problem: Works only for current
+ * project only
+ */
+char** get_object_name_list(int pid, int *entries){
+
+	return get_object_list(entries);
+}
+#endif
 
 
 #ifdef _USE_TRANSACTION
@@ -830,13 +805,8 @@ int p_c_nvcommit(size_t size, char *var, int id)
 	rqst.pid = id+1;
 	rqst.bytes = size;
 	rqst.id = 0;	  
-	rqst.var_name = (char *)calloc(MAXVARLEN, sizeof(char));
-	memcpy(rqst.var_name,var,MAXVARLEN);
-
+	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
 	nv_commit(&rqst);
-
-	if(rqst.var_name)
-		free(rqst.var_name);
 }
 
 int p_c_nvcommitobj(void *addr, int id)
@@ -884,15 +854,11 @@ int nvcommit_(size_t size, char *var, int id)
 	rqst.pid = id+1;
 	rqst.bytes = size;
 	rqst.id = 0;
-	rqst.var_name = (char *)calloc(MAXVARLEN, sizeof(char));
-	memcpy(rqst.var_name,var,MAXVARLEN);
+	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
 #ifdef NV_DEBUG
 	fprintf(stdout,"commiting rqst.var_name %s\n",rqst.var_name);
 #endif
 	nv_commit(&rqst);
-
-	if(rqst.var_name)
-		free(rqst.var_name);
 }
 
 
@@ -1005,9 +971,8 @@ void* alloc_( unsigned int size, char *var, int id, int commit_size)
 #else
 	rqst.no_dram_flg = 1;
 #endif
-	rqst.var_name = (char *)malloc(MAXVARLEN);
-	memcpy(rqst.var_name,var,MAXVARLEN);
-	rqst.var_name[MAXVARLEN] = 0;
+	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
+	rqst.var_name[MAXOBJNAMELEN] = 0;
 	je_malloc_((size_t)size, &rqst);
 #ifdef _USE_SHADOWCOPY
 	buffer = rqst.log_ptr;
@@ -1015,10 +980,6 @@ void* alloc_( unsigned int size, char *var, int id, int commit_size)
 	buffer = rqst.nv_ptr;
 #endif
 	assert(buffer);
-	if(rqst.var_name)
-		free(rqst.var_name);
-
-	fprintf(stdout,"finished alloc \n");
 	return buffer;
 }
 
@@ -1142,7 +1103,7 @@ void* nv_shadow_copy(void *src_ptr, size_t size, char *var, int pid, size_t comm
 	//#endif
 	rqst.pid = id+1;
 	rqst.commitsz = size;
-	rqst.var_name = (char *)malloc(MAXVARLEN);
+	rqst.var_name = (char *)malloc(MAXOBJNAMELEN);
 #ifdef _USE_SHADOWBUFF
 	rqst.no_dram_flg = 0;
 	rqst.log_ptr = src_ptr;
@@ -1152,8 +1113,8 @@ void* nv_shadow_copy(void *src_ptr, size_t size, char *var, int pid, size_t comm
 
 	fprintf(stdout,"SRC PTR %lu \n",(unsigned long)src_ptr);
 	rqst.logptr_sz = size;
-	memcpy(rqst.var_name,var,MAXVARLEN);
-	rqst.var_name[MAXVARLEN] = 0;
+	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
+	rqst.var_name[MAXOBJNAMELEN] = 0;
 	je_malloc_((size_t)size, &rqst);
 #ifdef _USE_SHADOWBUFF
 	buffer = rqst.log_ptr;
@@ -1161,9 +1122,6 @@ void* nv_shadow_copy(void *src_ptr, size_t size, char *var, int pid, size_t comm
 	buffer = rqst.nv_ptr;
 #endif
 	assert(buffer);
-	if(rqst.var_name)
-		free(rqst.var_name);
-
 	init_chkpt= 1;
 
 #ifdef _ASYNC_LCL_CHK

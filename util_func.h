@@ -31,3 +31,11 @@ int gen_rand(int max, int min);
 
 int  setup_map_file(char *filepath, unsigned int bytes);
 int  check_existing_map_file(char *filepath);
+
+void objnamemap_insert( char *key, int val);
+void objnamemap_increment(char *key);
+int objnamemap_find(char *key);
+int objnamemap_clear();
+void objnamemap_delete(char *key);
+size_t find_objnamemap_total();
+char** get_object_list(int *count);

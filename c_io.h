@@ -47,7 +47,6 @@ void p_c_free_(void *ptr);
 
 void p_c_mmap_free(char *varname, void *ptr);
 
-
 /////////////////////COMMIT FUNCTIONS/////////////////
 int p_c_nvcommit(size_t size, char *var, int id);
 int p_c_nvcommitobj(void *addr, int id);
@@ -61,9 +60,10 @@ void nvcommitsz(char *ptr, size_t commitsz);
 //need to add for c++ apps
 int nvcommitword_(void *wordaddr);
 
-
 int nvsync(void *ptr);
 #define NVSYNC(addr) nvsync(addr);
+
+char** get_object_name_list(int pid, int *entries);
 
 /////////////////////TRANSACTION FUNCTIONS/////////////////
 

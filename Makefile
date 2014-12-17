@@ -23,7 +23,7 @@ CPPFLAGS := $(CPPFLAGS) -D_USENVRAM
 #CPPFLAGS := $(CPPFLAGS) -D_USE_CHECKPOINT
 CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
 #CPPFLAGS := $(CPPFLAGS) -D_ENABLE_SWIZZLING
-#CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
+CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
 
 #cache related flags
 #CPPFLAGS := $(CPPFLAGS) -D_USE_CACHEFLUSH
@@ -57,6 +57,9 @@ CPPFLAGS := $(CPPFLAGS) -D_USE_FAKE_NVMAP
 #CPPFLAGS := $(CPPFLAGS) -D_COMPARE_PAGES 
 #CPPFLAGS:= $(CPPFLAGS) -D_ARMCI_CHECKPOINT
 #CPPFLAGS:= $(CPPFLAGS) -D_LIBPMEMINTEL
+
+#Maintains a list of object names for a process
+CPPFLAGS:= $(CPPFLAGS) -D_OBJNAMEMAP
 
 #Flags that needs to be cleaned later
 #NVFLAGS:= -cpp -D_NOCHECKPOINT $(NVFLAGS)
@@ -158,7 +161,7 @@ SHARED_LIB: $(RBTREE_OBJS) $(JEMALLOC_OBJS) $(NVM_OBJS)
 	#ar crf  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)  
 	#ar rv  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)
 	$(CXX) -shared -fPIC -o libnvmchkpt.so $(OBJLIST) $(NVFLAGS) $(LIBS) $(LDFLAGS)
-	#$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
+	$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
 	#$(CXX) -g varname_commit_test.cc -o varname_commit_test util_func.o -I$(INCLUDE) $(CPPFLAGS) $(LIBS)
 
 BENCHMARK: $(JEMALLOC_OBJS) $(NVM_OBJS) $(BENCHMARK_OBJS)

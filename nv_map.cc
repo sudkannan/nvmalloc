@@ -94,6 +94,7 @@ uint8_t enable_undolog;
 uint8_t enable_stats;
 
 //#ifdef _NVRAM_OPTIMIZE
+
 #define NUM_MMAP_CACHE_CNT 128
 proc_s* prev_proc_obj = NULL;
 UINT prev_proc_id;
@@ -102,6 +103,9 @@ UINT mmap_size_cache[NUM_MMAP_CACHE_CNT];
 ULONG mmap_ref_cache[NUM_MMAP_CACHE_CNT];
 UINT next_mmap_entry;
 uint8_t use_map_cache;
+
+chunkobj_s *chunkobj_cache;
+
 //#endif
 
 extern std::unordered_map <unsigned long, size_t> allocmap;
@@ -219,9 +223,9 @@ chunkobj_s *check_if_chunk_exists(rqst_s *rqst){
 
 	chunkobj_s *chunk = get_chunk(rqst);
 
-	if( chunk && chunk->length && rqst->var_name) {
+	if( chunk && (chunk->valid != INVALID) && chunk->length && rqst->var_name) {
 		chunk->chunkid = gen_id_from_str(rqst->var_name);
-		printf("FOUND COLLISION CHUNKNAME %s \n",rqst->var_name);
+		DEBUG("FOUND COLLISION CHUNKNAME %s \n",rqst->var_name);
 		return chunk;
 	}else {
 		//assert(chunk);
@@ -231,26 +235,6 @@ chunkobj_s *check_if_chunk_exists(rqst_s *rqst){
 	}
 	return NULL;
 }
-
-
-
-/*Rename from one object to other object name*/
-void nv_rename(rqst_s *rqst, char *dest) {
-
-	chunkobj_s *chunk = get_chunk(rqst);
-
-	if( chunk && chunk->length ) {
-		chunk->chunkid = gen_id_from_str(dest);
-		printf("FOUND source chunk source name %s "
-				"dest name %s \n",rqst->var_name, dest);
-	}else {
-		//assert(chunk);
-		//assert(chunk->length);
-		fprintf(stdout, "FAIL: could not find chunk from addr \n");
-	}
-	return;
-}
-
 
 
 int copy_chunkoj(chunkobj_s *dest, chunkobj_s *src) {
@@ -329,6 +313,14 @@ static mmapobj_s* create_mmapobj(rqst_s *rqst, ULONG curr_offset,
 
 	assert((void *)addr != MAP_FAILED);
 	mmapobj->strt_addr = addr;
+
+#ifdef _USE_FAKE_NVMAP
+	 strcpy(mmapobj->mmapobjname, file_name);
+#endif
+
+	/*Its our responsibility to initialize a chunk
+	 * tree for every mmap obj
+	 */
 	init_chunk_tree(mmapobj);
 	assert(mmapobj->chunkobj_tree);
 
@@ -344,8 +336,19 @@ static void update_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj,
 	chunkobj->length = rqst->bytes;
 	chunkobj->vma_id = mmapobj->vma_id;
 	chunkobj->offset = rqst->offset;
+	chunkobj->commitsz = 0;
 	//chunkobj->mmapobj = mmapobj;
 	chunkobj->nv_ptr = rqst->nv_ptr;
+
+	if(rqst->var_name) {
+		int len = strlen(rqst->var_name);
+		assert(len);
+		assert(len < MAXOBJNAMELEN);
+		memcpy(chunkobj->objname, rqst->var_name,len);
+		chunkobj->objname[len]=0;
+		//fprintf(stdout,"chunkobj->objname %s\n", chunkobj->objname);
+	}
+
 #ifdef _USE_TRANSACTION
 	chunkobj->dirty = 0;
 #endif
@@ -380,10 +383,15 @@ static chunkobj_s* create_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj) {
 	/*update all member varialbes of chunk struct*/
 	mapoffset = mmapobj->meta_offset;
 	addr = addr + mapoffset;
+
 	chunkobj = (chunkobj_s*) addr;
+
 	mapoffset += sizeof(chunkobj_s);
 	mmapobj->meta_offset = mapoffset;
 	update_chunkobj(rqst, mmapobj, chunkobj);
+
+
+
 
 #ifdef _USE_TRANSACTION
 	//initialize the chunk dirty bit
@@ -420,8 +428,8 @@ chunkobj_s* find_chunk(mmapobj_s *t_mmapobj, unsigned int chunkid) {
 	if (t_mmapobj) {
 		if (t_mmapobj->chunkobj_tree) {
 			chunkobj = (chunkobj_s *)rbtree_lookup(
-				t_mmapobj->chunkobj_tree,
-				(void*)(intptr_t)chunkid, IntComp);
+					t_mmapobj->chunkobj_tree,
+					(void*)(intptr_t)chunkid, IntComp);
 
 			if (chunkobj) {
 				return chunkobj;
@@ -539,11 +547,17 @@ static int add_mmapobj(mmapobj_s *mmapobj, proc_s *proc_obj) {
 	return 0;
 }
 
-/*add the mmapobj to process object*/
+/*Function to add the mmapobj to process object
+ * This function assumes that the caller has
+ * initialized the chunkobj_tree before creating/adding
+ * an mmap obj
+ * */
 static int add_chunkobj(mmapobj_s *mmapobj, chunkobj_s *chunk_obj) {
 
 	if (!mmapobj)
 		return -1;
+
+	assert(mmapobj->chunkobj_tree);
 
 	if (!chunk_obj)
 		return -1;
@@ -560,20 +574,18 @@ static int add_chunkobj(mmapobj_s *mmapobj, chunkobj_s *chunk_obj) {
 			flush_cache((void*) chunk_obj, sizeof(chunkobj_s));
 		}
 	}
-	/*DEBUG("add_chunkobj: chunkid %d"
-			"chunk_tree_init %d \n",
-			(void*)chunk_obj->chunkid,
-			mmapobj->chunk_tree_init);*/
-	//OPTIMIZE CHANGE
-	if (!mmapobj->chunk_tree_init){
-		init_chunk_tree(mmapobj);
-	}
-	assert(mmapobj->chunkobj_tree);
+
 	rbtree_insert(mmapobj->chunkobj_tree, 
 			(void*)(intptr_t)(chunk_obj->chunkid),
 			(void*)chunk_obj, IntComp);
 	//set the process obj to which mmapobj belongs
 	//chunk_obj->mmapobj = mmapobj;
+	//fprintf(stderr,"add_chunkobj: %s\n",chunk_obj->objname);
+
+#ifdef _OBJNAMEMAP
+	objnamemap_insert(chunk_obj->objname,0);
+#endif
+
 	return 0;
 }
 
@@ -667,15 +679,27 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 #else
 	mmapobj->data_addr = (ULONG) map_nvram_state(&datarq);
 #endif
+
 	assert(mmapobj->data_addr);
+
+	/*initialize the chunk tree for mmap_obj*/
+	if (!mmapobj->chunk_tree_init && mmapobj->numchunks){
+		init_chunk_tree(mmapobj);
+	}
 
 	for (idx = 0; idx < mmapobj->numchunks; idx++) {
 
 		nv_chunkobj = (chunkobj_s*) addr;
 		//DEBUG_CHUNKOBJ(nv_chunkobj);
+		/* if invalid chunk, the don't load
+		 */
+		if(nv_chunkobj->valid == INVALID){
+			goto next_chunk_load;
+		}else {
+			//fprintf(stdout, "Alive obj objname %s \n",nv_chunkobj->objname);
+		}
 
 		if (check_modify_access(perm)) {
-
 			chunkobj = nv_chunkobj;
 			/*this wont work for restart. we need to initialize nvptr*/
 #ifndef _DUMMY_TRANS
@@ -704,15 +728,14 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 		create_chunk_record(chunkobj->nv_ptr, chunkobj);
 #endif
 
-		char *ptr =  (char *) mmapobj->data_addr;
 		//update the chunk pointer to new address
 		chunkobj->nv_ptr = (void *) mmapobj->data_addr + chunkobj->offset;
-		//fprintf(stdout,"chunk id %lu \n",(ULONG)chunkobj->chunkid);
-
 		//add the chunk obj to mmap obj
 		assert(add_chunkobj(mmapobj, chunkobj) == 0);
 
 		DEBUG_CHUNKOBJ(chunkobj);
+
+		next_chunk_load:
 		//increment by chunk metadata size
 		addr += (ULONG) sizeof(chunkobj_s);
 		mmapobj->mmap_offset += (ULONG) sizeof(chunkobj_s);
@@ -828,7 +851,7 @@ static proc_s *find_proc_obj(int proc_id) {
 		return NULL;
 	}
 	proc_obj = (proc_s *) rbtree_lookup(proc_tree, 
-						(void *)(intptr_t)proc_id, IntComp);
+			(void *)(intptr_t)proc_id, IntComp);
 
 	if (enable_optimze) {
 		prev_proc_obj = proc_obj;
@@ -852,8 +875,8 @@ static int add_proc_obj(proc_s *proc_obj) {
 		proc_list_init = 1;
 	}
 	rbtree_insert(proc_tree, 
-				(void *)(intptr_t)proc_obj->pid, 
-				proc_obj, IntComp);
+			(void *)(intptr_t)proc_obj->pid,
+			proc_obj, IntComp);
 
 	/*we flush the proc obj*/
 	if (useCacheFlush) {
@@ -908,9 +931,9 @@ int nv_initialize(UINT pid) {
 	/*If we have already initialized
 	 * then return silently
 	 */
-	  if(g_initialized){
-		  return 0;
-	  }
+	if(g_initialized){
+		return 0;
+	}
 
 #ifdef _USE_CACHEFLUSH
 	useCacheFlush=1;
@@ -1039,11 +1062,12 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	proc_s *proc_obj;
 	mmapobj_s *mmapobj = NULL;
 	chunkobj_s *chunk = NULL;
+	chunkobj_s *oldchunk = NULL;
 	long vma_id = 0;
 	UINT proc_id = 0, offset = 0;
 	ULONG start_addr = 0;
 	rqst_s lcl_rqst;
-
+	int if_rename_flag=0;
 
 	assert(g_initialized);
 
@@ -1071,11 +1095,13 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	}
 	assert(proc_obj);
 
-	chunk = check_if_chunk_exists(rqst);
-	if(chunk) {
-		DEBUG_CHUNKOBJ(chunk);
-		clear_chunkobj(chunk);
-		return SUCCESS;
+	oldchunk = check_if_chunk_exists(rqst);
+	if(oldchunk) {
+		//fprintf(stdout, "chunk %s exists \n",rqst->var_name);
+		DEBUG_CHUNKOBJ(oldchunk);
+		//clear_chunkobj(chunk);
+		//return SUCCESS;
+		if_rename_flag=1;
 	}
 
 	//fprintf(stdout,"******************RECORD CHUNK2*****\n");
@@ -1118,14 +1144,12 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 
 
 	//fprintf(stdout,"chunkid %u \n", lcl_rqst.id);
-
 	//318730 for 100000 keys
 	/*check if chunk already exists
 	 This is an ambiguos situation
 	 we do not know if programmar made an error
 	 in naming or intentionally same chunk id
 	 is used*/
-
 	offset = addr - start_addr;
 	prev_proc_id = rqst->pid;
 	lcl_rqst.pid = rqst->pid;
@@ -1135,6 +1159,9 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	lcl_rqst.offset = offset;
 	lcl_rqst.logptr_sz = rqst->logptr_sz;
 	lcl_rqst.no_dram_flg = rqst->no_dram_flg;
+
+	if(rqst->var_name)
+		memcpy(lcl_rqst.var_name ,rqst->var_name, MAXOBJNAMELEN);
 
 #if 0
 	chunk = find_chunk(mmapobj, lcl_rqst.id);
@@ -1165,6 +1192,26 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 				lcl_rqst.bytes,vma_id);
 	}
 #endif
+
+	if(if_rename_flag){
+
+		if(oldchunk->length < chunk->length){
+			rqst->bytes = oldchunk->length;
+		}else{
+			rqst->bytes = chunk->length;
+		}
+		memcpy(chunk->nv_ptr, oldchunk->nv_ptr, rqst->bytes);
+		chunk->commitsz = oldchunk->commitsz;
+
+		rqst->bytes = oldchunk->length;
+		rqst->pid = oldchunk->pid;
+		rqst->nv_ptr = oldchunk->nv_ptr;
+		if(oldchunk->objname)
+			strcpy(rqst->var_name, oldchunk->objname);
+		fprintf(stdout,"deleting obj %s\n",oldchunk->objname);
+		nv_delete(rqst);
+		if_rename_flag=0;
+	}
 
 #ifndef _DUMMY_TRANS
 #ifdef _USE_TRANSACTION
@@ -1345,9 +1392,6 @@ void* map_nvram_state(rqst_s *rqst) {
 	int fd = -1;
 	nvarg_s a;
 
-	//DEBUG_T("nvarg.proc_id %d %d %d\n",rqst->pid, rqst->bytes, rqst->id);
-	//printf("nvarg.proc_id %d %d %d\n",rqst->pid, rqst->bytes, rqst->id);
-
 	a.proc_id = rqst->pid;
 	assert(a.proc_id);
 	a.vma_id = rqst->id;
@@ -1380,16 +1424,6 @@ void* map_nvram_state(rqst_s *rqst) {
 		goto error;
 	}
 
-	/*chunkobj_s *nv_chunkobj;
-	if(a.vma_id != 2781) {
-	    a.vma_id  = 2781;
-	    nv_chunkobj = (chunkobj_s*) mmap_wrap(0, rqst->bytes, PROT_NV_RW, PROT_ANON_PRIV, fd, 0, &a);
-		if(nv_chunkobj)
-		DEBUG_CHUNKOBJ_T(nv_chunkobj);
-	}*/
-
-
-	//fprintf(stdout,"******************LOAD PROCESS END*****\n");
 	return nvmap;
 	error: return NULL;
 }
@@ -1401,9 +1435,6 @@ int init_pntrlst_tree() {
 	pntrlst_tree_init = 1;
 	return 0;
 }
-
-
-
 
 
 #ifdef _ENABLE_SWIZZLING
@@ -1579,12 +1610,15 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	struct stat statbuf;
 #endif
 
-
 	process_id = rqst->pid;
-	//Check if all the process objects are still in memory and we are not reading
-	//process for the first time
+
+	/*Check if all the process objects are still
+	 *in memory and we are not reading
+	process for the first time*/
+
 	proc_obj = find_process(rqst->pid);
 	if (!proc_obj) {
+
 		/*looks like we are reading persistent structures
 		 and the process is not avaialable in memory
 		 FIXME: this just addressies one process,
@@ -1612,12 +1646,16 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	/*Every malloc call will lead to a mmapobj creation*/
 	tree_ptr = mmapobj_ptr->chunkobj_tree;
 	chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr, 
-				(void*)(intptr_t)chunk_id,
-				IntComp);
+			(void*)(intptr_t)chunk_id,
+			IntComp);
 
 	assert(chunkobj);
 	assert(chunkobj->nv_ptr);
 	assert(chunkobj->length);
+
+	if(chunkobj->valid == INVALID){
+		goto error;
+	}
 
 #ifdef _USE_SHADOWCOPY
 	chunkobj->log_ptr = malloc(chunkobj->length);
@@ -1643,7 +1681,8 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 #endif
 
 	return (void *) rqst->nv_ptr;
-error: 
+
+	error:
 	rqst->nv_ptr = NULL;
 	rqst->log_ptr = NULL;
 	return NULL;
@@ -1699,6 +1738,7 @@ UINT locate_mmapobj_node(void *addr, rqst_s *rqst, ULONG *map_strt_addr,
 
 	if (use_map_cache) {
 		mmapobj_s *tmpobj;
+		//fprintf(stdout,"getting from cache\n");
 		tmpobj = get_frm_mmap_cache(addr);
 		if (tmpobj) {
 			*map_strt_addr = tmpobj->data_addr;
@@ -1755,8 +1795,8 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	char file_name[MAX_FPATH_SZ];
 	char fileid_str[64];
 	//fprintf(stdout,"%zu \n",size);
-	//if(size >= 33550336)
-	if(1){
+	if(size >= 33550336){
+	//if(1){
 		//if(1){
 		bzero(file_name,256);
 		generate_file_name((char *) PROCMAPDATAPATH,a->proc_id, file_name);
@@ -1916,6 +1956,82 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	return 0;
 }
 
+/*Rename from one object to other object name*/
+void nv_rename(rqst_s *src_rqst, char *destname) {
+
+	chunkobj_s *oldchunk = get_chunk(src_rqst);
+	proc_s *proc_obj;
+	mmapobj_s *mmapobj;
+	size_t commitsz=0;
+
+	if(!oldchunk) {
+		DEBUG("error: finding chunk from request \n");
+		return;
+	}
+
+	proc_obj = find_proc_obj(src_rqst->pid);
+	if(!proc_obj) {
+		assert(proc_obj);
+		return;
+	}
+	if(!oldchunk) {
+		DEBUG("error: finding chunk from request \n");
+		return;
+	}
+	//we verify if such a chunk exists
+	mmapobj = find_mmapobj_from_chunkid(oldchunk->chunkid, proc_obj);
+	if(!mmapobj) {
+		fprintf(stdout,"error: finding chunkid "
+				"from mmapobj %u "
+				"src_rqst->var_name %s\n",
+				oldchunk->chunkid, src_rqst->var_name);
+		return;
+	}
+
+	if( oldchunk && oldchunk->length ) {
+		oldchunk->chunkid = gen_id_from_str(destname);
+		//fprintf(stderr, "FOUND source chunk source name %s "
+			//	"dest name %s \n",src_rqst->var_name, destname);
+		strcpy(oldchunk->objname, destname);
+		commitsz = oldchunk->commitsz;
+		//nv_delete(src_rqst);
+		//fprintf(stderr,"deleting obj %s "
+			//	" commitsz %u\n",oldchunk->objname, commitsz);
+
+		oldchunk->commitsz = commitsz;
+		oldchunk->valid = VALID;
+		add_chunkobj(mmapobj, oldchunk);
+
+	}else {
+		//assert(chunk);
+		//assert(chunk->length);
+		fprintf(stderr, "FAIL: could not find chunk from addr \n");
+	}
+
+#ifdef _OBJNAMEMAP
+	/*delete source*/
+	objnamemap_delete(src_rqst->var_name);
+
+	/*add dest*/
+	objnamemap_insert(destname, 0);
+#endif
+
+	return;
+}
+
+void delete_mmapobj(proc_s *proc_obj, mmapobj_s *mmapobj){
+
+#ifdef _USE_FAKE_NVMAP
+	 if(strlen(mmapobj->mmapobjname)){
+		 if(unlink (mmapobj->mmapobjname) == 0)
+			 fprintf(stderr,"deleted mmapobj %s\n", mmapobj->mmapobjname);
+	 }
+#endif
+
+
+}
+
+
 int nv_delete(rqst_s *rqst) {
 
 	chunkobj_s *chunk = NULL;
@@ -1936,30 +2052,36 @@ int nv_delete(rqst_s *rqst) {
 
 	chunk = get_chunk(rqst);
 	if(!chunk) {
-		fprintf(stdout,"error: finding chunk from request \n");
+		DEBUG("error: finding chunk from request \n");
 		return -1;
 	}
-	
+
 	/*set the commit size to 0
 	and set the chunk to invalid*/
 	chunk->commitsz = 0;
 	chunk->valid = INVALID;
-	
+
 	//we verify if such a chunk exists
 	mmapobj = find_mmapobj_from_chunkid(chunk->chunkid, proc_obj);
 	if(!mmapobj) {
 		fprintf(stdout,"error: finding chunkid "
-						"from mmapobj %u \n", chunk->chunkid);
+				"from mmapobj %u \n", chunk->chunkid);
 		return -1;
 	}
 
 	//src = chunk->nv_ptr;
 	if (mmapobj) {
 		if (mmapobj->chunkobj_tree) {
-			rbtree_lookup(mmapobj->chunkobj_tree,
-				(void*)(intptr_t)chunk->chunkid, IntComp);
+			rbtree_delete(mmapobj->chunkobj_tree,
+					(void*)(intptr_t)chunk->chunkid, IntComp);
 		}
 	}
+
+
+#ifdef _OBJNAMEMAP
+	objnamemap_delete(chunk->objname);
+#endif
+
 	return 0;
 }
 
@@ -1985,8 +2107,6 @@ int app_exec_finish(int pid) {
 #endif
 	return 0;
 }
-
-
 
 //#ifdef _NVRAM_OPTIMIZE
 void add_to_mmap_cache(mmapobj_s *mmapobj) {

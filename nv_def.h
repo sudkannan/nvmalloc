@@ -22,8 +22,8 @@ typedef intptr_t nvword_t;
 //This denotes the size of persistem memory mapping
 // for each process. Note, the metadata mapping is a seperate
 //memory mapped file for each process currently
-#define PROC_METADAT_SZ 100*1024*1024
-#define MMAP_METADATA_SZ 50*1024*1024
+#define PROC_METADAT_SZ 5*1024*1024
+#define MMAP_METADATA_SZ 2*1024*1024
 #define MAX_DATA_SIZE 1024 * 1024 *1524
 #define NVRAM_DATASZ 1024 * 1024 * 500
 #define BASE_METADATA_NVID 2777
@@ -44,14 +44,16 @@ typedef intptr_t nvword_t;
 #define PROCLOG_PATH "/mnt/pmfs/logproc"
 #define PROCLOG_DATA_PATH "/mnt/pmfs/logdataproc"
 #define PROCMAPMETADATA_PATH "/mnt/pmfs/chkprocmap"
-
 /*maps all data when using disk*/
 #define PROCMAPDATAPATH "/mnt/pmfs/chkprocmapdata"
-
 #define DATA_PATH "/mnt/pmfs/procdata"
+
+
+
 
 #define  SUCCESS 0
 #define  FAILURE -1
+
 //Page size
 #define SHMSZ  4096 
 //NVRAM changes
