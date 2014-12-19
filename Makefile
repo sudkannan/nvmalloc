@@ -1,5 +1,5 @@
 LOGGING=/usr/lib64/logging
-NVMALLOC_HOME=/home/stewart/codes/nvmalloc
+#NVMALLOC_HOME=/home/stewart/codes/nvmalloc
 INCLUDE=$(NVMALLOC_HOME)
 src_path=$(NVMALLOC_HOME)
 LIB_PATH := $(NVMALLOC_HOME)
@@ -7,10 +7,11 @@ BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
 
 LDFLAGS=-ldl
+DEBUGFLG=-O2
 
 # See source code comments to avoid memory leaks when enabling MALLOC_MAG.
 #CPPFLAGS := -DMALLOC_PRODUCTION -DMALLOC_MAG
-CPPFLAGS := -fPIC -I$(INCLUDE) -I$(INCLUDE)/jemalloc -I/usr/include -g #-I$(INCLUDE)/pmem_intel/linux-examples_flex/libpmem -g #-O3
+CPPFLAGS := -fPIC -I$(INCLUDE) -I$(INCLUDE)/jemalloc -I/usr/include $(DEBUGFLG) #-I$(INCLUDE)/pmem_intel/linux-examples_flex/libpmem -g #-O3
 CPPFLAGS:=  $(CPPFLAGS) -lssl -lcrypto -fPIC
 CPPFLAGS := $(CPPFLAGS) -DMALLOC_PRODUCTION -fPIC 
 CPPFLAGS := $(CPPFLAGS)  -Wno-pointer-arith -Wno-unused-but-set-variable
@@ -80,9 +81,9 @@ CXX=g++
 CC=gcc
 
 GNUFLAG :=  -std=gnu99 -fPIC -fopenmp 
-CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
+CFLAGS := $(DEBUGFLG) -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
 	  -funroll-loops  -Wno-implicit -Wno-uninitialized \
-	  -Wno-unused-function -fPIC -fopenmp -g #-larmci 
+	  -Wno-unused-function -fPIC -fopenmp #-larmci 
 
 STDFLAGS :=-std=gnu++0x 
 CPPFLAGS := $(CPPFLAGS) -I$(LOGGING)/include -I$(LOGGING)/include/include -I$(LOGGING)/include/port \

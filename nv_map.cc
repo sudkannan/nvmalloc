@@ -104,7 +104,11 @@ ULONG mmap_ref_cache[NUM_MMAP_CACHE_CNT];
 UINT next_mmap_entry;
 uint8_t use_map_cache;
 
-chunkobj_s *chunkobj_cache;
+#ifdef _NVRAM_OPTIMIZE
+std::unordered_map <unsigned int, unsigned long> chunkmap_cache;
+#endif
+
+//chunkobj_s *chunkobj_cache;
 
 //#endif
 
@@ -456,6 +460,7 @@ int find_vmaid_from_chunk(rbtree_node n, unsigned int chunkid) {
 			return ret;
 	}
 	t_mmapobj = (mmapobj_s *) n->value;
+
 	chunkobj = find_chunk(t_mmapobj, chunkid);
 	if (chunkobj) {
 		return t_mmapobj->vma_id;
@@ -585,6 +590,11 @@ static int add_chunkobj(mmapobj_s *mmapobj, chunkobj_s *chunk_obj) {
 #ifdef _OBJNAMEMAP
 	objnamemap_insert(chunk_obj->objname,0);
 #endif
+
+#ifdef _NVRAM_OPTIMIZE
+	chunkmap_cache[chunk_obj->chunkid]= (unsigned long)chunk_obj;
+#endif
+
 
 	return 0;
 }
@@ -1635,6 +1645,11 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 		chunk_id = rqst->id;
 	}
 
+#ifdef _NVRAM_OPTIMIZE
+	chunkobj = (chunkobj_s *)chunkmap_cache[chunk_id];
+	if (!chunkobj) {
+#endif
+
 	mmapobj_ptr = find_mmapobj_from_chunkid(chunk_id, proc_obj);
 	if (!mmapobj_ptr) {
 		//fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
@@ -1648,6 +1663,9 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr, 
 			(void*)(intptr_t)chunk_id,
 			IntComp);
+#ifdef _NVRAM_OPTIMIZE
+	}
+#endif
 
 	assert(chunkobj);
 	assert(chunkobj->nv_ptr);
@@ -1847,6 +1865,10 @@ chunkobj_s * get_chunk(rqst_s *rqst) {
 	unsigned int chunkid = 0;
 	mmapobj_s *mmapobj_ptr = NULL;
 
+#ifdef _NVRAM_OPTIMIZE
+	chunkobj_s *chunk;
+#endif
+
 	if (!rqst)
 		return NULL;
 
@@ -1872,6 +1894,15 @@ chunkobj_s * get_chunk(rqst_s *rqst) {
 	/*we always make assumption the
 	 chunk id is always greater than 1*/
 	assert(chunkid);
+
+
+#ifdef _NVRAM_OPTIMIZE
+	chunk = (chunkobj_s *)chunkmap_cache[chunkid];
+	if (chunk) {
+		return chunk;
+	}
+#endif
+
 
 	if (enable_trans) {
 		ops = rqst->ops;
@@ -2055,6 +2086,13 @@ int nv_delete(rqst_s *rqst) {
 		DEBUG("error: finding chunk from request \n");
 		return -1;
 	}
+
+#ifdef _NVRAM_OPTIMIZE
+	if(chunk) {
+		chunkmap_cache.erase(chunk->chunkid);
+	}
+#endif
+
 
 	/*set the commit size to 0
 	and set the chunk to invalid*/
