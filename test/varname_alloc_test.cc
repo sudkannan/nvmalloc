@@ -91,7 +91,7 @@ void *run_test(void* val)
 		rqst_s rqst;
 		rqst.id = j+1;
 		rqst.pid = rank+1+ BASE_PROC_ID;
-		rqst.var_name = (char *)varname;
+		strcpy(rqst.var_name,(char *)varname);
 
 		//fprintf(stdout, "var_name %s \n",rqst.var_name);
 		//nv_jemalloc(size, &rqst);

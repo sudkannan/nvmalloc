@@ -81,7 +81,7 @@ void *run_test(void* val)
 
 		register void * buf;
 		rqst.id = j+1;
-		rqst.var_name = NULL;
+		//rqst.var_name = NULL;
 		rqst.pid = rank+1+ BASE_PROC_ID;
 		size = 1024*1024;
 		//rqst.nv_ptr =npvalloc_(size);

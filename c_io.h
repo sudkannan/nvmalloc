@@ -50,6 +50,7 @@ void p_c_mmap_free(char *varname, void *ptr);
 /////////////////////COMMIT FUNCTIONS/////////////////
 int p_c_nvcommit(size_t size, char *var, int id);
 int p_c_nvcommitobj(void *addr, int id);
+void  p_c_nvcommitsz(char *ptr, size_t commitsz);
 
 int nvcommitobj(void *addr, int id);
 #define NVCOMMITOBJ(addr, id)  nvcommitobj(addr, id);
@@ -84,8 +85,8 @@ int c_begin_trans_wrd(void *addr, size_t size, int pid);
 
 /////////////////////REDO LOG FUNCTIONS/////////////////
 
-int store_word(nvword_t *addr, nvword_t value);
-nvword_t load_word(nvword_t *addr);
+//int store_word(nvword_t *addr, nvword_t value);
+//nvword_t load_word(nvword_t *addr);
 
 
 /////////////////RESTART RELATED/////////////////////////

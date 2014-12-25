@@ -86,6 +86,9 @@ static char* LoadDirFile(size_t *size, char *filename, char *read_dir) {
 	filelist[g_idx].size = bytes;
 	g_idx++;
 
+	nvcommitsz(filename, bytes);
+
+
 #ifdef _USE_BASIC_MMAP
 	 mmap_free(filename, nvptr);
 #endif
@@ -116,6 +119,8 @@ static void load_dir(char *read_dir) {
 		next:
 		entry = readdir(mydir);
 	}
+	nvcommitsz((char*)"filelist", g_idx*sizeof(int));
+	//fprintf(stderr," load_dir commiting %u\n", g_idx*sizeof(int));
 }
 
 char * extract_filename(char *str)
@@ -153,6 +158,9 @@ int main(int argc, char *argv[])
 	char *fname = NULL;
 	void *dram_ptr = NULL;
 	void* nvm_in_ptr = NULL;
+#if 1
+      nvinit_(600); 
+#endif
 
 	if(argc < 2){
 		perror("Usage: arg0: appname, arg1: filepath"
@@ -160,7 +168,6 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	
 	if(argc > 2 &&  argv[2]){
 		fname= extract_filename(argv[1]);
 	}else{

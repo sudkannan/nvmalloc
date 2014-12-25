@@ -7,7 +7,7 @@ BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
 
 LDFLAGS=-ldl
-DEBUGFLG=-O2
+DEBUGFLG=-g #-O2
 
 # See source code comments to avoid memory leaks when enabling MALLOC_MAG.
 #CPPFLAGS := -DMALLOC_PRODUCTION -DMALLOC_MAG
@@ -22,7 +22,7 @@ CPPFLAGS := $(CPPFLAGS) -D_USENVRAM
 #CPPFLAGS := $(CPPFLAGS) -D_NVDEBUG
 #CPPFLAGS := $(CPPFLAGS) -D_NOCHECKPOINT
 #CPPFLAGS := $(CPPFLAGS) -D_USE_CHECKPOINT
-CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
+#CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
 #CPPFLAGS := $(CPPFLAGS) -D_ENABLE_SWIZZLING
 CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
 
@@ -95,7 +95,7 @@ LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl \
 #	   -lpmem \
 #		-lnvmalloc #-llogging
 
-all:  SHARED_LIB 
+all:  SHARED_LIB NVMTEST
 #BENCHMARK
 
 JEMALLOC_OBJS= 	$(src_path)/jemalloc.o $(src_path)/arena.o $(src_path)/atomic.o \
@@ -169,6 +169,9 @@ BENCHMARK: $(JEMALLOC_OBJS) $(NVM_OBJS) $(BENCHMARK_OBJS)
 	$(CXX) -shared -fPIC -o libnvmchkpt.so $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)  $(LDFLAGS)
 	$(CXX)  $(BENCHMARK_OBJS) -o benchmark $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
 
+NVMTEST:
+	cd test && make clean && make && cd ..
+
 clean:
 	rm -f *.o *.so.0 *.so *.so* nv_read_test
 	rm -f nvmalloc_bench
@@ -176,6 +179,7 @@ clean:
 	rm -f ../*.o
 	rm -f $(BENCHMARK_OBJS) "benchmark" 
 	rm -rf libnvmchkpt.*
+	cd test && make clean && cd ..
 
 install:
 	mkdir -p /usr/lib64/nvmalloc

@@ -14,10 +14,10 @@ CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
 #LIBS= -ljemalloc -lpthread
 LIBS= -lpthread -lnvmchkpt
 
-all:  nv_read_test nv_read_test_alloc test_dirtypgcpy nvmalloc_bench varname_alloc_test varname_read_test varname_commit_test \
+all:  nv_read_test nv_read_test_alloc test_dirtypgcpy nvmalloc_bench varname_read_test varname_commit_test \
       nvmap_bench \
       nvmalloc_non_persist_bench nvmalloc_cc_test nvmalloc_c_test nv_restart_test test_del \
-	  load_file	read_file
+	  load_file	read_file  varname_alloc_test 
 	 #nv_remote_chkpt_test nv_rmtckpt_nodirtchk nv_test_spinlock nv_chckpt_test
 
 nv_read_test:  nv_read_test.cc
@@ -86,4 +86,4 @@ clean:
 	rm -f varname_read_test nv_chckpt_test nv_restart_test
 	rm -f nv_remote_chkpt_test nv_rmtckpt_nodirtchk
 	rm -f nvmalloc_non_persist_bench
-	rm -f nvmalloc_cc_test nvmalloc_c_test hello_world
+	rm -f nvmalloc_cc_test nvmalloc_c_test hello_world  load_file

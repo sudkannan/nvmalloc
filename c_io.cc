@@ -559,7 +559,6 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 		rqst.id = rqstid;
 	}
 
-
 #ifdef _USE_BASIC_MMAP
 	fprintf(stdout,"creating basic map file \n");
 	return create_mmap_file(&rqst);
@@ -653,45 +652,17 @@ void mmap_free(char *varname, void *ptr){
 
 
 extern "C" {
-void* p_c_nvread_(char *var, int id)
-{
-	void *buffer = NULL;
-	rqst_s rqst;
-	size_t len =0;
 
-	id = BASEID_GET();
-	rqst.pid = id+1;
-	memcpy(rqst.var_name,var,MAXOBJNAMELEN);
-	rqst.var_name[MAXOBJNAMELEN] = 0;
-#ifdef  _USE_CHECKPOINT
-	rqst.no_dram_flg = 0;
-#else
-	rqst.no_dram_flg = 1;
-#endif
-
-#ifdef _USE_BASIC_MMAP
-	return read_mmap_file(&rqst, &len);
-#endif
-	fprintf(stdout,"proc %d var %s\n",id, rqst.var_name);
-	buffer = nv_map_read(&rqst, NULL);
-	//buffer = rqst.log_ptr;
-
-	return buffer;
-}
-}
-
-extern "C" {
 //Same as normal read, but also returns chunk data size
 void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 {
 	void *buffer = NULL;
 	rqst_s rqst;
+	size_t len=0;
 
-	//rqst.commitsz = 0;
-
-	id = BASEID_GET();
-	rqst.pid = id+1;
-	strcpy(rqst.var_name,var);
+	len = strlen(var);
+	memcpy(rqst.var_name,var,len);
+	rqst.var_name[len] = 0;
 
 #ifdef _USE_BASIC_MMAP
 	return read_mmap_file(&rqst, chunksize);
@@ -707,19 +678,23 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 #ifdef  _USE_SHADOWCOPY
 	buffer = rqst.log_ptr;
 #endif
-	*chunksize = rqst.commitsz;
-	//fprintf(stdout,"var_name %s, commitsz %u\n",
-	//		rqst.var_name, rqst.commitsz);
+
+	if(chunksize){
+		*chunksize = rqst.commitsz;
+	}
 	return buffer;
 }
+
+void* p_c_nvread_(char *var, int id)
+{
+	return p_c_nvread_len(var, id, NULL);
 }
 
-void* nvread_len(char *var, int id, size_t *chunksize) {
-	p_c_nvread_len(var,id, chunksize);
 }
 
+extern "C" {
 
-void nvcommitsz(char *ptr, size_t commitsz){
+void  p_c_nvcommitsz(char *ptr, size_t commitsz){
 
 	rqst_s rqst;
 	int id=0;
@@ -731,9 +706,21 @@ void nvcommitsz(char *ptr, size_t commitsz){
 	rqst.id = 0;
 	memcpy(rqst.var_name,ptr,len);
 	rqst.var_name[len] = 0;
-
 	nv_commit_len(&rqst, commitsz);
+}
 
+
+
+}
+
+void* nvread_len(char *var, int id, size_t *chunksize) {
+	p_c_nvread_len(var,id, chunksize);
+}
+
+
+void nvcommitsz(char *ptr, size_t commitsz){
+
+	p_c_nvcommitsz(ptr,commitsz);
 	return;
 }
 
@@ -796,6 +783,7 @@ extern "C" {
 int commit_noarg(void) {
 	nvcommit_noarg();	
 }
+
 
 int p_c_nvcommit(size_t size, char *var, int id)
 {

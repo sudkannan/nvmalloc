@@ -461,9 +461,11 @@ int find_vmaid_from_chunk(rbtree_node n, unsigned int chunkid) {
 	}
 	t_mmapobj = (mmapobj_s *) n->value;
 
-	chunkobj = find_chunk(t_mmapobj, chunkid);
-	if (chunkobj) {
-		return t_mmapobj->vma_id;
+	if(t_mmapobj && t_mmapobj->chunk_tree_init) {
+		chunkobj = find_chunk(t_mmapobj, chunkid);
+		if (chunkobj) {
+			return t_mmapobj->vma_id;
+		}
 	}
 
 	if (n->left != NULL) {
@@ -671,8 +673,9 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 	//assert(fp);
 	//fd = fileno(fp);
 	if(fd < 0) {
-		//fprintf(stderr,"error: file_name %s \n",file_name);
-		assert(fd > -1);
+		fprintf(stderr,"error: file_name %s \n",file_name);
+		//assert(fd > -1);
+		return NULL;
 	}
 	mmapobj->data_addr = (ULONG)mmap(0, datarq.bytes ,PROT_NV_RW, MAP_SHARED, fd, 0);
 
@@ -706,7 +709,7 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 		if(nv_chunkobj->valid == INVALID){
 			goto next_chunk_load;
 		}else {
-			//fprintf(stdout, "Alive obj objname %s \n",nv_chunkobj->objname);
+		  //fprintf(stdout, "Alive obj objname %s \n",nv_chunkobj->objname);
 		}
 
 		if (check_modify_access(perm)) {
@@ -991,9 +994,10 @@ int nv_initialize(UINT pid) {
 	if (enable_trans) {
 		assert(!initialize_logmgr(pid, 1));
 	}
-
 	/*Finished intialization */
 	g_initialized = 1;
+
+	fprintf(stderr,"LOADING PROCESS OBJECT\n");
 
 	procobj = load_process(pid, 0);
 	if (!procobj) {
@@ -1170,8 +1174,10 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	lcl_rqst.logptr_sz = rqst->logptr_sz;
 	lcl_rqst.no_dram_flg = rqst->no_dram_flg;
 
-	if(rqst->var_name)
-		memcpy(lcl_rqst.var_name ,rqst->var_name, MAXOBJNAMELEN);
+	if(rqst->var_name) {
+		//memcpy(lcl_rqst.var_name ,rqst->var_name, MAXOBJNAMELEN);
+		strcpy(lcl_rqst.var_name ,rqst->var_name	);
+	}
 
 #if 0
 	chunk = find_chunk(mmapobj, lcl_rqst.id);
@@ -1668,7 +1674,12 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 #endif
 
 	assert(chunkobj);
-	assert(chunkobj->nv_ptr);
+
+	if(!chunkobj->nv_ptr){
+		fprintf(stderr,"chunkobj->obj %s \n", chunkobj->objname);
+		assert(chunkobj->nv_ptr);
+	}
+
 	assert(chunkobj->length);
 
 	if(chunkobj->valid == INVALID){
@@ -1684,6 +1695,8 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	rqst->nv_ptr = chunkobj->nv_ptr;
 	rqst->bytes = chunkobj->length;
 	rqst->commitsz = chunkobj->commitsz;
+	//fprintf(stderr,"rqst->nv_ptr %lu sz %u\n",
+	//		rqst->nv_ptr, rqst->commitsz);
 
 #ifdef _NVSTATS
 	if(enable_stats) {
@@ -1813,8 +1826,8 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	char file_name[MAX_FPATH_SZ];
 	char fileid_str[64];
 	//fprintf(stdout,"%zu \n",size);
-	if(size >= 33550336){
-	//if(1){
+	//if(size >= 33550336){
+	if(1){
 		//if(1){
 		bzero(file_name,256);
 		generate_file_name((char *) PROCMAPDATAPATH,a->proc_id, file_name);
@@ -1968,7 +1981,12 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	chunk = get_chunk(rqst);
 	chunk->commitsz = size;
 	assert(chunk);
-	assert(chunk->length);
+
+	if(!chunk->length) {
+		fprintf(stderr,"chunk->name %s\n", chunk->objname);
+		assert(chunk->length);
+	}
+
 
 #ifdef _USE_SHADOWCOPY
 	src = chunk->log_ptr;

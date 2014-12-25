@@ -7,11 +7,9 @@
 extern "C" {
 #endif
 
-
-#define __NR_nv_mmap_pgoff     314
-//#define __NR_nv_mmap_pgoff     301
-
-#define __NR_nv_commit		   303
+#define __NR_nv_mmap_pgoff   314
+//#define __NR_nv_mmap_pgoff 301
+#define __NR_nv_commit	   303
 #define __NR_copydirtpages 304
 
 #define SHMEM_ID 2078
@@ -36,7 +34,6 @@ typedef intptr_t nvword_t;
 #define PROT_NV_RDONLY  PROT_READ
 #define PROT_ANON_PRIV MAP_PRIVATE | MAP_ANONYMOUS
 
-
 //base name of memory mapped files
 #define FILEPATH "/mnt/pmfs/chkpt"
 #define BASEPATH "/mnt/pmfs/"
@@ -48,12 +45,8 @@ typedef intptr_t nvword_t;
 #define PROCMAPDATAPATH "/mnt/pmfs/chkprocmapdata"
 #define DATA_PATH "/mnt/pmfs/procdata"
 
-
-
-
 #define  SUCCESS 0
 #define  FAILURE -1
-
 //Page size
 #define SHMSZ  4096 
 //NVRAM changes
@@ -71,12 +64,10 @@ typedef intptr_t nvword_t;
 //supports. If you want more proecess
 //increment the count
 #define MAX_PROCESS 64
-
 //Random value generator range
 //for temp nvmalloc allocation
 #define RANDOM_VAL 1433
 //#define NVRAM_OPTIMIZE
-
 #define SHM_BASE 10000
 #define CHKSUM_LEN 40 
 #define REMOTE_FREQUENCY 2

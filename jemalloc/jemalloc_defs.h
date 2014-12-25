@@ -190,7 +190,7 @@
 /* #undef JEMALLOC_LAZY_LOCK */
 
 /* One page is 2^STATIC_PAGE_SHIFT bytes. */
-#define STATIC_PAGE_SHIFT 12
+#define STATIC_PAGE_SHIFT 13
 
 /*
  * If defined, use munmap() to unmap freed chunks, rather than storing them for

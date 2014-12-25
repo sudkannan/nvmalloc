@@ -83,7 +83,7 @@ void *run_test(void* val)
 		rqst_s rqst;
 		rqst.id = j+1;
 		rqst.pid = rank+1+ BASE_PROC_ID;
-		rqst.var_name = (char *)malloc(10);
+		//rqst.var_name = (char *)malloc(10);
 		rand_word(rqst.var_name,10); 
 		//fprintf(stdout, "var_name %s \n",rqst.var_name);
 		//nv_jemalloc(size, &rqst);
