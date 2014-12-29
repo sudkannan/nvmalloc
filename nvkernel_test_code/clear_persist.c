@@ -8,10 +8,10 @@
 #include <unistd.h>
 #include <sys/mman.h>
 
-#define __NR_NValloc 299
+#define __NR_NValloc 316
 
 int main(int argc, char *argv[])
 {
-  syscall(__NR_NValloc, 0);
+  syscall(__NR_NValloc, 601);
   return 0;
 }
