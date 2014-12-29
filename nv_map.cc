@@ -1813,6 +1813,7 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	assert(a);
 	assert(a->proc_id);
 
+	fprintf(stderr,"nv_map.cc: _mmap object %u \n",a->proc_id);
 	proc_obj = find_proc_obj(a->proc_id);
 	if (!proc_obj) {
 		proc_obj = create_or_load_proc_obj(a->proc_id);
