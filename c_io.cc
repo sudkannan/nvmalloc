@@ -665,6 +665,7 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 	len = strlen(var);
 	memcpy(rqst.var_name,var,len);
 	rqst.var_name[len] = 0;
+	rqst.pid = BASEID_GET()+1;
 
 #ifdef _USE_BASIC_MMAP
 	return read_mmap_file(&rqst, chunksize);
