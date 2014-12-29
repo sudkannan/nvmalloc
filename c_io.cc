@@ -346,7 +346,7 @@ unsigned int BASEID_GET(){
 		BASEPROCID = 600;
 #endif
 	}
-	 printf("BASEPROCID %u\n",BASEPROCID);
+	//printf("BASEPROCID %u\n",BASEPROCID);
 	return BASEPROCID;
 }
 extern "C" {

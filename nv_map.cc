@@ -818,6 +818,10 @@ static proc_s * create_or_load_proc_obj(int pid) {
 	}
 
 	bzero(file_name, 256);
+
+	fprintf(stderr,"create_or_load_proc_obj PROCMETADATA_PATH %s "
+			"pid %u file_name %s \n", 
+			PROCMETADATA_PATH, pid, file_name);
 	generate_file_name((char *)PROCMETADATA_PATH, pid, file_name);
 
 	/*we check if a map already exists*/
