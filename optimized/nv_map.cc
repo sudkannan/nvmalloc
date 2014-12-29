@@ -259,7 +259,7 @@ void print_chunkobj(chunkobj_s *chunkobj) {
 	fprintf(stdout,"chunkobj: vma_id %d\n", chunkobj->vma_id);
 	fprintf(stdout,"chunkobj: offset %ld\n", chunkobj->offset);
 	fprintf(stdout,"chunkobj: nvptr %lu\n", (ULONG)chunkobj->nv_ptr); 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	fprintf(stdout,"chunkobj: checksum %ld\n",  chunkobj->checksum);
 #endif
 #ifdef _USE_SHADOWCOPY
@@ -1504,7 +1504,7 @@ void* nv_map_read(rqst_s *rqst, void* map ) {
 	struct stat statbuf;
 #endif
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	char gen_key[256];
 	long hash;
 #endif
@@ -1586,7 +1586,7 @@ void* nv_map_read(rqst_s *rqst, void* map ) {
 	memcpy(chunkobj->log_ptr, chunkobj->nv_ptr, chunkobj->length);
 #endif
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	bzero(gen_key, 256);
 	sha1_mykeygen(chunkobj->log_ptr, gen_key,
 			CHKSUM_LEN, 16, chunkobj->length);
@@ -1649,7 +1649,7 @@ void* nv_map_read(rqst_s *rqst, void* map ) {
 	struct stat statbuf;
 #endif
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	char gen_key[256];
 	long hash;
 #endif
@@ -1709,7 +1709,7 @@ void* nv_map_read(rqst_s *rqst, void* map ) {
 	memcpy(chunkobj->log_ptr, chunkobj->nv_ptr, chunkobj->length);
 #endif
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	bzero(gen_key, 256);
 	sha1_mykeygen(chunkobj->log_ptr, gen_key,
 			CHKSUM_LEN, 16, chunkobj->length);
@@ -1915,7 +1915,7 @@ int  chkpt_all_chunks(rbtree_node n, int *cmt_chunks) {
 	ULONG lat_ns, cycles;
 
 
-#ifdef VALIDATE_CHKSM	
+#ifdef _VALIDATE_CHKSM	
 	long hash;
 #endif
 
@@ -1978,7 +1978,7 @@ int  chkpt_all_chunks(rbtree_node n, int *cmt_chunks) {
 			add_to_chunk_memcpy(chunkobj);
 #endif			
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 			bzero(gen_key, 256);
 			sha1_mykeygen(src, gen_key,
 					CHKSUM_LEN, 16, chunkobj->length);

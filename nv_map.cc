@@ -319,7 +319,7 @@ static mmapobj_s* create_mmapobj(rqst_s *rqst, ULONG curr_offset,
 	mmapobj->strt_addr = addr;
 
 #ifdef _USE_FAKE_NVMAP
-	 strcpy(mmapobj->mmapobjname, file_name);
+	strcpy(mmapobj->mmapobjname, file_name);
 #endif
 
 	/*Its our responsibility to initialize a chunk
@@ -709,7 +709,7 @@ int restore_chunk_objs(mmapobj_s *mmapobj, int perm) {
 		if(nv_chunkobj->valid == INVALID){
 			goto next_chunk_load;
 		}else {
-		  //fprintf(stdout, "Alive obj objname %s \n",nv_chunkobj->objname);
+			//fprintf(stdout, "Alive obj objname %s \n",nv_chunkobj->objname);
 		}
 
 		if (check_modify_access(perm)) {
@@ -1662,19 +1662,19 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	if (!chunkobj) {
 #endif
 
-	mmapobj_ptr = find_mmapobj_from_chunkid(chunk_id, proc_obj);
-	if (!mmapobj_ptr) {
-		//fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
-		//assert(0);
-		goto error;
-	}
+		mmapobj_ptr = find_mmapobj_from_chunkid(chunk_id, proc_obj);
+		if (!mmapobj_ptr) {
+			//fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
+			//assert(0);
+			goto error;
+		}
 
-	//Get the the start address and then end address of mmapobj
-	/*Every malloc call will lead to a mmapobj creation*/
-	tree_ptr = mmapobj_ptr->chunkobj_tree;
-	chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr, 
-			(void*)(intptr_t)chunk_id,
-			IntComp);
+		//Get the the start address and then end address of mmapobj
+		/*Every malloc call will lead to a mmapobj creation*/
+		tree_ptr = mmapobj_ptr->chunkobj_tree;
+		chunkobj = (chunkobj_s *) rbtree_lookup(tree_ptr,
+				(void*)(intptr_t)chunk_id,
+				IntComp);
 #ifdef _NVRAM_OPTIMIZE
 	}
 #endif
@@ -1711,7 +1711,7 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	}
 #endif
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	assert(compare_checksum(chunkobj->nv_ptr, 
 			chunkobj->length,
 			chunkobj->checksum) == 0);
@@ -1985,6 +1985,12 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	void* dest = NULL;
 	void *src = NULL;
 
+#ifdef _VALIDATE_CHKSM
+	char gen_key[256];
+	long hash;
+#endif
+
+
 	chunk = get_chunk(rqst);
 	chunk->commitsz = size;
 	assert(chunk);
@@ -2009,7 +2015,19 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 #ifdef _USE_TRANSACTION
 	chunk->dirty = 1;
 #endif
-	return 0;
+
+#ifdef _VALIDATE_CHKSM
+	bzero(gen_key, 256);
+	sha1_mykeygen(src, gen_key,
+			CHKSUM_LEN, 16, chunk->length);
+
+	hash = gen_id_from_str(gen_key);
+
+	chunk->checksum = hash;
+#endif
+
+
+return 0;
 }
 
 /*Rename from one object to other object name*/
@@ -2047,12 +2065,12 @@ void nv_rename(rqst_s *src_rqst, char *destname) {
 	if( oldchunk && oldchunk->length ) {
 		oldchunk->chunkid = gen_id_from_str(destname);
 		//fprintf(stderr, "FOUND source chunk source name %s "
-			//	"dest name %s \n",src_rqst->var_name, destname);
+		//	"dest name %s \n",src_rqst->var_name, destname);
 		strcpy(oldchunk->objname, destname);
 		commitsz = oldchunk->commitsz;
 		//nv_delete(src_rqst);
 		//fprintf(stderr,"deleting obj %s "
-			//	" commitsz %u\n",oldchunk->objname, commitsz);
+		//	" commitsz %u\n",oldchunk->objname, commitsz);
 
 		oldchunk->commitsz = commitsz;
 		oldchunk->valid = VALID;
@@ -2078,10 +2096,10 @@ void nv_rename(rqst_s *src_rqst, char *destname) {
 void delete_mmapobj(proc_s *proc_obj, mmapobj_s *mmapobj){
 
 #ifdef _USE_FAKE_NVMAP
-	 if(strlen(mmapobj->mmapobjname)){
-		 if(unlink (mmapobj->mmapobjname) == 0)
-			 fprintf(stderr,"deleted mmapobj %s\n", mmapobj->mmapobjname);
-	 }
+	if(strlen(mmapobj->mmapobjname)){
+		if(unlink (mmapobj->mmapobjname) == 0)
+			fprintf(stderr,"deleted mmapobj %s\n", mmapobj->mmapobjname);
+	}
 #endif
 
 
