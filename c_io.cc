@@ -331,6 +331,9 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
+	 BASEPROCID = 800;
+	 return BASEPROCID;
+
 	if(!BASEPROCID){
 #ifdef _USERANDOM_PROCID
 
