@@ -1336,6 +1336,7 @@ proc_s* load_process(int pid, int perm) {
 	 */
 	assert(g_initialized);
 
+	fprintf(stderr,"nv_map.cc: load_process %u \n",pid);
 	nv_proc_obj = (proc_s *)create_or_load_proc_obj(pid);
 
 	/*Check if process has write permission to modify
