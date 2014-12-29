@@ -353,6 +353,7 @@ extern "C" {
 int nvinit(UINT pid) {
 
 	//my_init_hook();
+	BASEPROCID = pid;
 	pid = BASEID_GET() + 1;
 	//return load_process(pid, 1);
 	return nv_initialize(pid);
