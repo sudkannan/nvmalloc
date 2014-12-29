@@ -95,7 +95,7 @@ void DEBUG_CHUNKOBJ(chunkobj_s *chunkobj) {
 #ifdef _USE_SHADOWCOPY
 	fprintf(stdout,"chunkobj: log_ptr %lu\n", chunkobj->log_ptr);
 #endif
-	//fprintf(stdout,"chunkobj: varname %s\n", chunkobj->varname);
+	fprintf(stdout,"chunkobj: varname %s\n", chunkobj->objname);
 	fprintf(stdout,"----------------------\n");
 #endif
 }
