@@ -71,7 +71,7 @@ struct chunkobj{
 	//restart
 	//int logcpy;
 
-#ifdef VALIDATE_CHKSM
+#ifdef _VALIDATE_CHKSM
 	long checksum;
 #endif
 
