@@ -1019,6 +1019,7 @@ void* create_new_process(UINT pid) {
 
 	/*Before we create a new process we initialize various flags*/
 	nv_initialize(pid);
+	fprintf(stderr,"nv_map.cc:create_new_process %u \n",pid);
 	proc_obj = create_or_load_proc_obj(pid);
 	assert(proc_obj);
 	add_proc_obj(proc_obj);
