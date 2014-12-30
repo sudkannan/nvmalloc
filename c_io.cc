@@ -331,7 +331,7 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
-	 BASEPROCID = 900;
+	 BASEPROCID = 400;
 	 return BASEPROCID;
 
 	if(!BASEPROCID){
