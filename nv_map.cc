@@ -1712,9 +1712,13 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 #endif
 
 #ifdef _VALIDATE_CHKSM
-	assert(compare_checksum(chunkobj->nv_ptr, 
+	if(compare_checksum(chunkobj->nv_ptr, 
 			chunkobj->length,
-			chunkobj->checksum) == 0);
+			chunkobj->checksum) != 0){
+
+		fprintf(stderr,"chunkobj failed %s\n", chunkobj->objname);
+		assert(0);
+	}
 #endif
 
 	return (void *) rqst->nv_ptr;
