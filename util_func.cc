@@ -233,6 +233,7 @@ int compare_checksum(void *src, size_t len, long refval){
 	if(generate_checksum(src, len) != refval) {
 		return -1;
 	}
+	fprintf(stderr,"checksums match %u\n", refval);
 	return 0;
 }
 

@@ -10,9 +10,9 @@ unsigned long  malloc_init_pool( unsigned long num_pages  ){
 	 fprintf(stdout,"created pool \n");
 }
 
-int main(){
+int main(int argc, char *argv[]){
 	
-    if(malloc_init_pool(1000000) ==  0) {
+    if(malloc_init_pool(atoi(argv[1])) ==  0) {
 		printf("Pool creation succeeded \n");
 	}else {
 		printf("Pool creation failed \n");
