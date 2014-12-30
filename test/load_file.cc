@@ -147,6 +147,27 @@ char * extract_filename(char *str)
 }
 
 
+int read_objects(){
+
+	size_t nvmwriteoff=0, fsize=0;
+	int count=0, idx=0;
+
+	filelist = (struct filestruct *)nvread_len("filelist", 0, &nvmwriteoff);
+	assert(filelist);
+	assert(nvmwriteoff);
+
+	count = nvmwriteoff/sizeof(int);
+
+	for(idx=0; idx < count; idx++){
+		void *nvptr=NULL;
+	    nvptr = nvread_len(filelist[idx].fname,0,&fsize);
+	    assert(nvptr);
+	}
+	return 0;
+}
+
+
+
 int main(int argc, char *argv[])
 {
 	unsigned i;
@@ -164,7 +185,8 @@ int main(int argc, char *argv[])
 
 	if(argc < 2){
 		perror("Usage: arg0: appname, arg1: filepath"
-				"Optional arg2: exclude filepath arg3: load entir dir\n");
+				"Optional arg2: exclude filepath arg3: load entir dir, "
+				"arg4: read/write mode\n");
 		exit(0);
 	}
 
@@ -172,6 +194,15 @@ int main(int argc, char *argv[])
 		fname= extract_filename(argv[1]);
 	}else{
 		fname = argv[1];
+	}
+
+	if(argc > 4 &&  argv[4]){
+
+		/*read mode*/
+		if(atoi(argv[4]) == 1){
+			 read_objects();
+			 return 0;
+		}
 	}
 
 	filelist = (struct filestruct *)nvalloc_(10000*sizeof(struct filestruct),(char*)"filelist", 0);
