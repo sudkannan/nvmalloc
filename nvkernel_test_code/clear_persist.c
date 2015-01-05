@@ -12,6 +12,6 @@
 
 int main(int argc, char *argv[])
 {
-  syscall(__NR_NValloc, 601);
+  syscall(__NR_NValloc, atoi(argv[1]));
   return 0;
 }

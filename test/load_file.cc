@@ -223,7 +223,7 @@ int main(int argc, char *argv[])
 		assert(nvm_in_ptr);
 
 		rdsz = fread ( dram_ptr, 1, st.st_size, fp1);
-		fprintf(stdout,"rdsz %zu actual sz: %zu \n",rdsz, st.st_size);
+		//fprintf(stdout,"rdsz %zu actual sz: %zu \n",rdsz, st.st_size);
 		assert(rdsz);
 		memcpy(nvm_in_ptr, dram_ptr, rdsz);
 	}

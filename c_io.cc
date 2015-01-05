@@ -46,7 +46,7 @@ static unsigned int cmu_nvallocinit=0;
 #define MAX_CMU_PAGES 50600 //1 GB pages
 #endif
 
-static unsigned int BASEPROCID=0;
+static unsigned int BASEPROCESSID; //=0;
 
 /*void showdata(double *v, int n, int id);
 double * merge(double *A, int asize, double *B, int bsize);
@@ -331,9 +331,10 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
-	 BASEPROCID = 500;
-	 return BASEPROCID;
+	 BASEPROCESSID=700;
+	 return BASEPROCESSID;
 
+#if 0
 	if(!BASEPROCID){
 #ifdef _USERANDOM_PROCID
 
@@ -351,13 +352,13 @@ unsigned int BASEID_GET(){
 	}
 	//printf("BASEPROCID %u\n",BASEPROCID);
 	return BASEPROCID;
+#endif
 }
 extern "C" {
 
 int nvinit(UINT pid) {
 
 	//my_init_hook();
-	BASEPROCID = pid;
 	pid = BASEID_GET() + 1;
 	//return load_process(pid, 1);
 	return nv_initialize(pid);
