@@ -198,7 +198,6 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 	//nvmap = (void *)mmap(addr, size, mode, prot, -1, 0);
 	nvmap = (void *)syscall(__NR_nv_mmap_pgoff,addr,size,mode,prot, s);
 	assert(nvmap);
-	memset(nvmap,0, size);
 #endif
 
 #ifdef _USEPIN
