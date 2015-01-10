@@ -12,7 +12,7 @@ DEBUGFLG=-g #-O2
 # See source code comments to avoid memory leaks when enabling MALLOC_MAG.
 #CPPFLAGS := -DMALLOC_PRODUCTION -DMALLOC_MAG
 CPPFLAGS := -fPIC -I$(INCLUDE) -I$(INCLUDE)/jemalloc -I/usr/include $(DEBUGFLG) #-I$(INCLUDE)/pmem_intel/linux-examples_flex/libpmem -g #-O3
-CPPFLAGS:=  $(CPPFLAGS) -lssl -lcrypto -lrdpmc -fPIC
+CPPFLAGS:=  $(CPPFLAGS) -lssl -lcrypto -fPIC
 CPPFLAGS := $(CPPFLAGS) -DMALLOC_PRODUCTION -fPIC 
 CPPFLAGS := $(CPPFLAGS)  -Wno-pointer-arith -Wno-unused-but-set-variable
 CPPFLAGS := $(CPPFLAGS)  -Wno-unused-function
@@ -92,9 +92,9 @@ STDFLAGS :=-std=gnu++0x
 CPPFLAGS := $(CPPFLAGS) -I$(LOGGING)/include -I$(LOGGING)/include/include -I$(LOGGING)/include/port \
 	    -I$(CMU_MALLOC)/include  -I$(BENCH) -I$(BENCH)/compare_bench/c-hashtable
 
-LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl -lrdpmc \
+LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl \
        -Wl,-z,defs -lpthread -lm -lcrypto -lpthread \
-       -L$(CMU_MALLOC)/lib 
+       -L$(CMU_MALLOC)/lib  #-lrdpmc 
 #	   -lpmem \
 #		-lnvmalloc #-llogging
 

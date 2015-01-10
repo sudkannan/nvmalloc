@@ -18,8 +18,6 @@
 #include <signal.h>
 #include <sys/queue.h>
 #include <sys/resource.h>
-#include <rdpmc.h>
-
 
 #include "jemalloc/jemalloc.h"
 #include "nv_map.h"
