@@ -18,6 +18,8 @@
 #include <signal.h>
 #include <sys/queue.h>
 #include <sys/resource.h>
+#include <rdpmc.h>
+
 
 #include "jemalloc/jemalloc.h"
 #include "nv_map.h"
@@ -331,7 +333,7 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
-	 BASEPROCESSID=300;
+	 BASEPROCESSID=500;
 	 return BASEPROCESSID;
 
 #if 0
@@ -359,6 +361,7 @@ extern "C" {
 int nvinit(UINT pid) {
 
 	//my_init_hook();
+	//con();
 	pid = BASEID_GET() + 1;
 	//return load_process(pid, 1);
 	return nv_initialize(pid);

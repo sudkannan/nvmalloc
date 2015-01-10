@@ -189,7 +189,7 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 		size_t offset, nvarg_s *s) {
 
 	void* nvmap;
-	pthread_mutex_lock( &chkpt_mutex );
+	//pthread_mutex_lock( &chkpt_mutex );
 
 #ifdef _USE_FAKE_NVMAP
 	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
@@ -208,7 +208,7 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 	//printf("Writing line %lu %lu %d\n", nvmap,nvmap+size,num_maps);
 	Writeline((unsigned long)nvmap, (unsigned long)nvmap+size);
 #endif
-	pthread_mutex_unlock(&chkpt_mutex);
+	//pthread_mutex_unlock(&chkpt_mutex);
 	return nvmap;
 }
 
@@ -340,6 +340,7 @@ static void update_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj,
 	chunkobj->vma_id = mmapobj->vma_id;
 	chunkobj->offset = rqst->offset;
 	chunkobj->commitsz = 0;
+	chunkobj->valid = VALID;
 	//chunkobj->mmapobj = mmapobj;
 	chunkobj->nv_ptr = rqst->nv_ptr;
 	memset(chunkobj->nv_ptr, 0, chunkobj->length);
@@ -1625,6 +1626,8 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	int perm = rqst->access;
 	char *del;
 
+	pthread_mutex_lock( &chkpt_mutex );
+
 #ifdef _USE_DISKMAP
 	char out_fname[256];
 	FILE *fp = NULL;
@@ -1721,9 +1724,11 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	}
 #endif
 
+	pthread_mutex_unlock( &chkpt_mutex );
 	return (void *) rqst->nv_ptr;
 
 	error:
+	pthread_mutex_unlock( &chkpt_mutex );
 	rqst->nv_ptr = NULL;
 	rqst->log_ptr = NULL;
 	return NULL;
