@@ -1,0 +1,2251 @@
+Supported PMU models:
+	[7, netburst, "Pentium4"]
+	[8, netburst_p, "Pentium4 (Prescott)"]
+	[11, core, "Intel Core"]
+	[14, atom, "Intel Atom"]
+	[15, nhm, "Intel Nehalem"]
+	[16, nhm_ex, "Intel Nehalem EX"]
+	[17, nhm_unc, "Intel Nehalem uncore"]
+	[18, ix86arch, "Intel X86 architectural PMU"]
+	[51, perf, "perf_events generic PMU"]
+	[52, wsm, "Intel Westmere (single-socket)"]
+	[53, wsm_dp, "Intel Westmere DP"]
+	[54, wsm_unc, "Intel Westmere uncore"]
+	[55, amd64_k7, "AMD64 K7"]
+	[56, amd64_k8_revb, "AMD64 K8 RevB"]
+	[57, amd64_k8_revc, "AMD64 K8 RevC"]
+	[58, amd64_k8_revd, "AMD64 K8 RevD"]
+	[59, amd64_k8_reve, "AMD64 K8 RevE"]
+	[60, amd64_k8_revf, "AMD64 K8 RevF"]
+	[61, amd64_k8_revg, "AMD64 K8 RevG"]
+	[62, amd64_fam10h_barcelona, "AMD64 Fam10h Barcelona"]
+	[63, amd64_fam10h_shanghai, "AMD64 Fam10h Shanghai"]
+	[64, amd64_fam10h_istanbul, "AMD64 Fam10h Istanbul"]
+	[68, snb, "Intel Sandy Bridge"]
+	[69, amd64_fam14h_bobcat, "AMD64 Fam14h Bobcat"]
+	[70, amd64_fam15h_interlagos, "AMD64 Fam15h Interlagos"]
+	[71, snb_ep, "Intel Sandy Bridge EP"]
+	[72, amd64_fam12h_llano, "AMD64 Fam12h Llano"]
+	[73, amd64_fam11h_turion, "AMD64 Fam11h Turion"]
+	[74, ivb, "Intel Ivy Bridge"]
+	[76, snb_unc_cbo0, "Intel Sandy Bridge C-box0 uncore"]
+	[77, snb_unc_cbo1, "Intel Sandy Bridge C-box1 uncore"]
+	[78, snb_unc_cbo2, "Intel Sandy Bridge C-box2 uncore"]
+	[79, snb_unc_cbo3, "Intel Sandy Bridge C-box3 uncore"]
+	[80, snbep_unc_cbo0, "Intel Sandy Bridge-EP C-Box 0 uncore"]
+	[81, snbep_unc_cbo1, "Intel Sandy Bridge-EP C-Box 1 uncore"]
+	[82, snbep_unc_cbo2, "Intel Sandy Bridge-EP C-Box 2 uncore"]
+	[83, snbep_unc_cbo3, "Intel Sandy Bridge-EP C-Box 3 uncore"]
+	[84, snbep_unc_cbo4, "Intel Sandy Bridge-EP C-Box 4 uncore"]
+	[85, snbep_unc_cbo5, "Intel Sandy Bridge-EP C-Box 5 uncore"]
+	[86, snbep_unc_cbo6, "Intel Sandy Bridge-EP C-Box 6 uncore"]
+	[87, snbep_unc_cbo7, "Intel Sandy Bridge-EP C-Box 7 uncore"]
+	[88, snbep_unc_ha, "Intel Sandy Bridge-EP HA uncore"]
+	[89, snbep_unc_imc0, "Intel Sandy Bridge-EP IMC0 uncore"]
+	[90, snbep_unc_imc1, "Intel Sandy Bridge-EP IMC1 uncore"]
+	[91, snbep_unc_imc2, "Intel Sandy Bridge-EP IMC2 uncore"]
+	[92, snbep_unc_imc3, "Intel Sandy Bridge-EP IMC3 uncore"]
+	[93, snbep_unc_pcu, "Intel Sandy Bridge-EP PCU uncore"]
+	[94, snbep_unc_qpi0, "Intel Sandy Bridge-EP QPI0 uncore"]
+	[95, snbep_unc_qpi1, "Intel Sandy Bridge-EP QPI1 uncore"]
+	[96, snbep_unc_ubo, "Intel Sandy Bridge-EP U-Box uncore"]
+	[97, snbep_unc_r2pcie, "Intel Sandy Bridge-EP R2PCIe uncore"]
+	[98, snbep_unc_r3qpi0, "Intel Sandy Bridge-EP R3QPI0 uncore"]
+	[99, snbep_unc_r3qpi1, "Intel Sandy Bridge-EP R3QPI1 uncore"]
+	[100, knc, "Intel Knights Corner"]
+	[103, ivb_ep, "Intel Ivy Bridge EP"]
+	[104, hsw, "Intel Haswell"]
+	[105, ivb_unc_cbo0, "Intel Ivy Bridge C-box0 uncore"]
+	[106, ivb_unc_cbo1, "Intel Ivy Bridge C-box1 uncore"]
+	[107, ivb_unc_cbo2, "Intel Ivy Bridge C-box2 uncore"]
+	[108, ivb_unc_cbo3, "Intel Ivy Bridge C-box3 uncore"]
+	[110, rapl, "Intel RAPL"]
+	[111, slm, "Intel Silvermont"]
+	[112, amd64_fam15h_nb, "AMD64 Fam15h NorthBridge"]
+	[114, perf_raw, "perf_events raw PMU"]
+	[115, ivbep_unc_cbo0, "Intel Ivy Bridge-EP C-Box 0 uncore"]
+	[116, ivbep_unc_cbo1, "Intel Ivy Bridge-EP C-Box 1 uncore"]
+	[117, ivbep_unc_cbo2, "Intel Ivy Bridge-EP C-Box 2 uncore"]
+	[118, ivbep_unc_cbo3, "Intel Ivy Bridge-EP C-Box 3 uncore"]
+	[119, ivbep_unc_cbo4, "Intel Ivy Bridge-EP C-Box 4 uncore"]
+	[120, ivbep_unc_cbo5, "Intel Ivy Bridge-EP C-Box 5 uncore"]
+	[121, ivbep_unc_cbo6, "Intel Ivy Bridge-EP C-Box 6 uncore"]
+	[122, ivbep_unc_cbo7, "Intel Ivy Bridge-EP C-Box 7 uncore"]
+	[123, ivbep_unc_cbo8, "Intel Ivy Bridge-EP C-Box 8 uncore"]
+	[124, ivbep_unc_cbo9, "Intel Ivy Bridge-EP C-Box 9 uncore"]
+	[125, ivbep_unc_cbo10, "Intel Ivy Bridge-EP C-Box 10 uncore"]
+	[126, ivbep_unc_cbo11, "Intel Ivy Bridge-EP C-Box 11 uncore"]
+	[127, ivbep_unc_cbo12, "Intel Ivy Bridge-EP C-Box 12 uncore"]
+	[128, ivbep_unc_cbo13, "Intel Ivy Bridge-EP C-Box 13 uncore"]
+	[129, ivbep_unc_cbo14, "Intel Ivy Bridge-EP C-Box 14 uncore"]
+	[130, ivbep_unc_ha0, "Intel Ivy Bridge-EP HA 0 uncore"]
+	[131, ivbep_unc_ha1, "Intel Ivy Bridge-EP HA 1 uncore"]
+	[132, ivbep_unc_imc0, "Intel Iyy Bridge-EP IMC0 uncore"]
+	[133, ivbep_unc_imc1, "Intel Iyy Bridge-EP IMC1 uncore"]
+	[134, ivbep_unc_imc2, "Intel Iyy Bridge-EP IMC2 uncore"]
+	[135, ivbep_unc_imc3, "Intel Iyy Bridge-EP IMC3 uncore"]
+	[136, ivbep_unc_imc4, "Intel Iyy Bridge-EP IMC4 uncore"]
+	[137, ivbep_unc_imc5, "Intel Iyy Bridge-EP IMC5 uncore"]
+	[138, ivbep_unc_imc6, "Intel Iyy Bridge-EP IMC6 uncore"]
+	[139, ivbep_unc_imc7, "Intel Iyy Bridge-EP IMC7 uncore"]
+	[140, ivbep_unc_pcu, "Intel Ivy Bridge-EP PCU uncore"]
+	[141, ivbep_unc_qpi0, "Intel Ivy Bridge-EP QPI0 uncore"]
+	[142, ivbep_unc_qpi1, "Intel Ivy Bridge-EP QPI1 uncore"]
+	[143, ivbep_unc_qpi2, "Intel Ivy Bridge-EP QPI2 uncore"]
+	[144, ivbep_unc_ubo, "Intel Ivy Bridge-EP U-Box uncore"]
+	[145, ivbep_unc_r2pcie, "Intel Ivy Bridge-EP R2PCIe uncore"]
+	[146, ivbep_unc_r3qpi0, "Intel Ivy Bridge-EP R3QPI0 uncore"]
+	[147, ivbep_unc_r3qpi1, "Intel Ivy Bridge-EP R3QPI1 uncore"]
+	[148, ivbep_unc_r3qpi2, "Intel Ivy Bridge-EP R3QPI2 uncore"]
+	[149, ivbep_unc_irp, "Intel Ivy Bridge-EP IRP uncore"]
+Detected PMU models:
+	[18, ix86arch, "Intel X86 architectural PMU", 7 events, 1 max encoding, 7 counters, core PMU]
+	[51, perf, "perf_events generic PMU", 80 events, 1 max encoding, 0 counters, OS generic PMU]
+	[104, hsw, "Intel Haswell", 65 events, 2 max encoding, 11 counters, core PMU]
+	[114, perf_raw, "perf_events raw PMU", 1 events, 1 max encoding, 0 counters, OS generic PMU]
+Total events: 4196 available, 153 supported
+#-----------------------------
+IDX	 : 37748736
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : UNHALTED_CORE_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : count core clock cycles whenever the clock signal on the specific core is running (not halted)
+Code     : 0x3c
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748737
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : INSTRUCTION_RETIRED
+Equiv	 : None
+Flags    : None
+Desc     : count the number of instructions at retirement. For instructions that consists of multiple micro-ops, this event counts the retirement of the last micro-op of the instruction
+Code     : 0xc0
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748738
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : UNHALTED_REFERENCE_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : count reference clock cycles while the clock signal on the specific core is running. The reference clock operates at a fixed frequency, irrespective of core frequency changes due to performance state transitions
+Code     : 0x13c
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748739
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : LLC_REFERENCES
+Equiv	 : None
+Flags    : None
+Desc     : count each request originating from the core to reference a cache line in the last level cache. The count may include speculation, but excludes cache line fills due to hardware prefetch
+Code     : 0x4f2e
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748740
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : LLC_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : count each cache miss condition for references to the last level cache. The event count may include speculation, but excludes cache line fills due to hardware prefetch
+Code     : 0x412e
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748741
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : BRANCH_INSTRUCTIONS_RETIRED
+Equiv	 : None
+Flags    : None
+Desc     : count branch instructions at retirement. Specifically, this event counts the retirement of the last micro-op of a branch instruction
+Code     : 0xc4
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 37748742
+PMU name : ix86arch (Intel X86 architectural PMU)
+Name     : MISPREDICTED_BRANCH_RETIRED
+Equiv	 : None
+Flags    : None
+Desc     : count mispredicted branch instructions at retirement. Specifically, this event counts at retirement of the last micro-op of a branch instruction in the architectural path of the execution and experienced misprediction in the branch prediction hardware
+Code     : 0xc5
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 106954752
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CPU_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_CPU_CYCLES
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954753
+PMU name : perf (perf_events generic PMU)
+Name     : CYCLES
+Equiv	 : PERF_COUNT_HW_CPU_CYCLES
+Flags    : None
+Desc     : PERF_COUNT_HW_CPU_CYCLES
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954754
+PMU name : perf (perf_events generic PMU)
+Name     : CPU-CYCLES
+Equiv	 : PERF_COUNT_HW_CPU_CYCLES
+Flags    : None
+Desc     : PERF_COUNT_HW_CPU_CYCLES
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954755
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_INSTRUCTIONS
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_INSTRUCTIONS
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954756
+PMU name : perf (perf_events generic PMU)
+Name     : INSTRUCTIONS
+Equiv	 : PERF_COUNT_HW_INSTRUCTIONS
+Flags    : None
+Desc     : PERF_COUNT_HW_INSTRUCTIONS
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954757
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_REFERENCES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_CACHE_REFERENCES
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954758
+PMU name : perf (perf_events generic PMU)
+Name     : CACHE-REFERENCES
+Equiv	 : PERF_COUNT_HW_CACHE_REFERENCES
+Flags    : None
+Desc     : PERF_COUNT_HW_CACHE_REFERENCES
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954759
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_CACHE_MISSES
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954760
+PMU name : perf (perf_events generic PMU)
+Name     : CACHE-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_MISSES
+Flags    : None
+Desc     : PERF_COUNT_HW_CACHE_MISSES
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954761
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954762
+PMU name : perf (perf_events generic PMU)
+Name     : BRANCH-INSTRUCTIONS
+Equiv	 : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Flags    : None
+Desc     : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954763
+PMU name : perf (perf_events generic PMU)
+Name     : BRANCHES
+Equiv	 : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Flags    : None
+Desc     : PERF_COUNT_HW_BRANCH_INSTRUCTIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954764
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_BRANCH_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_BRANCH_MISSES
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954765
+PMU name : perf (perf_events generic PMU)
+Name     : BRANCH-MISSES
+Equiv	 : PERF_COUNT_HW_BRANCH_MISSES
+Flags    : None
+Desc     : PERF_COUNT_HW_BRANCH_MISSES
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954766
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_BUS_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_BUS_CYCLES
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954767
+PMU name : perf (perf_events generic PMU)
+Name     : BUS-CYCLES
+Equiv	 : PERF_COUNT_HW_BUS_CYCLES
+Flags    : None
+Desc     : PERF_COUNT_HW_BUS_CYCLES
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954768
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Code     : 0x7
+#-----------------------------
+IDX	 : 106954769
+PMU name : perf (perf_events generic PMU)
+Name     : STALLED-CYCLES-FRONTEND
+Equiv	 : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Code     : 0x7
+#-----------------------------
+IDX	 : 106954770
+PMU name : perf (perf_events generic PMU)
+Name     : IDLE-CYCLES-FRONTEND
+Equiv	 : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_FRONTEND
+Code     : 0x7
+#-----------------------------
+IDX	 : 106954771
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Code     : 0x8
+#-----------------------------
+IDX	 : 106954772
+PMU name : perf (perf_events generic PMU)
+Name     : STALLED-CYCLES-BACKEND
+Equiv	 : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Code     : 0x8
+#-----------------------------
+IDX	 : 106954773
+PMU name : perf (perf_events generic PMU)
+Name     : IDLE-CYCLES-BACKEND
+Equiv	 : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Flags    : None
+Desc     : PERF_COUNT_HW_STALLED_CYCLES_BACKEND
+Code     : 0x8
+#-----------------------------
+IDX	 : 106954774
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_REF_CPU_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_HW_REF_CPU_CYCLES
+Code     : 0x9
+#-----------------------------
+IDX	 : 106954775
+PMU name : perf (perf_events generic PMU)
+Name     : REF-CYCLES
+Equiv	 : PERF_COUNT_HW_REF_CPU_CYCLES
+Flags    : None
+Desc     : PERF_COUNT_HW_REF_CPU_CYCLES
+Code     : 0x9
+#-----------------------------
+IDX	 : 106954776
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_CPU_CLOCK
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_CPU_CLOCK
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954777
+PMU name : perf (perf_events generic PMU)
+Name     : CPU-CLOCK
+Equiv	 : PERF_COUNT_SW_CPU_CLOCK
+Flags    : None
+Desc     : PERF_COUNT_SW_CPU_CLOCK
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954778
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_TASK_CLOCK
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_TASK_CLOCK
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954779
+PMU name : perf (perf_events generic PMU)
+Name     : TASK-CLOCK
+Equiv	 : PERF_COUNT_SW_TASK_CLOCK
+Flags    : None
+Desc     : PERF_COUNT_SW_TASK_CLOCK
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954780
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_PAGE_FAULTS
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954781
+PMU name : perf (perf_events generic PMU)
+Name     : PAGE-FAULTS
+Equiv	 : PERF_COUNT_SW_PAGE_FAULTS
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954782
+PMU name : perf (perf_events generic PMU)
+Name     : FAULTS
+Equiv	 : PERF_COUNT_SW_PAGE_FAULTS
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954783
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_CONTEXT_SWITCHES
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_CONTEXT_SWITCHES
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954784
+PMU name : perf (perf_events generic PMU)
+Name     : CONTEXT-SWITCHES
+Equiv	 : PERF_COUNT_SW_CONTEXT_SWITCHES
+Flags    : None
+Desc     : PERF_COUNT_SW_CONTEXT_SWITCHES
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954785
+PMU name : perf (perf_events generic PMU)
+Name     : CS
+Equiv	 : PERF_COUNT_SW_CONTEXT_SWITCHES
+Flags    : None
+Desc     : PERF_COUNT_SW_CONTEXT_SWITCHES
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954786
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_CPU_MIGRATIONS
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_CPU_MIGRATIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954787
+PMU name : perf (perf_events generic PMU)
+Name     : CPU-MIGRATIONS
+Equiv	 : PERF_COUNT_SW_CPU_MIGRATIONS
+Flags    : None
+Desc     : PERF_COUNT_SW_CPU_MIGRATIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954788
+PMU name : perf (perf_events generic PMU)
+Name     : MIGRATIONS
+Equiv	 : PERF_COUNT_SW_CPU_MIGRATIONS
+Flags    : None
+Desc     : PERF_COUNT_SW_CPU_MIGRATIONS
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954789
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_PAGE_FAULTS_MIN
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS_MIN
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954790
+PMU name : perf (perf_events generic PMU)
+Name     : MINOR-FAULTS
+Equiv	 : PERF_COUNT_SW_PAGE_FAULTS_MIN
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS_MIN
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954791
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_SW_PAGE_FAULTS_MAJ
+Equiv	 : None
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS_MAJ
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954792
+PMU name : perf (perf_events generic PMU)
+Name     : MAJOR-FAULTS
+Equiv	 : PERF_COUNT_SW_PAGE_FAULTS_MAJ
+Flags    : None
+Desc     : PERF_COUNT_SW_PAGE_FAULTS_MAJ
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954793
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_L1D
+Equiv	 : None
+Flags    : None
+Desc     : L1 data cache
+Code     : 0x0
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x100 : PMU : [WRITE] : None : write access
+Umask-02 : 0x200 : PMU : [PREFETCH] : None : prefetch access
+Umask-03 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-04 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954794
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:READ:ACCESS
+Flags    : None
+Desc     : L1 cache load accesses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954795
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:READ:MISS
+Flags    : None
+Desc     : L1 cache load misses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954796
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-STORES
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:WRITE:ACCESS
+Flags    : None
+Desc     : L1 cache store accesses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954797
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-STORE-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:WRITE:MISS
+Flags    : None
+Desc     : L1 cache store misses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954798
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-PREFETCHES
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:PREFETCH:ACCESS
+Flags    : None
+Desc     : L1 cache prefetch accesses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954799
+PMU name : perf (perf_events generic PMU)
+Name     : L1-DCACHE-PREFETCH-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_L1D:PREFETCH:MISS
+Flags    : None
+Desc     : L1 cache prefetch misses
+Code     : 0x0
+#-----------------------------
+IDX	 : 106954800
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_L1I
+Equiv	 : None
+Flags    : None
+Desc     : L1 instruction cache
+Code     : 0x1
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x200 : PMU : [PREFETCH] : None : prefetch access
+Umask-02 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-03 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954801
+PMU name : perf (perf_events generic PMU)
+Name     : L1-ICACHE-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_L1I:READ:ACCESS
+Flags    : None
+Desc     : L1I cache load accesses
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954802
+PMU name : perf (perf_events generic PMU)
+Name     : L1-ICACHE-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_L1I:READ:MISS
+Flags    : None
+Desc     : L1I cache load misses
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954803
+PMU name : perf (perf_events generic PMU)
+Name     : L1-ICACHE-PREFETCHES
+Equiv	 : PERF_COUNT_HW_CACHE_L1I:PREFETCH:ACCESS
+Flags    : None
+Desc     : L1I cache prefetch accesses
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954804
+PMU name : perf (perf_events generic PMU)
+Name     : L1-ICACHE-PREFETCH-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_L1I:PREFETCH:MISS
+Flags    : None
+Desc     : L1I cache prefetch misses
+Code     : 0x1
+#-----------------------------
+IDX	 : 106954805
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_LL
+Equiv	 : None
+Flags    : None
+Desc     : Last level cache
+Code     : 0x2
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x100 : PMU : [WRITE] : None : write access
+Umask-02 : 0x200 : PMU : [PREFETCH] : None : prefetch access
+Umask-03 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-04 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954806
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_LL:READ:ACCESS
+Flags    : None
+Desc     : Last level cache load accesses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954807
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_LL:READ:MISS
+Flags    : None
+Desc     : Last level cache load misses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954808
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-STORES
+Equiv	 : PERF_COUNT_HW_CACHE_LL:WRITE:ACCESS
+Flags    : None
+Desc     : Last level cache store accesses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954809
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-STORE-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_LL:WRITE:MISS
+Flags    : None
+Desc     : Last level cache store misses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954810
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-PREFETCHES
+Equiv	 : PERF_COUNT_HW_CACHE_LL:PREFETCH:ACCESS
+Flags    : None
+Desc     : Last level cache prefetch accesses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954811
+PMU name : perf (perf_events generic PMU)
+Name     : LLC-PREFETCH-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_LL:PREFETCH:MISS
+Flags    : None
+Desc     : Last level cache prefetch misses
+Code     : 0x2
+#-----------------------------
+IDX	 : 106954812
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_DTLB
+Equiv	 : None
+Flags    : None
+Desc     : Data Translation Lookaside Buffer
+Code     : 0x3
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x100 : PMU : [WRITE] : None : write access
+Umask-02 : 0x200 : PMU : [PREFETCH] : None : prefetch access
+Umask-03 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-04 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954813
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:READ:ACCESS
+Flags    : None
+Desc     : Data TLB load accesses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954814
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:READ:MISS
+Flags    : None
+Desc     : Data TLB load misses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954815
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-STORES
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:WRITE:ACCESS
+Flags    : None
+Desc     : Data TLB store accesses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954816
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-STORE-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:WRITE:MISS
+Flags    : None
+Desc     : Data TLB store misses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954817
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-PREFETCHES
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:PREFETCH:ACCESS
+Flags    : None
+Desc     : Data TLB prefetch accesses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954818
+PMU name : perf (perf_events generic PMU)
+Name     : DTLB-PREFETCH-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_DTLB:PREFETCH:MISS
+Flags    : None
+Desc     : Data TLB prefetch misses
+Code     : 0x3
+#-----------------------------
+IDX	 : 106954819
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_ITLB
+Equiv	 : None
+Flags    : None
+Desc     : Instruction Translation Lookaside Buffer
+Code     : 0x4
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-02 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954820
+PMU name : perf (perf_events generic PMU)
+Name     : ITLB-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_ITLB:READ:ACCESS
+Flags    : None
+Desc     : Instruction TLB load accesses
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954821
+PMU name : perf (perf_events generic PMU)
+Name     : ITLB-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_ITLB:READ:MISS
+Flags    : None
+Desc     : Instruction TLB load misses
+Code     : 0x4
+#-----------------------------
+IDX	 : 106954822
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_BPU
+Equiv	 : None
+Flags    : None
+Desc     : Branch Prediction Unit
+Code     : 0x5
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-02 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954823
+PMU name : perf (perf_events generic PMU)
+Name     : BRANCH-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_BPU:READ:ACCESS
+Flags    : None
+Desc     : Branch  load accesses
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954824
+PMU name : perf (perf_events generic PMU)
+Name     : BRANCH-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_BPU:READ:MISS
+Flags    : None
+Desc     : Branch  load misses
+Code     : 0x5
+#-----------------------------
+IDX	 : 106954825
+PMU name : perf (perf_events generic PMU)
+Name     : PERF_COUNT_HW_CACHE_NODE
+Equiv	 : None
+Flags    : None
+Desc     : Node memory access
+Code     : 0x6
+Umask-00 : 0x00 : PMU : [READ] : None : read access
+Umask-01 : 0x100 : PMU : [WRITE] : None : write access
+Umask-02 : 0x200 : PMU : [PREFETCH] : None : prefetch access
+Umask-03 : 0x00 : PMU : [ACCESS] : None : hit access
+Umask-04 : 0x10000 : PMU : [MISS] : None : miss access
+#-----------------------------
+IDX	 : 106954826
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-LOADS
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:READ:ACCESS
+Flags    : None
+Desc     : Node  load accesses
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954827
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-LOAD-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:READ:MISS
+Flags    : None
+Desc     : Node  load misses
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954828
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-STORES
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:WRITE:ACCESS
+Flags    : None
+Desc     : Node  store accesses
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954829
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-STORE-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:WRITE:MISS
+Flags    : None
+Desc     : Node  store misses
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954830
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-PREFETCHES
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:PREFETCH:ACCESS
+Flags    : None
+Desc     : Node  prefetch accesses
+Code     : 0x6
+#-----------------------------
+IDX	 : 106954831
+PMU name : perf (perf_events generic PMU)
+Name     : NODE-PREFETCH-MISSES
+Equiv	 : PERF_COUNT_HW_CACHE_NODE:PREFETCH:MISS
+Flags    : None
+Desc     : Node  prefetch misses
+Code     : 0x6
+#-----------------------------
+IDX	 : 218103808
+PMU name : hsw (Intel Haswell)
+Name     : UNHALTED_CORE_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : Count core clock cycles whenever the clock signal on the specific core is running (not halted)
+Code     : 0x3c
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103809
+PMU name : hsw (Intel Haswell)
+Name     : UNHALTED_REFERENCE_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : Unhalted reference cycles
+Code     : 0x300
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x05 : PMU : [t] : measure any thread (boolean)
+#-----------------------------
+IDX	 : 218103810
+PMU name : hsw (Intel Haswell)
+Name     : INSTRUCTION_RETIRED
+Equiv	 : None
+Flags    : None
+Desc     : Number of instructions at retirement
+Code     : 0xc0
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103811
+PMU name : hsw (Intel Haswell)
+Name     : INSTRUCTIONS_RETIRED
+Equiv	 : INSTRUCTION_RETIRED
+Flags    : None
+Desc     : This is an alias for INSTRUCTION_RETIRED
+Code     : 0xc0
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103812
+PMU name : hsw (Intel Haswell)
+Name     : BRANCH_INSTRUCTIONS_RETIRED
+Equiv	 : BR_INST_RETIRED:ALL_BRANCHES
+Flags    : None
+Desc     : Count branch instructions at retirement. Specifically, this event counts the retirement of the last micro-op of a branch instruction
+Code     : 0xc4
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103813
+PMU name : hsw (Intel Haswell)
+Name     : MISPREDICTED_BRANCH_RETIRED
+Equiv	 : BR_MISP_RETIRED:ALL_BRANCHES
+Flags    : None
+Desc     : Count mispredicted branch instructions at retirement. Specifically, this event counts at retirement of the last micro-op of a branch instruction in the architectural path of the execution and experienced misprediction in the branch prediction hardware
+Code     : 0xc5
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103814
+PMU name : hsw (Intel Haswell)
+Name     : BACLEARS
+Equiv	 : None
+Flags    : None
+Desc     : Branch re-steered
+Code     : 0xe6
+Umask-00 : 0x1f : PMU : [ANY] : [default] : Number of front-end re-steers due to BPU misprediction
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103815
+PMU name : hsw (Intel Haswell)
+Name     : BR_INST_EXEC
+Equiv	 : None
+Flags    : None
+Desc     : Branch instructions executed
+Code     : 0x88
+Umask-00 : 0x41 : PMU : [NONTAKEN_CONDITIONAL] : None : All macro conditional nontaken branch instructions
+Umask-01 : 0x81 : PMU : [TAKEN_CONDITIONAL] : None : Taken speculative and retired macro-conditional branches
+Umask-02 : 0x82 : PMU : [TAKEN_DIRECT_JUMP] : None : Taken speculative and retired macro-conditional branch instructions excluding calls and indirects
+Umask-03 : 0x84 : PMU : [TAKEN_INDIRECT_JUMP_NON_CALL_RET] : None : Taken speculative and retired indirect branches excluding calls and returns
+Umask-04 : 0x88 : PMU : [TAKEN_INDIRECT_NEAR_RETURN] : None : Taken speculative and retired indirect branches with return mnemonic
+Umask-05 : 0x90 : PMU : [TAKEN_DIRECT_NEAR_CALL] : None : Taken speculative and retired direct near calls
+Umask-06 : 0xc1 : PMU : [ALL_CONDITIONAL] : None : Speculative and retired macro-conditional branches
+Umask-07 : 0xc2 : PMU : [ALL_DIRECT_JMP] : None : Speculative and retired macro-unconditional branches excluding calls and indirects
+Umask-08 : 0xc4 : PMU : [ALL_INDIRECT_JUMP_NON_CALL_RET] : None : Speculative and retired indirect branches excluding calls and returns
+Umask-09 : 0xc8 : PMU : [ALL_INDIRECT_NEAR_RETURN] : None : Speculative and retired indirect return branches
+Umask-10 : 0xd0 : PMU : [ALL_DIRECT_NEAR_CALL] : None : Speculative and retired direct near calls
+Umask-11 : 0xa0 : PMU : [TAKEN_INDIRECT_NEAR_CALL] : None : All indirect calls, including both register and memory indirect
+Umask-12 : 0xff : PMU : [ALL_BRANCHES] : [default] : All branch instructions executed
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103816
+PMU name : hsw (Intel Haswell)
+Name     : BR_INST_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Branch instructions retired (Precise Event)
+Code     : 0xc4
+Umask-00 : 0x01 : PMU : [CONDITIONAL] : [precise] : Counts all taken and not taken macro conditional branch instructions
+Umask-01 : 0x02 : PMU : [NEAR_CALL] : [precise] : Counts all macro direct and indirect near calls
+Umask-02 : 0x00 : PMU : [ALL_BRANCHES] : [default] [precise] : Counts all taken and not taken macro branches including far branches (architectural event)
+Umask-03 : 0x08 : PMU : [NEAR_RETURN] : [precise] : Counts the number of near ret instructions retired
+Umask-04 : 0x10 : PMU : [NOT_TAKEN] : [precise] : Counts all not taken macro branch instructions retired
+Umask-05 : 0x20 : PMU : [NEAR_TAKEN] : [precise] : Counts the number of near branch taken instructions retired
+Umask-06 : 0x40 : PMU : [FAR_BRANCH] : [precise] : Counts the number of far branch instructions retired
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103817
+PMU name : hsw (Intel Haswell)
+Name     : BR_MISP_EXEC
+Equiv	 : None
+Flags    : None
+Desc     : Mispredicted branches executed
+Code     : 0x89
+Umask-00 : 0x41 : PMU : [NONTAKEN_CONDITIONAL] : None : Not taken speculative and retired mispredicted macro conditional branches
+Umask-01 : 0x81 : PMU : [TAKEN_CONDITIONAL] : None : Taken speculative and retired mispredicted macro conditional branches
+Umask-02 : 0x84 : PMU : [TAKEN_INDIRECT_JUMP_NON_CALL_RET] : None : Taken speculative and retired mispredicted indirect branches excluding calls and returns
+Umask-03 : 0x88 : PMU : [TAKEN_RETURN_NEAR] : None : Taken speculative and retired mispredicted indirect branches with return mnemonic
+Umask-04 : 0xc1 : PMU : [ALL_CONDITIONAL] : None : Speculative and retired mispredicted macro conditional branches
+Umask-05 : 0xc4 : PMU : [ALL_INDIRECT_JUMP_NON_CALL_RET] : None : All mispredicted indirect branches that are not calls nor returns
+Umask-06 : 0xff : PMU : [ALL_BRANCHES] : [default] : Speculative and retired mispredicted macro conditional branches
+Umask-07 : 0xa0 : PMU : [TAKEN_INDIRECT_NEAR_CALL] : None : Taken speculative and retired mispredicted indirect calls
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103818
+PMU name : hsw (Intel Haswell)
+Name     : BR_MISP_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Mispredicted retired branches (Precise Event)
+Code     : 0xc5
+Umask-00 : 0x01 : PMU : [CONDITIONAL] : [precise] : All mispredicted macro conditional branch instructions
+Umask-01 : 0x00 : PMU : [ALL_BRANCHES] : [default] [precise] : All mispredicted macro branches (architectural event)
+Umask-02 : 0x20 : PMU : [NEAR_TAKEN] : [precise] : number of near branch instructions retired that were mispredicted and taken
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103819
+PMU name : hsw (Intel Haswell)
+Name     : CPL_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : Unhalted core cycles at a specific ring level
+Code     : 0x5c
+Umask-00 : 0x01 : PMU : [RING0] : None : Unhalted core cycles when the thread is in ring 0
+Umask-01 : 0x02 : PMU : [RING123] : None : Unhalted core cycles when thread is in rings 1, 2, or 3
+Umask-02 : 0x10401 : PMU : [RING0_TRANS] : None : Number of intervals between processor halts while thread is in ring 0
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103820
+PMU name : hsw (Intel Haswell)
+Name     : CPU_CLK_THREAD_UNHALTED
+Equiv	 : None
+Flags    : None
+Desc     : Count core clock cycles whenever the clock signal on the specific core is running (not halted)
+Code     : 0x3c
+Umask-00 : 0x01 : PMU : [REF_XCLK] : None : Cases when the core is unhalted at 100Mhz
+Umask-01 : 0x00 : PMU : [THREAD_P] : [default] : Cycles when thread is not halted
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103821
+PMU name : hsw (Intel Haswell)
+Name     : CPU_CLK_UNHALTED
+Equiv	 : CPU_CLK_THREAD_UNHALTED
+Flags    : None
+Desc     : Count core clock cycles whenever the clock signal on the specific core is running (not halted)
+Code     : 0x3c
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103822
+PMU name : hsw (Intel Haswell)
+Name     : CYCLE_ACTIVITY
+Equiv	 : None
+Flags    : None
+Desc     : Stalled cycles
+Code     : 0xa3
+Umask-00 : 0x10001 : PMU : [CYCLES_L2_PENDING] : None : Cycles with pending L2 miss loads (must use with HT off only)
+Umask-01 : 0x20002 : PMU : [CYCLES_LDM_PENDING] : None : Cycles with pending memory loads
+Umask-02 : 0x80008 : PMU : [CYCLES_L1D_PENDING] : None : Cycles with pending L1D load cache misses
+Umask-03 : 0x50005 : PMU : [STALLS_L2_PENDING] : None : Execution stalls due to L2 pending loads (must use with HT off only)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-05 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-06 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103823
+PMU name : hsw (Intel Haswell)
+Name     : DTLB_LOAD_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : Data TLB load misses
+Code     : 0x8
+Umask-00 : 0x01 : PMU : [MISS_CAUSES_A_WALK] : None : Misses in all DTLB levels that cause page walks
+Umask-01 : 0x02 : PMU : [WALK_COMPLETED_4K] : None : Misses in all TLB levels causes a page walk that completes (4K)
+Umask-02 : 0x04 : PMU : [WALK_COMPLETED_2M_4M] : None : Misses in all TLB levels causes a page walk that completes (2M/4M)
+Umask-03 : 0x0e : PMU : [WALK_COMPLETED] : None : Misses in all TLB levels causes a page walk of any page size that completes
+Umask-04 : 0x10 : PMU : [WALK_DURATION] : None : Cycles when PMH is busy with page walks
+Umask-05 : 0x20 : PMU : [STLB_HIT_4K] : None : Misses that miss the DTLB and hit the STLB (4K)
+Umask-06 : 0x40 : PMU : [STLB_HIT_2M] : None : Misses that miss the DTLB and hit the STLB (2M)
+Umask-07 : 0x60 : PMU : [STLB_HIT] : None : Number of cache load STLB hits. No page walk
+Umask-08 : 0x80 : PMU : [PDE_CACHE_MISS] : None : DTLB misses with low part of linear-to-physical address translation missed
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103824
+PMU name : hsw (Intel Haswell)
+Name     : DTLB_STORE_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : Data TLB store misses
+Code     : 0x49
+Umask-00 : 0x01 : PMU : [MISS_CAUSES_A_WALK] : None : Misses in all DTLB levels that cause page walks
+Umask-01 : 0x02 : PMU : [WALK_COMPLETED_4K] : None : Misses in all TLB levels causes a page walk that completes (4K)
+Umask-02 : 0x04 : PMU : [WALK_COMPLETED_2M_4M] : None : Misses in all TLB levels causes a page walk that completes (2M/4M)
+Umask-03 : 0x0e : PMU : [WALK_COMPLETED] : None : Misses in all TLB levels causes a page walk of any page size that completes
+Umask-04 : 0x10 : PMU : [WALK_DURATION] : None : Cycles when PMH is busy with page walks
+Umask-05 : 0x20 : PMU : [STLB_HIT_4K] : None : Misses that miss the DTLB and hit the STLB (4K)
+Umask-06 : 0x40 : PMU : [STLB_HIT_2M] : None : Misses that miss the DTLB and hit the STLB (2M)
+Umask-07 : 0x60 : PMU : [STLB_HIT] : None : Number of cache load STLB hits. No page walk
+Umask-08 : 0x80 : PMU : [PDE_CACHE_MISS] : None : DTLB misses with low part of linear-to-physical address translation missed
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103825
+PMU name : hsw (Intel Haswell)
+Name     : FP_ASSIST
+Equiv	 : None
+Flags    : None
+Desc     : X87 floating-point assists
+Code     : 0xca
+Umask-00 : 0x02 : PMU : [X87_OUTPUT] : None : Number of X87 FP assists due to output values
+Umask-01 : 0x04 : PMU : [X87_INPUT] : None : Number of X87 FP assists due to input values
+Umask-02 : 0x08 : PMU : [SIMD_OUTPUT] : None : Number of SIMD FP assists due to output values
+Umask-03 : 0x10 : PMU : [SIMD_INPUT] : None : Number of SIMD FP assists due to input values
+Umask-04 : 0x1001e : PMU : [ANY] : None : Cycles with any input/output SEE or FP assists
+Umask-05 : 0x1001e : PMU : [ALL] : None : Alias to ANY
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103826
+PMU name : hsw (Intel Haswell)
+Name     : HLE_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : HLE execution (Precise Event)
+Code     : 0xc8
+Umask-00 : 0x01 : PMU : [START] : [default] : Number of times an HLE execution started
+Umask-01 : 0x02 : PMU : [COMMIT] : None : Number of times an HLE execution successfully committed
+Umask-02 : 0x04 : PMU : [ABORTED] : [precise] : Number of times an HLE execution aborted due to any reasons (multiple categories may count as one) (Precise Event)
+Umask-03 : 0x08 : PMU : [ABORTED_MISC1] : None : Number of times an HLE execution aborted due to various memory events
+Umask-04 : 0x10 : PMU : [ABORTED_MISC2] : None : Number of times an HLE execution aborted due to uncommon conditions
+Umask-05 : 0x20 : PMU : [ABORTED_MISC3] : None : Number of times an HLE execution aborted due to HLE-unfriendly instructions
+Umask-06 : 0x40 : PMU : [ABORTED_MISC4] : None : Number of times an HLE execution aborted due to incompatible memory type
+Umask-07 : 0x80 : PMU : [ABORTED_MISC5] : None : Number of times an HLE execution aborted due to none of the other 4 reasons (e.g., interrupt)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103827
+PMU name : hsw (Intel Haswell)
+Name     : ICACHE
+Equiv	 : None
+Flags    : None
+Desc     : Instruction Cache
+Code     : 0x80
+Umask-00 : 0x02 : PMU : [MISSES] : [default] : Number of Instruction Cache, Streaming Buffer and Victim Cache Misses. Includes Uncacheable accesses
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103828
+PMU name : hsw (Intel Haswell)
+Name     : IDQ
+Equiv	 : None
+Flags    : None
+Desc     : IDQ operations
+Code     : 0x79
+Umask-00 : 0x02 : PMU : [EMPTY] : None : Cycles the Instruction Decode Queue (IDQ) is empty
+Umask-01 : 0x04 : PMU : [MITE_UOPS] : None : Number of uops delivered to Instruction Decode Queue (IDQ) from MITE path
+Umask-02 : 0x08 : PMU : [DSB_UOPS] : None : Number of uops delivered to Instruction Decode Queue (IDQ) from Decode Stream Buffer (DSB) path
+Umask-03 : 0x10 : PMU : [MS_DSB_UOPS] : None : Uops initiated by Decode Stream Buffer (DSB) that are being delivered to Instruction Decode Queue (IDQ) while Microcode Sequenser (MS) is busy
+Umask-04 : 0x20 : PMU : [MS_MITE_UOPS] : None : Uops initiated by MITE and delivered to Instruction Decode Queue (IDQ) while Microcode Sequenser (MS) is busy
+Umask-05 : 0x30 : PMU : [MS_UOPS] : None : Number of Uops were delivered into Instruction Decode Queue (IDQ) from MS, initiated by Decode Stream Buffer (DSB) or MITE
+Umask-06 : 0x10030 : PMU : [MS_UOPS_CYCLES] : None : Alias to MS_UOPS:c=1
+Umask-07 : 0x10004 : PMU : [MITE_UOPS_CYCLES] : None : Alias to MITE_UOPS:c=1
+Umask-08 : 0x10008 : PMU : [DSB_UOPS_CYCLES] : None : Alias to DSB_UOPS:c=1
+Umask-09 : 0x10010 : PMU : [MS_DSB_UOPS_CYCLES] : None : Alias to MS_DSB_UOPS:c=1
+Umask-10 : 0x10410 : PMU : [MS_DSB_OCCUR] : None : Alias to MS_DSB_UOPS:c=1:e=1
+Umask-11 : 0x40018 : PMU : [ALL_DSB_CYCLES_4_UOPS] : None : Cycles Decode Stream Buffer (DSB) is delivering 4 Uops
+Umask-12 : 0x10018 : PMU : [ALL_DSB_CYCLES_ANY_UOPS] : None : Cycles Decode Stream Buffer (DSB) is delivering any Uop
+Umask-13 : 0x40024 : PMU : [ALL_MITE_CYCLES_4_UOPS] : None : Cycles MITE is delivering 4 Uops
+Umask-14 : 0x10024 : PMU : [ALL_MITE_CYCLES_ANY_UOPS] : None : Cycles MITE is delivering any Uop
+Umask-15 : 0x3c : PMU : [ALL_MITE_UOPS] : None : Number of uops delivered to Instruction Decode Queue (IDQ) from any path
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103829
+PMU name : hsw (Intel Haswell)
+Name     : IDQ_UOPS_NOT_DELIVERED
+Equiv	 : None
+Flags    : None
+Desc     : Uops not delivered
+Code     : 0x9c
+Umask-00 : 0x01 : PMU : [CORE] : [default] : Count number of non-delivered uops to Resource Allocation Table (RAT)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103830
+PMU name : hsw (Intel Haswell)
+Name     : INST_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Number of instructions retired (Precise Event)
+Code     : 0xc0
+Umask-00 : 0x00 : PMU : [ANY_P] : [default] : Number of instructions retired. General Counter - architectural event
+Umask-01 : 0x01 : PMU : [ALL] : [precise] : Precise instruction retired event with HW to reduce effect of PEBS shadow in IP distribution (Precise Event)
+Umask-02 : 0xa8001 : PMU : [TOTAL_CYCLES] : [precise] : Alias to ALL:i=1:c=10
+Umask-03 : 0x01 : PMU : [PREC_DIST] : [precise] : Alias to ALL
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103831
+PMU name : hsw (Intel Haswell)
+Name     : INT_MISC
+Equiv	 : None
+Flags    : None
+Desc     : Miscellaneous interruptions
+Code     : 0xd
+Umask-00 : 0x03 : PMU : [RECOVERY_CYCLES] : None : Number of cycles waiting for Machine Clears  except JEClear
+Umask-01 : 0x10403 : PMU : [RECOVERY_STALLS_COUNT] : None : Number of occurrences waiting for Machine Clears
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103832
+PMU name : hsw (Intel Haswell)
+Name     : ITLB
+Equiv	 : None
+Flags    : None
+Desc     : Instruction TLB
+Code     : 0xae
+Umask-00 : 0x01 : PMU : [ITLB_FLUSH] : [default] : Flushing of the Instruction TLB (ITLB) pages independent of page size
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103833
+PMU name : hsw (Intel Haswell)
+Name     : ITLB_MISSES
+Equiv	 : None
+Flags    : None
+Desc     : Instruction TLB misses
+Code     : 0x85
+Umask-00 : 0x01 : PMU : [MISS_CAUSES_A_WALK] : None : Misses in all DTLB levels that cause page walks
+Umask-01 : 0x02 : PMU : [WALK_COMPLETED_4K] : None : Misses in all TLB levels causes a page walk that completes (4K)
+Umask-02 : 0x04 : PMU : [WALK_COMPLETED_2M_4M] : None : Misses in all TLB levels causes a page walk that completes (2M/4M)
+Umask-03 : 0x0e : PMU : [WALK_COMPLETED] : None : Misses in all TLB levels causes a page walk of any page size that completes
+Umask-04 : 0x10 : PMU : [WALK_DURATION] : None : Cycles when PMH is busy with page walks
+Umask-05 : 0x20 : PMU : [STLB_HIT_4K] : None : Misses that miss the DTLB and hit the STLB (4K)
+Umask-06 : 0x40 : PMU : [STLB_HIT_2M] : None : Misses that miss the DTLB and hit the STLB (2M)
+Umask-07 : 0x60 : PMU : [STLB_HIT] : None : Number of cache load STLB hits. No page walk
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103834
+PMU name : hsw (Intel Haswell)
+Name     : L1D
+Equiv	 : None
+Flags    : None
+Desc     : L1D cache
+Code     : 0x51
+Umask-00 : 0x01 : PMU : [REPLACEMENT] : [default] : L1D Data line replacements
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103835
+PMU name : hsw (Intel Haswell)
+Name     : L1D_PEND_MISS
+Equiv	 : None
+Flags    : None
+Desc     : L1D pending misses
+Code     : 0x48
+Umask-00 : 0x01 : PMU : [PENDING] : [default] : Cycles with L1D load misses outstanding
+Umask-01 : 0x10001 : PMU : [PENDING_CYCLES] : None : Alias to PENDING:c=1
+Umask-02 : 0x10401 : PMU : [OCCURRENCES] : None : Alias to PENDING:c=1:e=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103836
+PMU name : hsw (Intel Haswell)
+Name     : L2_DEMAND_RQSTS
+Equiv	 : None
+Flags    : None
+Desc     : Demand Data Read requests to L2
+Code     : 0x27
+Umask-00 : 0x50 : PMU : [WB_HIT] : [default] : WB requests that hit L2 cache
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103837
+PMU name : hsw (Intel Haswell)
+Name     : L2_LINES_IN
+Equiv	 : None
+Flags    : None
+Desc     : L2 lines allocated
+Code     : 0xf1
+Umask-00 : 0x01 : PMU : [I] : None : L2 cache lines in I state filling L2
+Umask-01 : 0x02 : PMU : [S] : None : L2 cache lines in S state filling L2
+Umask-02 : 0x04 : PMU : [E] : None : L2 cache lines in E state filling L2
+Umask-03 : 0x07 : PMU : [ALL] : [default] : L2 cache lines filling L2
+Umask-04 : 0x07 : PMU : [ANY] : None : Alias to ALL
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103838
+PMU name : hsw (Intel Haswell)
+Name     : L2_LINES_OUT
+Equiv	 : None
+Flags    : None
+Desc     : L2 lines evicted
+Code     : 0xf2
+Umask-00 : 0x05 : PMU : [DEMAND_CLEAN] : None : Number of clean L2 cachelines evicted by demand
+Umask-01 : 0x06 : PMU : [DEMAND_DIRTY] : None : Number of dirty L2 cachelines evicted by demand
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103839
+PMU name : hsw (Intel Haswell)
+Name     : L2_RQSTS
+Equiv	 : None
+Flags    : None
+Desc     : L2 requests
+Code     : 0x24
+Umask-00 : 0x21 : PMU : [DEMAND_DATA_RD_MISS] : None : Demand Data Read requests that miss L2 cache
+Umask-01 : 0x41 : PMU : [DEMAND_DATA_RD_HIT] : None : Demand Data Read requests that hit L2 cache
+Umask-02 : 0x22 : PMU : [DEMAND_RFO_MISS] : None : RFO requests that miss L2 cache
+Umask-03 : 0x42 : PMU : [DEMAND_RFO_HIT] : None : RFO requests that hit L2 cache
+Umask-04 : 0x24 : PMU : [CODE_RD_MISS] : None : L2 cache misses when fetching instructions
+Umask-05 : 0x27 : PMU : [ALL_DEMAND_MISS] : None : All demand requests that miss the L2 cache
+Umask-06 : 0x44 : PMU : [CODE_RD_HIT] : None : L2 cache hits when fetching instructions, code reads
+Umask-07 : 0x30 : PMU : [L2_PF_MISS] : None : Requests from the L2 hardware prefetchers that miss L2 cache
+Umask-08 : 0x3f : PMU : [MISS] : None : All requests that miss the L2 cache
+Umask-09 : 0x50 : PMU : [L2_PF_HIT] : None : Requests from the L2 hardware prefetchers that hit L2 cache
+Umask-10 : 0xe1 : PMU : [ALL_DEMAND_DATA_RD] : None : Any data read request to L2 cache
+Umask-11 : 0xe2 : PMU : [ALL_RFO] : None : Any data RFO request to L2 cache
+Umask-12 : 0xe4 : PMU : [ALL_CODE_RD] : None : Any code read request to L2 cache
+Umask-13 : 0xe7 : PMU : [ALL_DEMAND_REFERENCES] : None : All demand requests to L2 cache 
+Umask-14 : 0xf8 : PMU : [ALL_PF] : None : Any L2 HW prefetch request to L2 cache
+Umask-15 : 0xff : PMU : [REFERENCES] : [default] : All requests to L2 cache
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103840
+PMU name : hsw (Intel Haswell)
+Name     : L2_TRANS
+Equiv	 : None
+Flags    : None
+Desc     : L2 transactions
+Code     : 0xf0
+Umask-00 : 0x01 : PMU : [DEMAND_DATA_RD] : None : Demand Data Read requests that access L2 cache
+Umask-01 : 0x02 : PMU : [RFO] : None : RFO requests that access L2 cache
+Umask-02 : 0x04 : PMU : [CODE_RD] : None : L2 cache accesses when fetching instructions
+Umask-03 : 0x08 : PMU : [ALL_PF] : None : L2 or L3 HW prefetches that access L2 cache, including rejects
+Umask-04 : 0x10 : PMU : [L1D_WB] : None : L1D writebacks that access L2 cache
+Umask-05 : 0x20 : PMU : [L2_FILL] : None : L2 fill requests that access L2 cache
+Umask-06 : 0x40 : PMU : [L2_WB] : None : L2 writebacks that access L2 cache
+Umask-07 : 0x80 : PMU : [ALL_REQUESTS] : [default] : Transactions accessing L2 pipe
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103841
+PMU name : hsw (Intel Haswell)
+Name     : LD_BLOCKS
+Equiv	 : None
+Flags    : None
+Desc     : Blocking loads
+Code     : 0x3
+Umask-00 : 0x02 : PMU : [STORE_FORWARD] : None : Counts the number of loads blocked by overlapping with store buffer entries that cannot be forwarded
+Umask-01 : 0x08 : PMU : [NO_SR] : None : number of times that split load operations are temporarily blocked because all resources for handling the split accesses are in use
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103842
+PMU name : hsw (Intel Haswell)
+Name     : LD_BLOCKS_PARTIAL
+Equiv	 : None
+Flags    : None
+Desc     : Partial load blocks
+Code     : 0x7
+Umask-00 : 0x01 : PMU : [ADDRESS_ALIAS] : [default] : False dependencies in MOB due to partial compare on address
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103843
+PMU name : hsw (Intel Haswell)
+Name     : LOAD_HIT_PRE
+Equiv	 : None
+Flags    : None
+Desc     : Load dispatches
+Code     : 0x4c
+Umask-00 : 0x01 : PMU : [SW_PF] : None : Non software-prefetch load dispatches that hit FB allocated for software prefetch
+Umask-01 : 0x02 : PMU : [HW_PF] : None : Non software-prefetch load dispatches that hit FB allocated for hardware prefetch
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103844
+PMU name : hsw (Intel Haswell)
+Name     : LOCK_CYCLES
+Equiv	 : None
+Flags    : None
+Desc     : Locked cycles in L1D and L2
+Code     : 0x63
+Umask-00 : 0x01 : PMU : [SPLIT_LOCK_UC_LOCK_DURATION] : None : Cycles in which the L1D and L2 are locked, due to a UC lock or split lock
+Umask-01 : 0x02 : PMU : [CACHE_LOCK_DURATION] : None : cycles that the L1D is locked
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103845
+PMU name : hsw (Intel Haswell)
+Name     : LONGEST_LAT_CACHE
+Equiv	 : None
+Flags    : None
+Desc     : L3 cache
+Code     : 0x2e
+Umask-00 : 0x41 : PMU : [MISS] : None : Core-originated cacheable demand requests missed LLC - architectural event
+Umask-01 : 0x4f : PMU : [REFERENCE] : None : Core-originated cacheable demand requests that refer to LLC - architectural event
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103846
+PMU name : hsw (Intel Haswell)
+Name     : MACHINE_CLEARS
+Equiv	 : None
+Flags    : None
+Desc     : Machine clear asserted
+Code     : 0xc3
+Umask-00 : 0x02 : PMU : [MEMORY_ORDERING] : None : Number of Memory Ordering Machine Clears detected
+Umask-01 : 0x04 : PMU : [SMC] : None : Number of Self-modifying code (SMC) Machine Clears detected
+Umask-02 : 0x20 : PMU : [MASKMOV] : None : This event counts the number of executed Intel AVX masked load operations that refer to an illegal address range with the mask bits set to 0
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103847
+PMU name : hsw (Intel Haswell)
+Name     : MEM_LOAD_UOPS_L3_HIT_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : L3 hit load uops retired (Precise Event)
+Code     : 0xd2
+Umask-00 : 0x01 : PMU : [XSNP_MISS] : [precise] : Retired load uops which data sources were L3 hit and cross-core snoop missed in on-pkg core cache
+Umask-01 : 0x02 : PMU : [XSNP_HIT] : [precise] : Retired load uops which data sources were L3 and cross-core snoop hits in on-pkg core cache
+Umask-02 : 0x04 : PMU : [XSNP_HITM] : [precise] : Load had HitM Response from a core on same socket (shared L3). (Non PEBS
+Umask-03 : 0x08 : PMU : [XSNP_NONE] : [precise] : Retired load uops which data sources were hits in L3 without snoops required
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103848
+PMU name : hsw (Intel Haswell)
+Name     : MEM_LOAD_UOPS_L3_MISS_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Load uops retired that missed the L3 (Precise Event)
+Code     : 0xd3
+Umask-00 : 0x01 : PMU : [LOCAL_DRAM] : [default] [precise] : Retired load uops missing L3 cache but hitting local memory
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103849
+PMU name : hsw (Intel Haswell)
+Name     : MEM_LOAD_UOPS_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Retired load uops (Precise Event)
+Code     : 0xd1
+Umask-00 : 0x01 : PMU : [L1_HIT] : [precise] : Retired load uops with L1 cache hits as data source
+Umask-01 : 0x02 : PMU : [L2_HIT] : [precise] : Retired load uops with L2 cache hits as data source
+Umask-02 : 0x04 : PMU : [L3_HIT] : [precise] : Retired load uops with L3 cache hits as data source
+Umask-03 : 0x08 : PMU : [L1_MISS] : [precise] : Retired load uops which missed the L1D
+Umask-04 : 0x10 : PMU : [L2_MISS] : [precise] : Retired load uops which missed the L2. Unknown data source excluded
+Umask-05 : 0x20 : PMU : [L3_MISS] : [precise] : Retired load uops which missed the L3
+Umask-06 : 0x40 : PMU : [HIT_LFB] : [precise] : Retired load uops which missed L1 but hit line fill buffer (LFB)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103850
+PMU name : hsw (Intel Haswell)
+Name     : MEM_TRANS_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Memory transactions retired (Precise Event)
+Code     : 0xcd
+Umask-00 : 0x01 : PMU : [LOAD_LATENCY] : [default] [precise] : Memory load instructions retired above programmed clocks, minimum threshold value is 3 (Precise Event and ldlat required)
+Umask-01 : 0x01 : PMU : [LATENCY_ABOVE_THRESHOLD] : [precise] : Alias to LOAD_LATENCY
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x06 : PMU : [ldlat] : load latency threshold (cycles, [3-65535]) (integer)
+Modif-07 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-08 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103851
+PMU name : hsw (Intel Haswell)
+Name     : MEM_UOPS_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Memory uops retired (Precise Event)
+Code     : 0xd0
+Umask-00 : 0x11 : PMU : [STLB_MISS_LOADS] : [precise] : Load uops with true STLB miss retired to architected path
+Umask-01 : 0x12 : PMU : [STLB_MISS_STORES] : [precise] : Store uops with true STLB miss retired to architected path
+Umask-02 : 0x21 : PMU : [LOCK_LOADS] : [precise] : Load uops with locked access retired
+Umask-03 : 0x22 : PMU : [LOCK_STORES] : [precise] : Store uops with locked access retired
+Umask-04 : 0x41 : PMU : [SPLIT_LOADS] : [precise] : Line-splitted load uops retired
+Umask-05 : 0x42 : PMU : [SPLIT_STORES] : [precise] : Line-splitted store uops retired
+Umask-06 : 0x81 : PMU : [ALL_LOADS] : [precise] : All load uops retired
+Umask-07 : 0x82 : PMU : [ALL_STORES] : [precise] : All store uops retired
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103852
+PMU name : hsw (Intel Haswell)
+Name     : MISALIGN_MEM_REF
+Equiv	 : None
+Flags    : None
+Desc     : Misaligned memory references
+Code     : 0x5
+Umask-00 : 0x01 : PMU : [LOADS] : None : Speculative cache-line split load uops dispatched to the L1D
+Umask-01 : 0x02 : PMU : [STORES] : None : Speculative cache-line split store-address uops dispatched to L1D
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103853
+PMU name : hsw (Intel Haswell)
+Name     : MOVE_ELIMINATION
+Equiv	 : None
+Flags    : None
+Desc     : Move Elimination
+Code     : 0x58
+Umask-00 : 0x01 : PMU : [INT_ELIMINATED] : None : Number of integer Move Elimination candidate uops that were eliminated
+Umask-01 : 0x02 : PMU : [SIMD_ELIMINATED] : None : Number of SIMD Move Elimination candidate uops that were eliminated
+Umask-02 : 0x04 : PMU : [INT_NOT_ELIMINATED] : None : Number of integer Move Elimination candidate uops that were not eliminated
+Umask-03 : 0x08 : PMU : [SIMD_NOT_ELIMINATED] : None : Number of SIMD Move Elimination candidate uops that were not eliminated
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103854
+PMU name : hsw (Intel Haswell)
+Name     : OFFCORE_REQUESTS
+Equiv	 : None
+Flags    : None
+Desc     : Demand Data Read requests sent to uncore
+Code     : 0xb0
+Umask-00 : 0x01 : PMU : [DEMAND_DATA_RD] : None : Demand data read requests sent to uncore (use with HT off only)
+Umask-01 : 0x02 : PMU : [DEMAND_CODE_RD] : None : Demand code read requests sent to uncore (use with HT off only)
+Umask-02 : 0x04 : PMU : [DEMAND_RFO] : None : Demand RFOs requests sent to uncore (use with HT off only)
+Umask-03 : 0x08 : PMU : [ALL_DATA_RD] : None : Data read requests sent to uncore (use with HT off only)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103855
+PMU name : hsw (Intel Haswell)
+Name     : OTHER_ASSISTS
+Equiv	 : None
+Flags    : None
+Desc     : Software assist
+Code     : 0xc1
+Umask-00 : 0x08 : PMU : [AVX_TO_SSE] : None : Number of transitions from AVX-256 to legacy SSE when penalty applicable
+Umask-01 : 0x10 : PMU : [SSE_TO_AVX] : None : Number of transitions from legacy SSE to AVX-256 when penalty applicable
+Umask-02 : 0x40 : PMU : [ANY_WB_ASSIST] : None : Number of times any microcode assist is invoked by HW upon uop writeback
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103856
+PMU name : hsw (Intel Haswell)
+Name     : RESOURCE_STALLS
+Equiv	 : None
+Flags    : None
+Desc     : Cycles Allocation is stalled due to Resource Related reason
+Code     : 0xa2
+Umask-00 : 0x01 : PMU : [ANY] : [default] : Cycles Allocation is stalled due to Resource Related reason
+Umask-01 : 0x01 : PMU : [ALL] : None : Alias to ANY
+Umask-02 : 0x04 : PMU : [RS] : None : Stall cycles caused by absence of eligible entries in Reservation Station (RS)
+Umask-03 : 0x08 : PMU : [SB] : None : Cycles Allocator is stalled due to Store Buffer full (not including draining from synch)
+Umask-04 : 0x10 : PMU : [ROB] : None : ROB full stall cycles
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103857
+PMU name : hsw (Intel Haswell)
+Name     : ROB_MISC_EVENTS
+Equiv	 : None
+Flags    : None
+Desc     : ROB miscellaneous events
+Code     : 0xcc
+Umask-00 : 0x20 : PMU : [LBR_INSERTS] : [default] : Count each time an new Last Branch Record (LBR) is inserted
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103858
+PMU name : hsw (Intel Haswell)
+Name     : RS_EVENTS
+Equiv	 : None
+Flags    : None
+Desc     : Reservation Station
+Code     : 0x5e
+Umask-00 : 0x01 : PMU : [EMPTY_CYCLES] : [default] : Cycles the Reservation Station (RS) is empty for this thread
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103859
+PMU name : hsw (Intel Haswell)
+Name     : RTM_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Restricted Transaction Memory execution (Precise Event)
+Code     : 0xc9
+Umask-00 : 0x01 : PMU : [START] : [default] : Number of times an RTM execution started
+Umask-01 : 0x02 : PMU : [COMMIT] : None : Number of times an RTM execution successfully committed
+Umask-02 : 0x04 : PMU : [ABORTED] : [precise] : Number of times an RTM execution aborted due to any reasons (multiple categories may count as one) (Precise Event)
+Umask-03 : 0x08 : PMU : [ABORTED_MISC1] : None : Number of times an RTM execution aborted due to various memory events
+Umask-04 : 0x10 : PMU : [ABORTED_MISC2] : None : Number of times an RTM execution aborted due to uncommon conditions
+Umask-05 : 0x20 : PMU : [ABORTED_MISC3] : None : Number of times an RTM execution aborted due to RTM-unfriendly instructions
+Umask-06 : 0x40 : PMU : [ABORTED_MISC4] : None : Number of times an RTM execution aborted due to incompatible memory type
+Umask-07 : 0x80 : PMU : [ABORTED_MISC5] : None : Number of times an RTM execution aborted due to none of the other 4 reasons (e.g., interrupt)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103860
+PMU name : hsw (Intel Haswell)
+Name     : TLB_FLUSH
+Equiv	 : None
+Flags    : None
+Desc     : TLB flushes
+Code     : 0xbd
+Umask-00 : 0x01 : PMU : [DTLB_THREAD] : None : Count number of DTLB flushes of thread-specific entries
+Umask-01 : 0x20 : PMU : [STLB_ANY] : None : Count number of any STLB flushes
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103861
+PMU name : hsw (Intel Haswell)
+Name     : UOPS_EXECUTED
+Equiv	 : None
+Flags    : None
+Desc     : Uops executed
+Code     : 0xb1
+Umask-00 : 0x02 : PMU : [CORE] : [default] : Number of uops executed from any thread
+Umask-01 : 0x18002 : PMU : [STALL_CYCLES] : None : Alias to CORE:c=1:i=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103862
+PMU name : hsw (Intel Haswell)
+Name     : LSD
+Equiv	 : None
+Flags    : None
+Desc     : Loop stream detector
+Code     : 0xa8
+Umask-00 : 0x01 : PMU : [UOPS] : [default] : Number of uops delivered by the Loop Stream Detector (LSD)
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103863
+PMU name : hsw (Intel Haswell)
+Name     : UOPS_EXECUTED_PORT
+Equiv	 : None
+Flags    : None
+Desc     : Uops dispatch to specific ports
+Code     : 0xa1
+Umask-00 : 0x01 : PMU : [PORT_0] : None : Cycles which a Uop is executed on port 0
+Umask-01 : 0x02 : PMU : [PORT_1] : None : Cycles which a Uop is executed on port 1
+Umask-02 : 0x04 : PMU : [PORT_2] : None : Cycles which a Uop is executed on port 2
+Umask-03 : 0x08 : PMU : [PORT_3] : None : Cycles which a Uop is executed on port 3
+Umask-04 : 0x10 : PMU : [PORT_4] : None : Cycles which a Uop is executed on port 4
+Umask-05 : 0x20 : PMU : [PORT_5] : None : Cycles which a Uop is executed on port 5
+Umask-06 : 0x40 : PMU : [PORT_6] : None : Cycles which a Uop is executed on port 6
+Umask-07 : 0x80 : PMU : [PORT_7] : None : Cycles which a Uop is executed on port 7
+Umask-08 : 0x2001 : PMU : [PORT_0_CORE] : None : Alias to PORT_0:t=1
+Umask-09 : 0x2002 : PMU : [PORT_1_CORE] : None : Alias to PORT_1:t=1
+Umask-10 : 0x2004 : PMU : [PORT_2_CORE] : None : Alias to PORT_2:t=1
+Umask-11 : 0x2008 : PMU : [PORT_3_CORE] : None : Alias to PORT_3:t=1
+Umask-12 : 0x2010 : PMU : [PORT_4_CORE] : None : Alias to PORT_4:t=1
+Umask-13 : 0x2020 : PMU : [PORT_5_CORE] : None : Alias to PORT_5:t=1
+Umask-14 : 0x2040 : PMU : [PORT_6_CORE] : None : Alias to PORT_6:t=1
+Umask-15 : 0x2080 : PMU : [PORT_7_CORE] : None : Alias to PORT_7:t=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103864
+PMU name : hsw (Intel Haswell)
+Name     : UOPS_ISSUED
+Equiv	 : None
+Flags    : None
+Desc     : Uops issued
+Code     : 0xe
+Umask-00 : 0x01 : PMU : [ANY] : [default] : Number of Uops issued by the Resource Allocation Table (RAT) to the Reservation Station (RS)
+Umask-01 : 0x01 : PMU : [ALL] : None : Alias to ANY
+Umask-02 : 0x10 : PMU : [FLAGS_MERGE] : None : Number of flags-merge uops being allocated. Such uops adds delay
+Umask-03 : 0x20 : PMU : [SLOW_LEA] : None : Number of slow LEA or similar uops allocated. Such uop has 3 sources regardless if result of LEA instruction or not
+Umask-04 : 0x40 : PMU : [SINGLE_MUL] : None : Number of Multiply packed/scalar single precision uops allocated
+Umask-05 : 0x18001 : PMU : [STALL_CYCLES] : None : Alias to ANY:c=1:i=1
+Umask-06 : 0x1a001 : PMU : [CORE_STALL_CYCLES] : None : Alias to ANY:c=1:i=1:t=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103865
+PMU name : hsw (Intel Haswell)
+Name     : UOPS_RETIRED
+Equiv	 : None
+Flags    : [precise] 
+Desc     : Uops retired (Precise Event)
+Code     : 0xc2
+Umask-00 : 0x01 : PMU : [ALL] : [default] [precise] : All uops that actually retired
+Umask-01 : 0x01 : PMU : [ANY] : [precise] : Alias to ALL
+Umask-02 : 0x02 : PMU : [RETIRE_SLOTS] : [precise] : number of retirement slots used non PEBS
+Umask-03 : 0x18001 : PMU : [STALL_CYCLES] : [precise] : Alias to ALL:i=1:c=1
+Umask-04 : 0xa8001 : PMU : [TOTAL_CYCLES] : [precise] : Alias to ALL:i=1:c=10
+Umask-05 : 0x18001 : PMU : [CORE_STALL_CYCLES] : [precise] : Alias to ALL:i=1:c=1:t=1
+Umask-06 : 0x18401 : PMU : [STALL_OCCURRENCES] : [precise] : Alias to ALL:c=1:i=1:e=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103866
+PMU name : hsw (Intel Haswell)
+Name     : TX_MEM
+Equiv	 : None
+Flags    : None
+Desc     : Transactional memory aborts
+Code     : 0x54
+Umask-00 : 0x01 : PMU : [ABORT_CONFLICT] : None : Number of times a transactional abort was signaled due to data conflict on a transactionally accessed address
+Umask-01 : 0x02 : PMU : [ABORT_CAPACITY] : None : Number of times a transactional abort was signaled due to data capacity limitation
+Umask-02 : 0x04 : PMU : [ABORT_HLE_STORE_TO_ELIDED_LOCK] : None : Number of times a HLE transactional execution aborted due to a non xrelease prefixed instruction writing to an elided lock in the elision buffer
+Umask-03 : 0x08 : PMU : [ABORT_HLE_ELISION_BUFFER_NOT_EMPTY] : None : Number of times a HLE transactional execution aborted due to NoAllocatedElisionBuffer being non-zero
+Umask-04 : 0x10 : PMU : [ABORT_HLE_ELISION_BUFFER_MISMATCH] : None : Number of times a HLE transaction execution aborted due to xrelease lock not satisfying the address and value requirements in the elision buffer
+Umask-05 : 0x20 : PMU : [ABORT_HLE_ELISION_BUFFER_UNSUPPORTED_ALIGNMENT] : None : Number of times a HLE transaction execution aborted due to an unsupported read alignment from the elision buffer
+Umask-06 : 0x40 : PMU : [ABORT_HLE_ELISION_BUFFER_FULL] : None : Number of times a HLE clock could not be elided due to ElisionBufferAvailable being zero
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103867
+PMU name : hsw (Intel Haswell)
+Name     : TX_EXEC
+Equiv	 : None
+Flags    : None
+Desc     : Transactional execution
+Code     : 0x5d
+Umask-00 : 0x01 : PMU : [MISC1] : None : Number of times a class of instructions that may cause a transactional abort was executed. Since this is the count of execution, it may not always cause a transactional abort
+Umask-01 : 0x02 : PMU : [MISC2] : None : Number of times a class of instructions that may cause a transactional abort was executed inside a transactional region
+Umask-02 : 0x04 : PMU : [MISC3] : None : Number of times an instruction execution caused the supported nest count to be exceeded
+Umask-03 : 0x08 : PMU : [MISC4] : None : Number of times an instruction with HLE xacquire prefix was executed inside a RTM transactional region
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103868
+PMU name : hsw (Intel Haswell)
+Name     : OFFCORE_REQUESTS_OUTSTANDING
+Equiv	 : None
+Flags    : None
+Desc     : Outstanding offcore requests
+Code     : 0x60
+Umask-00 : 0x10008 : PMU : [ALL_DATA_RD_CYCLES] : None : Alias to ALL_DATA_RD:c=1
+Umask-01 : 0x10002 : PMU : [DEMAND_CODE_RD_CYCLES] : None : Alias to DEMAND_CODE_RD:c=1
+Umask-02 : 0x10001 : PMU : [DEMAND_DATA_RD_CYCLES] : None : Alias to DEMAND_DATA_RD:c=1
+Umask-03 : 0x08 : PMU : [ALL_DATA_RD] : None : Cacheable data read transactions in the superQ every cycle (use with HT off only)
+Umask-04 : 0x02 : PMU : [DEMAND_CODE_RD] : None : Code read transactions in the superQ every cycle (use with HT off only)
+Umask-05 : 0x01 : PMU : [DEMAND_DATA_RD] : None : Demand data read transactions in the superQ every cycle (use with HT off only)
+Umask-06 : 0x04 : PMU : [DEMAND_RFO] : None : Outstanding RFO (store) transactions in the superQ every cycle (use with HT off only)
+Umask-07 : 0x10004 : PMU : [DEMAND_RFO_CYCLES] : None : Alias to DEMAND_RFO:c=1
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103869
+PMU name : hsw (Intel Haswell)
+Name     : ILD_STALL
+Equiv	 : None
+Flags    : None
+Desc     : Instruction Length Decoder stalls
+Code     : 0x87
+Umask-00 : 0x01 : PMU : [LCP] : None : Stall caused by changing prefix length of the instruction
+Umask-01 : 0x04 : PMU : [IQ_FULL] : None : Stall cycles due to IQ full
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103870
+PMU name : hsw (Intel Haswell)
+Name     : PAGE_WALKER_LOADS
+Equiv	 : None
+Flags    : None
+Desc     : Page walker loads
+Code     : 0xbc
+Umask-00 : 0x11 : PMU : [DTLB_L1] : None : Number of DTLB page walker loads that hit in the L1D and line fill buffer
+Umask-01 : 0x21 : PMU : [ITLB_L1] : None : Number of ITLB page walker loads that hit in the L1I and line fill buffer
+Umask-02 : 0x12 : PMU : [DTLB_L2] : None : Number of DTLB page walker loads that hit in the L2
+Umask-03 : 0x22 : PMU : [ITLB_L2] : None : Number of ITLB page walker loads that hit in the L2
+Umask-04 : 0x14 : PMU : [DTLB_L3] : None : Number of DTLB page walker loads that hit in the L3
+Umask-05 : 0x24 : PMU : [ITLB_L3] : None : Number of ITLB page walker loads that hit in the L3
+Umask-06 : 0x18 : PMU : [DTLB_MEMORY] : None : Number of DTLB page walker loads that hit memory
+Umask-07 : 0x28 : PMU : [ITLB_MEMORY] : None : Number of ITLB page walker loads that hit memory
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103871
+PMU name : hsw (Intel Haswell)
+Name     : OFFCORE_RESPONSE_0
+Equiv	 : None
+Flags    : None
+Desc     : Offcore response event (must provide at least one request type and either any_response or any combination of supplier + snoop)
+Code     : 0x1b7
+Umask-00 : 0x01 : PMU : [DMND_DATA_RD] : None : Request: number of demand and DCU prefetch data reads of full and partial cachelines as well as demand data page table entry cacheline reads. Does not count L2 data read prefetches or instruction fetches
+Umask-01 : 0x02 : PMU : [DMND_RFO] : None : Request: number of demand and DCU prefetch reads for ownership (RFO) requests generated by a write to data cacheline. Does not count L2 RFO prefetches
+Umask-02 : 0x04 : PMU : [DMND_IFETCH] : None : Request: number of demand and DCU prefetch instruction cacheline reads. Does not count L2 code read prefetches
+Umask-03 : 0x08 : PMU : [WB] : None : Request: number of writebacks (modified to exclusive) transactions
+Umask-04 : 0x10 : PMU : [PF_DATA_RD] : None : Request: number of data cacheline reads generated by L2 prefetchers
+Umask-05 : 0x20 : PMU : [PF_RFO] : None : Request: number of RFO requests generated by L2 prefetchers
+Umask-06 : 0x40 : PMU : [PF_IFETCH] : None : Request: number of code reads generated by L2 prefetchers
+Umask-07 : 0x80 : PMU : [PF_LLC_DATA_RD] : None : Request: number of L3 prefetcher requests to L2 for loads
+Umask-08 : 0x100 : PMU : [PF_LLC_RFO] : None : Request: number of RFO requests generated by L2 prefetcher
+Umask-09 : 0x200 : PMU : [PF_LLC_IFETCH] : None : Request: number of L2 prefetcher requests to L3 for instruction fetches
+Umask-10 : 0x400 : PMU : [BUS_LOCKS] : None : Request: number bus lock and split lock requests
+Umask-11 : 0x800 : PMU : [STRM_ST] : None : Request: number of streaming store requests
+Umask-12 : 0x8000 : PMU : [OTHER] : None : Request: counts one of the following transaction types, including L3 invalidate, I/O, full or partial writes, WC or non-temporal stores, CLFLUSH, Fences, lock, unlock, split lock
+Umask-13 : 0x241 : PMU : [ANY_IFETCH] : None : Alias to PF_IFETCH:DMND_IFETCH:PF_LLC_IFETCH
+Umask-14 : 0x8fff : PMU : [ANY_REQUEST] : [default] : Alias to DMND_DATA_RD:DMND_RFO:DMND_IFETCH:WB:PF_DATA_RD:PF_RFO:PF_IFETCH:PF_LLC_DATA_RD:PF_LLC_RFO:PF_LLC_IFETCH:BUS_LOCKS:STRM_ST:OTHER
+Umask-15 : 0x91 : PMU : [ANY_DATA] : None : Alias to DMND_DATA_RD:PF_DATA_RD:PF_LLC_DATA_RD
+Umask-16 : 0x103 : PMU : [ANY_RFO] : None : Alias to DMND_RFO:PF_RFO:PF_LLC_RFO
+Umask-17 : 0x10000 : PMU : [ANY_RESPONSE] : [default] : Response: count any response type
+Umask-18 : 0x20000 : PMU : [NO_SUPP] : None : Supplier: counts number of times supplier information is not available
+Umask-19 : 0x40000 : PMU : [LLC_HITM] : None : Supplier: counts L3 hits in M-state (initial lookup)
+Umask-20 : 0x80000 : PMU : [LLC_HITE] : None : Supplier: counts L3 hits in E-state
+Umask-21 : 0x100000 : PMU : [LLC_HITS] : None : Supplier: counts L3 hits in S-state
+Umask-22 : 0x200000 : PMU : [LLC_HITF] : None : Supplier: counts L3 hits in F-state
+Umask-23 : 0x400000 : PMU : [LLC_MISS_LOCAL] : None : Supplier: counts L3 misses to local DRAM
+Umask-24 : 0x3c0000 : PMU : [LLC_HITMESF] : None : Alias to LLC_HITM:LLC_HITE:LLC_HITS:LLC_HITF
+Umask-25 : 0x80000000 : PMU : [SNP_NONE] : None : Snoop: counts number of times no snoop-related information is available
+Umask-26 : 0x100000000 : PMU : [SNP_NOT_NEEDED] : None : Snoop: counts the number of times no snoop was needed to satisfy the request
+Umask-27 : 0x200000000 : PMU : [SNP_MISS] : None : Snoop: counts number of times a snoop was needed and it missed all snooped caches
+Umask-28 : 0x400000000 : PMU : [SNP_NO_FWD] : None : Snoop: counts number of times a snoop was needed and it hit in at leas one snooped cache
+Umask-29 : 0x800000000 : PMU : [SNP_FWD] : None : Snoop: counts number of times a snoop was needed and data was forwarded from a remote socket
+Umask-30 : 0x1000000000 : PMU : [HITM] : None : Snoop: counts number of times a snoop was needed and it hitM-ed in local or remote cache
+Umask-31 : 0x2000000000 : PMU : [NON_DRAM] : None : Snoop:  counts number of times target was a non-DRAM system address. This includes MMIO transactions
+Umask-32 : 0x3f80000000 : PMU : [SNP_ANY] : [default] : Alias to SNP_NONE:SNP_NOT_NEEDED:SNP_MISS:SNP_NO_FWD:SNP_FWD:HITM:NON_DRAM
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 218103872
+PMU name : hsw (Intel Haswell)
+Name     : OFFCORE_RESPONSE_1
+Equiv	 : None
+Flags    : None
+Desc     : Offcore response event (must provide at least one request type and either any_response or any combination of supplier + snoop)
+Code     : 0x1bb
+Umask-00 : 0x01 : PMU : [DMND_DATA_RD] : None : Request: number of demand and DCU prefetch data reads of full and partial cachelines as well as demand data page table entry cacheline reads. Does not count L2 data read prefetches or instruction fetches
+Umask-01 : 0x02 : PMU : [DMND_RFO] : None : Request: number of demand and DCU prefetch reads for ownership (RFO) requests generated by a write to data cacheline. Does not count L2 RFO prefetches
+Umask-02 : 0x04 : PMU : [DMND_IFETCH] : None : Request: number of demand and DCU prefetch instruction cacheline reads. Does not count L2 code read prefetches
+Umask-03 : 0x08 : PMU : [WB] : None : Request: number of writebacks (modified to exclusive) transactions
+Umask-04 : 0x10 : PMU : [PF_DATA_RD] : None : Request: number of data cacheline reads generated by L2 prefetchers
+Umask-05 : 0x20 : PMU : [PF_RFO] : None : Request: number of RFO requests generated by L2 prefetchers
+Umask-06 : 0x40 : PMU : [PF_IFETCH] : None : Request: number of code reads generated by L2 prefetchers
+Umask-07 : 0x80 : PMU : [PF_LLC_DATA_RD] : None : Request: number of L3 prefetcher requests to L2 for loads
+Umask-08 : 0x100 : PMU : [PF_LLC_RFO] : None : Request: number of RFO requests generated by L2 prefetcher
+Umask-09 : 0x200 : PMU : [PF_LLC_IFETCH] : None : Request: number of L2 prefetcher requests to L3 for instruction fetches
+Umask-10 : 0x400 : PMU : [BUS_LOCKS] : None : Request: number bus lock and split lock requests
+Umask-11 : 0x800 : PMU : [STRM_ST] : None : Request: number of streaming store requests
+Umask-12 : 0x8000 : PMU : [OTHER] : None : Request: counts one of the following transaction types, including L3 invalidate, I/O, full or partial writes, WC or non-temporal stores, CLFLUSH, Fences, lock, unlock, split lock
+Umask-13 : 0x241 : PMU : [ANY_IFETCH] : None : Alias to PF_IFETCH:DMND_IFETCH:PF_LLC_IFETCH
+Umask-14 : 0x8fff : PMU : [ANY_REQUEST] : [default] : Alias to DMND_DATA_RD:DMND_RFO:DMND_IFETCH:WB:PF_DATA_RD:PF_RFO:PF_IFETCH:PF_LLC_DATA_RD:PF_LLC_RFO:PF_LLC_IFETCH:BUS_LOCKS:STRM_ST:OTHER
+Umask-15 : 0x91 : PMU : [ANY_DATA] : None : Alias to DMND_DATA_RD:PF_DATA_RD:PF_LLC_DATA_RD
+Umask-16 : 0x103 : PMU : [ANY_RFO] : None : Alias to DMND_RFO:PF_RFO:PF_LLC_RFO
+Umask-17 : 0x10000 : PMU : [ANY_RESPONSE] : [default] : Response: count any response type
+Umask-18 : 0x20000 : PMU : [NO_SUPP] : None : Supplier: counts number of times supplier information is not available
+Umask-19 : 0x40000 : PMU : [LLC_HITM] : None : Supplier: counts L3 hits in M-state (initial lookup)
+Umask-20 : 0x80000 : PMU : [LLC_HITE] : None : Supplier: counts L3 hits in E-state
+Umask-21 : 0x100000 : PMU : [LLC_HITS] : None : Supplier: counts L3 hits in S-state
+Umask-22 : 0x200000 : PMU : [LLC_HITF] : None : Supplier: counts L3 hits in F-state
+Umask-23 : 0x400000 : PMU : [LLC_MISS_LOCAL] : None : Supplier: counts L3 misses to local DRAM
+Umask-24 : 0x3c0000 : PMU : [LLC_HITMESF] : None : Alias to LLC_HITM:LLC_HITE:LLC_HITS:LLC_HITF
+Umask-25 : 0x80000000 : PMU : [SNP_NONE] : None : Snoop: counts number of times no snoop-related information is available
+Umask-26 : 0x100000000 : PMU : [SNP_NOT_NEEDED] : None : Snoop: counts the number of times no snoop was needed to satisfy the request
+Umask-27 : 0x200000000 : PMU : [SNP_MISS] : None : Snoop: counts number of times a snoop was needed and it missed all snooped caches
+Umask-28 : 0x400000000 : PMU : [SNP_NO_FWD] : None : Snoop: counts number of times a snoop was needed and it hit in at leas one snooped cache
+Umask-29 : 0x800000000 : PMU : [SNP_FWD] : None : Snoop: counts number of times a snoop was needed and data was forwarded from a remote socket
+Umask-30 : 0x1000000000 : PMU : [HITM] : None : Snoop: counts number of times a snoop was needed and it hitM-ed in local or remote cache
+Umask-31 : 0x2000000000 : PMU : [NON_DRAM] : None : Snoop:  counts number of times target was a non-DRAM system address. This includes MMIO transactions
+Umask-32 : 0x3f80000000 : PMU : [SNP_ANY] : [default] : Alias to SNP_NONE:SNP_NOT_NEEDED:SNP_MISS:SNP_NO_FWD:SNP_FWD:HITM:NON_DRAM
+Modif-00 : 0x00 : PMU : [k] : monitor at priv level 0 (boolean)
+Modif-01 : 0x01 : PMU : [u] : monitor at priv level 1, 2, 3 (boolean)
+Modif-02 : 0x02 : PMU : [e] : edge level (may require counter-mask >= 1) (boolean)
+Modif-03 : 0x03 : PMU : [i] : invert (boolean)
+Modif-04 : 0x04 : PMU : [c] : counter-mask in range [0-255] (integer)
+Modif-05 : 0x05 : PMU : [t] : measure any thread (boolean)
+Modif-06 : 0x07 : PMU : [intx] : monitor only inside transactional memory region (boolean)
+Modif-07 : 0x08 : PMU : [intxcp] : do not count occurrences inside aborted transactional memory region (boolean)
+#-----------------------------
+IDX	 : 239075328
+PMU name : perf_raw (perf_events raw PMU)
+Name     : r0000
+Equiv	 : None
+Flags    : None
+Desc     : perf_events raw event syntax: r[0-9a-fA-F]+
+Code     : 0x0

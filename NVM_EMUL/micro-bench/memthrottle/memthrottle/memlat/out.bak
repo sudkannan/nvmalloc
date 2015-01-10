@@ -1,0 +1,1040 @@
+warning:  N == 700000 seems small!
+element size = 64 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       237,282,880      r55305a3                                                    
+         1,955,156      r5302d4                                                     
+           584,996      r5304d1                                                     
+
+       0.212628890 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 128 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       296,106,769      r55305a3                                                    
+         3,833,235      r5302d4                                                     
+           185,418      r5304d1                                                     
+
+       0.272387412 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 192 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       341,627,651      r55305a3                                                    
+         3,764,443      r5302d4                                                     
+           142,539      r5304d1                                                     
+
+       0.322037192 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 256 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       406,150,659      r55305a3                                                    
+         4,485,937      r5302d4                                                     
+            84,129      r5304d1                                                     
+
+       0.353921448 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 320 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       380,881,005      r55305a3                                                    
+         4,485,047      r5302d4                                                     
+           150,738      r5304d1                                                     
+
+       0.398741982 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 384 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       463,723,311      r55305a3                                                    
+         4,964,523      r5302d4                                                     
+           118,715      r5304d1                                                     
+
+       0.454982554 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 448 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       548,209,320      r55305a3                                                    
+         5,212,166      r5302d4                                                     
+           180,841      r5304d1                                                     
+
+       0.510735824 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 512 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       608,104,021      r55305a3                                                    
+         5,529,911      r5302d4                                                     
+            90,036      r5304d1                                                     
+
+       0.560383155 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 576 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       627,064,149      r55305a3                                                    
+         5,644,594      r5302d4                                                     
+           197,568      r5304d1                                                     
+
+       0.592333335 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 640 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       491,428,976      r55305a3                                                    
+         8,633,372      r5302d4                                                     
+           153,332      r5304d1                                                     
+
+       0.579904047 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 704 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       539,319,457      r55305a3                                                    
+         8,618,087      r5302d4                                                     
+           218,667      r5304d1                                                     
+
+       0.621401883 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 768 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       561,874,365      r55305a3                                                    
+         9,861,784      r5302d4                                                     
+           147,043      r5304d1                                                     
+
+       0.667723621 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 832 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       629,574,426      r55305a3                                                    
+        10,342,051      r5302d4                                                     
+           235,238      r5304d1                                                     
+
+       0.711370541 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 896 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       636,431,540      r55305a3                                                    
+        10,855,226      r5302d4                                                     
+           104,896      r5304d1                                                     
+
+       0.740144229 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 960 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       656,984,817      r55305a3                                                    
+        11,605,517      r5302d4                                                     
+           252,199      r5304d1                                                     
+
+       0.776989208 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1024 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       679,609,688      r55305a3                                                    
+        12,712,667      r5302d4                                                     
+           152,089      r5304d1                                                     
+
+       0.799026665 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1088 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       692,343,803      r55305a3                                                    
+        12,879,732      r5302d4                                                     
+           269,859      r5304d1                                                     
+
+       0.833611829 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1152 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       706,722,216      r55305a3                                                    
+        13,422,711      r5302d4                                                     
+           223,163      r5304d1                                                     
+
+       0.879058658 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1216 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       742,846,402      r55305a3                                                    
+        14,106,509      r5302d4                                                     
+           319,406      r5304d1                                                     
+
+       0.917294022 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1280 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       751,074,484      r55305a3                                                    
+        14,406,604      r5302d4                                                     
+           132,978      r5304d1                                                     
+
+       0.926256878 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1344 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       822,212,398      r55305a3                                                    
+        15,061,744      r5302d4                                                     
+           278,225      r5304d1                                                     
+
+       0.963558823 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1408 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       814,102,375      r55305a3                                                    
+        15,736,667      r5302d4                                                     
+           624,919      r5304d1                                                     
+
+       1.010395516 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1472 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       811,028,801      r55305a3                                                    
+        16,042,979      r5302d4                                                     
+           744,080      r5304d1                                                     
+
+       1.033240317 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1536 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       800,581,719      r55305a3                                                    
+        16,420,135      r5302d4                                                     
+         1,197,646      r5304d1                                                     
+
+       1.067359461 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1600 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       840,093,042      r55305a3                                                    
+        16,299,228      r5302d4                                                     
+         1,498,966      r5304d1                                                     
+
+       1.130706869 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1664 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       846,579,215      r55305a3                                                    
+        16,046,490      r5302d4                                                     
+         1,735,196      r5304d1                                                     
+
+       1.157616564 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1728 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       877,735,341      r55305a3                                                    
+        16,764,291      r5302d4                                                     
+         1,983,198      r5304d1                                                     
+
+       1.164240665 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1792 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       837,295,663      r55305a3                                                    
+        15,763,947      r5302d4                                                     
+         2,337,712      r5304d1                                                     
+
+       1.226162324 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1856 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       864,937,460      r55305a3                                                    
+        16,435,637      r5302d4                                                     
+         2,890,097      r5304d1                                                     
+
+       1.248234171 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1920 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       853,530,285      r55305a3                                                    
+        16,478,403      r5302d4                                                     
+         3,107,112      r5304d1                                                     
+
+       1.272062563 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 1984 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       917,985,288      r55305a3                                                    
+        16,996,795      r5302d4                                                     
+         3,445,460      r5304d1                                                     
+
+       1.262952206 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2048 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       890,460,141      r55305a3                                                    
+        12,347,739      r5302d4                                                     
+         2,763,384      r5304d1                                                     
+
+       1.108343862 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2112 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       926,836,302      r55305a3                                                    
+        17,681,248      r5302d4                                                     
+         3,963,381      r5304d1                                                     
+
+       1.332202131 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2176 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       957,225,939      r55305a3                                                    
+        17,954,828      r5302d4                                                     
+         4,161,595      r5304d1                                                     
+
+       1.344882987 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2240 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,034,264,923      r55305a3                                                    
+        15,358,086      r5302d4                                                     
+         4,451,982      r5304d1                                                     
+
+       1.552777357 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2304 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       983,656,695      r55305a3                                                    
+        18,541,390      r5302d4                                                     
+         4,909,788      r5304d1                                                     
+
+       1.399328394 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2368 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,005,921,848      r55305a3                                                    
+        18,203,372      r5302d4                                                     
+         5,378,297      r5304d1                                                     
+
+       1.440850103 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2432 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,007,042,013      r55305a3                                                    
+        18,669,994      r5302d4                                                     
+         5,396,774      r5304d1                                                     
+
+       1.451535828 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2496 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,014,512,768      r55305a3                                                    
+        18,303,707      r5302d4                                                     
+         6,211,795      r5304d1                                                     
+
+       1.539582459 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2560 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+       993,915,196      r55305a3                                                    
+        19,299,171      r5302d4                                                     
+         6,466,208      r5304d1                                                     
+
+       1.516050674 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2624 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,046,937,482      r55305a3                                                    
+        19,269,100      r5302d4                                                     
+         6,176,501      r5304d1                                                     
+
+       1.550240366 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2688 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,066,089,688      r55305a3                                                    
+        19,259,710      r5302d4                                                     
+         6,655,047      r5304d1                                                     
+
+       1.582834937 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2752 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,050,856,593      r55305a3                                                    
+        19,768,057      r5302d4                                                     
+         6,433,257      r5304d1                                                     
+
+       1.589628931 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2816 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,078,230,584      r55305a3                                                    
+        21,383,532      r5302d4                                                     
+         5,631,678      r5304d1                                                     
+
+       1.615680471 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2880 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,072,847,176      r55305a3                                                    
+        20,786,527      r5302d4                                                     
+         6,626,419      r5304d1                                                     
+
+       1.644681127 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 2944 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,065,546,411      r55305a3                                                    
+        22,202,396      r5302d4                                                     
+         5,351,390      r5304d1                                                     
+
+       1.656431999 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3008 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,092,159,736      r55305a3                                                    
+        23,060,228      r5302d4                                                     
+         5,969,625      r5304d1                                                     
+
+       1.687701178 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3072 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,041,202,275      r55305a3                                                    
+        23,820,241      r5302d4                                                     
+         6,616,622      r5304d1                                                     
+
+       1.694452567 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3136 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,117,697,100      r55305a3                                                    
+        23,603,499      r5302d4                                                     
+         6,635,187      r5304d1                                                     
+
+       1.750388694 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3200 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,122,987,531      r55305a3                                                    
+        23,938,771      r5302d4                                                     
+         6,695,508      r5304d1                                                     
+
+       1.777875054 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3264 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,144,613,245      r55305a3                                                    
+        24,116,342      r5302d4                                                     
+         6,463,086      r5304d1                                                     
+
+       1.807089882 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3328 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,162,786,612      r55305a3                                                    
+        24,447,224      r5302d4                                                     
+         6,948,707      r5304d1                                                     
+
+       1.844350865 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3392 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,130,209,632      r55305a3                                                    
+        24,836,867      r5302d4                                                     
+         7,255,252      r5304d1                                                     
+
+       1.957313813 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3456 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,174,611,539      r55305a3                                                    
+        25,287,943      r5302d4                                                     
+         7,146,740      r5304d1                                                     
+
+       1.889824990 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3520 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,180,644,403      r55305a3                                                    
+        25,501,591      r5302d4                                                     
+         7,310,273      r5304d1                                                     
+
+       1.920609487 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3584 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,134,618,186      r55305a3                                                    
+        25,404,098      r5302d4                                                     
+         7,184,025      r5304d1                                                     
+
+       1.927932544 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3648 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,199,986,563      r55305a3                                                    
+        26,055,677      r5302d4                                                     
+         7,855,815      r5304d1                                                     
+
+       1.971269128 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3712 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,180,497,723      r55305a3                                                    
+        26,612,975      r5302d4                                                     
+         7,858,039      r5304d1                                                     
+
+       1.999586050 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3776 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,222,372,047      r55305a3                                                    
+        26,983,195      r5302d4                                                     
+         8,324,448      r5304d1                                                     
+
+       2.027396265 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3840 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,216,655,994      r55305a3                                                    
+        26,918,541      r5302d4                                                     
+         8,318,027      r5304d1                                                     
+
+       2.048829742 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3904 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,235,926,008      r55305a3                                                    
+        27,391,240      r5302d4                                                     
+         8,156,705      r5304d1                                                     
+
+       2.081117652 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 3968 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,223,634,851      r55305a3                                                    
+        27,929,985      r5302d4                                                     
+         8,646,493      r5304d1                                                     
+
+       2.115640246 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4032 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,144,618,774      r55305a3                                                    
+        28,505,133      r5302d4                                                     
+         9,179,315      r5304d1                                                     
+
+       2.338087412 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4096 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,044,787,768      r55305a3                                                    
+        25,449,173      r5302d4                                                     
+        17,552,083      r5304d1                                                     
+
+       2.153968797 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4160 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,206,795,782      r55305a3                                                    
+        28,580,259      r5302d4                                                     
+         9,081,661      r5304d1                                                     
+
+       2.248461335 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4224 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,246,579,817      r55305a3                                                    
+        29,353,434      r5302d4                                                     
+         8,944,561      r5304d1                                                     
+
+       2.197051928 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4288 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,293,975,660      r55305a3                                                    
+        28,953,857      r5302d4                                                     
+         8,676,185      r5304d1                                                     
+
+       2.197606513 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4352 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,268,133,116      r55305a3                                                    
+        29,312,310      r5302d4                                                     
+         9,093,608      r5304d1                                                     
+
+       2.198501765 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4416 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,292,758,892      r55305a3                                                    
+        29,489,613      r5302d4                                                     
+         8,928,379      r5304d1                                                     
+
+       2.198963477 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4480 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,284,100,610      r55305a3                                                    
+        29,193,064      r5302d4                                                     
+         8,948,825      r5304d1                                                     
+
+       2.215166632 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4544 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,326,012,414      r55305a3                                                    
+        30,076,181      r5302d4                                                     
+         9,212,535      r5304d1                                                     
+
+       2.222125134 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4608 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,216,616,394      r55305a3                                                    
+        28,831,602      r5302d4                                                     
+         8,843,665      r5304d1                                                     
+
+       2.331395894 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4672 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,352,027,940      r55305a3                                                    
+        29,309,725      r5302d4                                                     
+         8,739,375      r5304d1                                                     
+
+       2.260432957 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4736 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,327,195,740      r55305a3                                                    
+        28,816,045      r5302d4                                                     
+         8,501,274      r5304d1                                                     
+
+       2.244543942 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4800 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,321,898,616      r55305a3                                                    
+        29,224,965      r5302d4                                                     
+         8,609,841      r5304d1                                                     
+
+       2.296368940 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4864 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,329,811,096      r55305a3                                                    
+        31,197,443      r5302d4                                                     
+         9,888,111      r5304d1                                                     
+
+       2.278655433 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4928 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,353,371,452      r55305a3                                                    
+        28,859,653      r5302d4                                                     
+         8,556,192      r5304d1                                                     
+
+       2.286844028 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 4992 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,339,255,421      r55305a3                                                    
+        30,470,799      r5302d4                                                     
+         9,272,953      r5304d1                                                     
+
+       2.274233092 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 5056 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,357,257,239      r55305a3                                                    
+        28,801,376      r5302d4                                                     
+         8,408,544      r5304d1                                                     
+
+       2.301389808 seconds time elapsed
+
+warning:  N == 700000 seems small!
+element size = 5120 bytes
+Setup chasing pointers...
+trash the CPU cache...
+
+ Performance counter stats for './memlat 3242354 700000 0 0':
+
+     1,273,427,421      r55305a3                                                    
+        27,805,108      r5302d4                                                     
+         7,622,210      r5304d1                                                     
+
+       2.288379321 seconds time elapsed
+

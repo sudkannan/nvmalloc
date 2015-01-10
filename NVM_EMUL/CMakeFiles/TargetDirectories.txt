@@ -1,0 +1,7 @@
+/home/sudarsun/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir
+/home/sudarsun/NVM_EMUL/src/dev/CMakeFiles/dev_build.dir
+/home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0/CMakeFiles/gtest.dir
+/home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0/CMakeFiles/gtest_main.dir
+/home/sudarsun/NVM_EMUL/src/lib/CMakeFiles/nvmemul.dir
+/home/sudarsun/NVM_EMUL/test/CMakeFiles/test_dev.dir
+/home/sudarsun/NVM_EMUL/test/CMakeFiles/test_interpose.dir

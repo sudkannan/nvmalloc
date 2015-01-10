@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/limkev/balance/tools/memthrottle/memthrottle/main.cc
+stdlib.h
+-
+pthread.h
+-
+iostream
+-
+model.h
+/home/limkev/balance/tools/memthrottle/memthrottle/model.h
+
+/home/limkev/balance/tools/memthrottle/memthrottle/memcpy.cc
+stdint.h
+-
+sys/types.h
+-
+
+/home/limkev/balance/tools/memthrottle/memthrottle/model.cc
+model.h
+/home/limkev/balance/tools/memthrottle/memthrottle/model.h
+stdlib.h
+-
+string.h
+-
+
+/home/limkev/balance/tools/memthrottle/memthrottle/model.h
+sys/types.h
+-
+

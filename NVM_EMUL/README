@@ -1,0 +1,3 @@
+Third-party dependencies
+- cmake 2.8
+- libconfig and libconfig-devel

@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/test_interpose.dir/test_interpose.cc.o  -o test_interpose -rdynamic -lpthread ../third_party/gtest-1.7.0/libgtest.a -lpthread 
