@@ -23,3 +23,8 @@ build_userapp:
 	 gcc -Wall -fPIC -c rdpmc.c
 	 gcc -shared -Wl,-soname,librdpmc.so -o librdpmc.so   rdpmc.o
 clean_userapp:
+
+install:
+	cp  librdpmc.so /usr/lib/
+	cp  librdpmc.so /usr/lib64/
+

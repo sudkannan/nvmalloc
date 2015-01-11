@@ -73,17 +73,14 @@ void delay_handler (int signum)
 	//stop2 = rdpmc(2);
 	//stop3 = rdpmc(0x3);
 
-	//printf("stop0-start0: %llu\n stop1: %llu\tstop2: %llu\tstop3: %llu\n", 
+	//fprintf(stderr,"stop0-start0: %llu\n stop1: %llu\tstop2: %llu\tstop3: %llu\n", 
 	//	stop0-start0, stop1, stop2, stop3); 
-
 	
-	double l2_pending = stop0-start0;
+	//double l2_pending = stop0-start0;
 	double LLC_Miss = stop1-start1;
-	double LLC_Hit = stop2-start2;
-	double ldm_stall_double = l2_pending*((7*LLC_Miss)/(7*LLC_Miss+LLC_Hit));  
-	long long ldm_stall = (long long) ldm_stall_double;  //l2_pending;
-
-
+	//double LLC_Hit = stop2-start2;
+	//double ldm_stall_double = l2_pending*((7*LLC_Miss)/(7*LLC_Miss+LLC_Hit));  
+	//long long ldm_stall = (long long) ldm_stall_double;  //l2_pending;
 	//long long ldm_stall = (long long) ldm_stall_double; 
 	//long long delay = (ldm_stall*1000)/60; //in processor cycles
 	 long long delay = LLC_Miss * (500-60);
@@ -101,7 +98,8 @@ void delay_handler (int signum)
 }
 
 void con() {
-    printf("I'm a constructor\n");
+
+    //printf("I'm a constructor\n");
     
     struct sigaction sa;
 
@@ -264,7 +262,7 @@ int pmc_init(int *eventId, int count)
 		return -1;
 	}
 	for(i=0; i<count; i++) {
-		fprintf(stderr,"ioctl called \n");
+		//fprintf(stderr,"ioctl called \n");
 		result = ioctl(fd, 10+i, eventId[i] | PMC_USER_MASK | PMC_OS_MASK | PMC_ENABLE_MASK);
 	}
 

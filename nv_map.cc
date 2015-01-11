@@ -820,9 +820,11 @@ static proc_s * create_or_load_proc_obj(int pid) {
 
 	bzero(file_name, 256);
 
+#ifdef _NVDEBUG
 	fprintf(stderr,"create_or_load_proc_obj PROCMETADATA_PATH %s "
 			"pid %u file_name %s \n", 
 			PROCMETADATA_PATH, pid, file_name);
+#endif
 	generate_file_name((char *)PROCMETADATA_PATH, pid, file_name);
 
 	/*we check if a map already exists*/
@@ -1002,7 +1004,9 @@ int nv_initialize(UINT pid) {
 	/*Finished intialization */
 	g_initialized = 1;
 
+#ifdef _NVDEBUG
 	fprintf(stderr,"LOADING PROCESS OBJECT\n");
+#endif
 
 	procobj = load_process(pid, 0);
 	if (!procobj) {
@@ -1337,7 +1341,9 @@ proc_s* load_process(int pid, int perm) {
 	 */
 	assert(g_initialized);
 
-	fprintf(stderr,"nv_map.cc: load_process %u \n",pid);
+#ifdef _NVDEBUG
+	DEBUG(stderr,"nv_map.cc: load_process %u \n",pid);
+#endif
 	nv_proc_obj = (proc_s *)create_or_load_proc_obj(pid);
 
 	/*Check if process has write permission to modify
@@ -1824,7 +1830,7 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	assert(a);
 	assert(a->proc_id);
 
-	fprintf(stderr,"nv_map.cc: _mmap object %u \n",a->proc_id);
+	//fprintf(stderr,"nv_map.cc: _mmap object %u \n",a->proc_id);
 	proc_obj = find_proc_obj(a->proc_id);
 	if (!proc_obj) {
 		proc_obj = create_or_load_proc_obj(a->proc_id);
