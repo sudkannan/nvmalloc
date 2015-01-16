@@ -164,7 +164,7 @@ unsigned int migrate_off;
 	printallocsz(sz);
 #endif
 	//fprintf(stdout,"recording address \n");
-	record_addr(ptr,sz);
+	//record_addr(ptr,sz);
     return ptr;
   }
 

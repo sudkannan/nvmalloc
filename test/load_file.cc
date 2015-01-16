@@ -58,6 +58,7 @@ static char* LoadDirFile(size_t *size, char *filename, char *read_dir) {
 	char *nvptr = NULL;
 	size_t fsize = 0;
 
+	//fprintf(stderr,"loading filename %s\n",filename);
 	if(strlen(filename) < 4)
 		return NULL;
 
@@ -76,8 +77,14 @@ static char* LoadDirFile(size_t *size, char *filename, char *read_dir) {
 
 	fsize = file_status.st_size;
 	input = (char *)malloc(fsize);
-	bytes = fread(input, 1,fsize, fp);
-	assert(bytes);
+	bytes = fread(input, 1,fsize, fp); 
+
+	if(!bytes)
+	{
+		fprintf(stderr,"filename %s, bytes %u \n",filename, bytes);
+		assert(bytes);
+	}
+	
 
 	nvptr = (char *)(char *)nvalloc_((size_t)bytes, filename, 0);
 	assert(nvptr);
@@ -115,6 +122,8 @@ static void load_dir(char *read_dir) {
 		input = (char *)LoadDirFile(&datasize,  entry->d_name, read_dir);
 		if(!input)
 			goto next;
+		else
+			free(input);	
 
 		next:
 		entry = readdir(mydir);

@@ -143,7 +143,6 @@ chunk_alloc(size_t size, size_t alignment, bool base, bool *zero)
 	if (ret != NULL)
 		goto label_return;
 
-    //fprintf(stdout, "calling chunk_alloc_map\n");
 	ret = chunk_alloc_mmap(size, alignment, zero);
 	if (ret != NULL)
 		goto label_return;
@@ -204,6 +203,7 @@ nv_chunk_alloc(size_t size, size_t alignment, bool base, bool *zero,
 {
 	void *ret;
 
+	fprintf(stderr,"nv_chunk_alloc \n");
 
 	assert(size != 0);
 	assert((size & chunksize_mask) == 0);
@@ -218,8 +218,9 @@ nv_chunk_alloc(size_t size, size_t alignment, bool base, bool *zero,
 
 #ifdef _USENVRAM
 	ret = chunk_alloc_mmap(size, alignment, zero);
-//#else
-//	ret = nv_chunk_alloc_mmap(size, alignment, zero, rqst);
+#else
+	//ret = nv_chunk_alloc_mmap(size, alignment, zero, rqst);
+	ret = chunk_alloc_mmap(size, alignment, zero);
 #endif
 
 	if (ret != NULL)

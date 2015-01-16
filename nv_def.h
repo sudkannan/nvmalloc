@@ -21,7 +21,7 @@ typedef intptr_t nvword_t;
 // for each process. Note, the metadata mapping is a seperate
 //memory mapped file for each process currently
 #define PROC_METADAT_SZ 5*1024*1024
-#define MMAP_METADATA_SZ 2*1024*1024
+#define MMAP_METADATA_SZ 10*1024*1024
 #define MAX_DATA_SIZE 1024 * 1024 *1524
 #define NVRAM_DATASZ 1024 * 1024 * 500
 #define BASE_METADATA_NVID 2777

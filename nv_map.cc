@@ -189,14 +189,21 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 		size_t offset, nvarg_s *s) {
 
 	void* nvmap;
+
 	//pthread_mutex_lock( &chkpt_mutex );
 
 #ifdef _USE_FAKE_NVMAP
 	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
 #else
-	//fprintf(stdout,"calling mmap_wrap sys nvmmap\n");
 	//nvmap = (void *)mmap(addr, size, mode, prot, -1, 0);
+	//if(size > 16*1024*1024)
 	nvmap = (void *)syscall(__NR_nv_mmap_pgoff,addr,size,mode,prot, s);
+	//else
+	//	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
+
+	//memset(nvmap,0, size);
+	//fprintf(stdout,"calling mmap_wrap sys nvmmap %lu, "
+	//"addr %lu, size %u\n", nvmap, addr, size);
 	assert(nvmap);
 #endif
 
@@ -351,7 +358,8 @@ static void update_chunkobj(rqst_s *rqst, mmapobj_s* mmapobj,
 		assert(len < MAXOBJNAMELEN);
 		memcpy(chunkobj->objname, rqst->var_name,len);
 		chunkobj->objname[len]=0;
-		//fprintf(stdout,"chunkobj->objname %s\n", chunkobj->objname);
+		if(strstr(chunkobj->objname, "deedee.au"))
+		fprintf(stdout,"chunkobj->objname %s\n", chunkobj->objname);
 	}
 
 #ifdef _USE_TRANSACTION
@@ -1024,7 +1032,7 @@ void* create_new_process(UINT pid) {
 
 	/*Before we create a new process we initialize various flags*/
 	nv_initialize(pid);
-	fprintf(stderr,"nv_map.cc:create_new_process %u \n",pid);
+	//fprintf(stderr,"nv_map.cc:create_new_process %u \n",pid);
 	proc_obj = create_or_load_proc_obj(pid);
 	assert(proc_obj);
 	add_proc_obj(proc_obj);
@@ -1826,11 +1834,13 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	void *ret = NULL;
 	ULONG addr_long = 0;
 	proc_s *proc_obj = NULL;
+	nvarg_s s;
 
 	assert(a);
 	assert(a->proc_id);
 
-	//fprintf(stderr,"nv_map.cc: _mmap object %u \n",a->proc_id);
+	s.proc_id = a->proc_id;
+
 	proc_obj = find_proc_obj(a->proc_id);
 	if (!proc_obj) {
 		proc_obj = create_or_load_proc_obj(a->proc_id);
@@ -1842,7 +1852,14 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 	proc_obj->num_mmaps++;
 	a->pflags = 1;
 	a->noPersist = 0;
-	total_size += size;
+
+	s.fd = -1;
+	s.vma_id = proc_obj->num_mmaps+1;
+	s.pflags = 1;
+	s.noPersist = 0;
+	s.proc_id = a->proc_id;
+
+	total_size += size;	
 
 #ifdef _USE_FAKE_NVMAP
 	char file_name[MAX_FPATH_SZ];
@@ -1868,13 +1885,11 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 		//ret = malloc(size);
 	}
 #else
-	//if(size >= 33550336){
+	//fprintf(stderr,"nv_map.cc: mmap_wrap %u \n", size);
 	ret = mmap_wrap(addr, size, mode, prot, fd, offset, a);
-	//}else{
-	//	ret = mmap (addr, size, mode, prot, fd, offset);
-	//}
 #endif
 	assert(ret);
+	//fprintf(stderr,"nv_map.cc: ret %lu \n", ret);
 
 #ifdef _NVSTATS
 	if(enable_stats) {
@@ -1884,6 +1899,7 @@ void* _mmap(void *addr, size_t size, int mode, int prot, int fd, int offset,
 #endif
 	addr_long = (ULONG) ret;
 	insert_mmapobj_node(addr_long, size, a->vma_id, a->proc_id);
+	//insert_mmapobj_node(addr_long, size, s.vma_id, s.proc_id);
 	record_vmas(a->vma_id, size);
 	return ret;
 }
@@ -2011,8 +2027,10 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	assert(chunk);
 
 	if(!chunk->length) {
-		fprintf(stderr,"chunk->name %s\n", chunk->objname);
+		fprintf(stderr,"chunk->name %s,  "
+		"rqst->varname %s\n", chunk->objname, rqst->var_name);
 		assert(chunk->length);
+		return -1;
 	}
 
 

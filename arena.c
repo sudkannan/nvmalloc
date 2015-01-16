@@ -406,21 +406,25 @@ arena_chunk_alloc(arena_t *arena)
 		size_t unzeroed;
 
 		zero = false;
-		malloc_mutex_unlock(&arena->lock);
 
+		//malloc_mutex_unlock(&arena->lock);
 #ifndef _USENVRAM
 		chunk = (arena_chunk_t *)chunk_alloc(chunksize, chunksize,
 				false, &zero);
 #else
-		chunk = (arena_chunk_t *)nv_chunk_alloc(chunksize, chunksize,
-				false, &zero, &rqst);
+
+		//fprintf(stdout,"nv_chunk_alloc \n");	
+		chunk = (arena_chunk_t *)chunk_alloc(chunksize, chunksize,
+				false, &zero);
+
+		//chunk = (arena_chunk_t *)nv_chunk_alloc(chunksize, chunksize,
+		//		false, &zero, &rqst);
 		//if(rqst)
 		//fprintf(stdout, "nvchunk arena addr %lu %lu \n", 
 		//					(unsigned long)chunk, rqst->mmapobj_straddr);
 #endif	
+		//malloc_mutex_lock(&arena->lock);
 
-
-		malloc_mutex_lock(&arena->lock);
 		if (chunk == NULL)
 			return (NULL);
 		if (config_stats)

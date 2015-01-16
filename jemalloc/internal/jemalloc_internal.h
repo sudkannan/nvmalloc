@@ -737,10 +737,17 @@ imalloc(size_t size)
 
 	assert(size != 0);
 
-	if (size <= arena_maxclass)
+	if (size <= arena_maxclass){
+		//fprintf(stderr,"arena_maxclass %u, size %u\n",
+		//			arena_maxclass, size);
 		return (arena_malloc(NULL, size, false, true));
-	else
+	}
+	else {
+		//fprintf(stderr,"huge %u, size %u\n",
+		//			arena_maxclass, size);
 		return (huge_malloc(size, false));
+		//return (arena_malloc(NULL, size, false, true));
+	}
 }
 
 JEMALLOC_INLINE void *

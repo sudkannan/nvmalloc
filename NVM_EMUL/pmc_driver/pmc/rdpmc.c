@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <signal.h>
+#include <pthread.h>
+
 #include "rdpmc.h"
 
 #include <sched.h>
@@ -27,6 +29,7 @@
 #define CTRL_SET_UM(val, m) (val |= (m << 8))
 #define CTRL_SET_EVENT(val, e) (val |= e)
 
+static pthread_mutex_t myMutex = PTHREAD_MUTEX_INITIALIZER;
 
 typedef unsigned long long hrtime_t;
 		
@@ -66,6 +69,9 @@ static inline unsigned long long hrtime_cycles(void)
 void delay_handler (int signum)
 {
 	static int count = 0;
+
+	pthread_mutex_lock(&myMutex);	
+
 	//fprintf (stderr, "timer expired %d times\n", ++count);
 	/* read rdpmc counter again*/
 	stop0 = rdpmc(0);
@@ -95,6 +101,7 @@ void delay_handler (int signum)
 	start1 = rdpmc(1);
 	//start2 = rdpmc(2);
 	//start3 = rdpmc(0x3);
+	pthread_mutex_unlock(&myMutex);
 }
 
 void con() {

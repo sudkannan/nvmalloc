@@ -291,6 +291,7 @@ chunk_alloc_mmap(size_t size, size_t alignment, bool *zero)
 	assert(alignment != 0);
 	assert((alignment & chunksize_mask) == 0);
 
+	//fprintf(stderr,"pages_map %u\n",size);
 	ret = pages_map(NULL, size);
 
 	if (ret == NULL)
