@@ -202,7 +202,7 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 	//	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
 
 	//memset(nvmap,0, size);
-	//fprintf(stdout,"calling mmap_wrap sys nvmmap %lu, "
+	//fprintf(stderr,"calling mmap_wrap sys nvmmap %lu, "
 	//"addr %lu, size %u\n", nvmap, addr, size);
 	assert(nvmap);
 #endif
@@ -2021,10 +2021,17 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	long hash;
 #endif
 
+#ifdef _USE_BASIC_MMAP
+	return 0;
+#endif
 
 	chunk = get_chunk(rqst);
+	if(!chunk) {
+		assert(chunk);
+		return -1;
+	}
+
 	chunk->commitsz = size;
-	assert(chunk);
 
 	if(!chunk->length) {
 		fprintf(stderr,"chunk->name %s,  "
@@ -2059,13 +2066,28 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	chunk->checksum = hash;
 #endif
 
-
 return 0;
 }
 
 /*Rename from one object to other object name*/
 void nv_rename(rqst_s *src_rqst, char *destname) {
 
+#ifdef _USE_BASIC_MMAP
+
+	char src_file_name[256],dest_file_name[256];
+        bzero(src_file_name,256);
+        strcpy(src_file_name,BASEPATH);
+        strcat(src_file_name, src_rqst->var_name);
+
+        bzero(dest_file_name,256);
+        strcpy(dest_file_name,BASEPATH);
+        strcat(dest_file_name, destname);
+
+	 fprintf(stderr,"renaming %s to %s \n",
+		src_file_name, dest_file_name);	
+	 rename (src_file_name, dest_file_name);
+	 goto rename_update;
+#else
 	chunkobj_s *oldchunk = get_chunk(src_rqst);
 	proc_s *proc_obj;
 	mmapobj_s *mmapobj;
@@ -2114,8 +2136,11 @@ void nv_rename(rqst_s *src_rqst, char *destname) {
 		//assert(chunk->length);
 		fprintf(stderr, "FAIL: could not find chunk from addr \n");
 	}
+#endif
 
+rename_update:
 #ifdef _OBJNAMEMAP
+
 	/*delete source*/
 	objnamemap_delete(src_rqst->var_name);
 
@@ -2145,8 +2170,16 @@ int nv_delete(rqst_s *rqst) {
 	proc_s *proc_obj = NULL;
 	mmapobj_s *mmapobj = NULL;
 	void *src = NULL;
-
 	UINT process_id = rqst->pid;
+
+
+#ifdef _USE_BASIC_MMAP
+	fprintf(stderr,"deleting %s\n",rqst->var_name);
+	if(rqst && rqst->var_name)
+		unlink (rqst->var_name);
+	goto nv_delete_ret;
+#endif
+
 	if(!process_id) {
 		assert(process_id);
 	}
@@ -2191,9 +2224,9 @@ int nv_delete(rqst_s *rqst) {
 		}
 	}
 
-
+nv_delete_ret:
 #ifdef _OBJNAMEMAP
-	objnamemap_delete(chunk->objname);
+	objnamemap_delete(rqst->var_name);
 #endif
 
 	return 0;
@@ -2271,6 +2304,8 @@ void* create_mmap_file(rqst_s *rqst) {
 	strcpy(file_name,BASEPATH);
 	strcat(file_name, rqst->var_name);
 
+	//fprintf(stderr,"creating file %s\n",file_name);
+
 	fd = setup_map_file(file_name, rqst->bytes);
 	if (fd == -1) {
 		perror("file open error\n");
@@ -2295,7 +2330,7 @@ void* read_mmap_file( rqst_s* rqst, size_t *len){
 	bzero(file_name,256);
 	strcpy(file_name,BASEPATH);
 	strcat(file_name, rqst->var_name);
-
+	//fprintf(stdout,"file_name %s \n", file_name);
 
 	/*we check if a map already exists*/
 	int fd = check_existing_map_file(file_name);
@@ -2307,9 +2342,11 @@ void* read_mmap_file( rqst_s* rqst, size_t *len){
 		perror("stat");
 		exit(EXIT_FAILURE);
 	}
+
 	*len = sb.st_size;
 	mmapfile = (void *) mmap(0,sb.st_size,PROT_NV_RW, MAP_SHARED, fd, 0);
 	assert(mmapfile != MAP_FAILED);
+	rqst->commitsz = sb.st_size;
 
 	close(fd);
 

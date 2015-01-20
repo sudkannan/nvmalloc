@@ -331,7 +331,7 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
-	 BASEPROCESSID=700;
+	 BASEPROCESSID=900;
 	 return BASEPROCESSID;
 
 #if 0
@@ -403,6 +403,7 @@ void* nvread_(char *var, int id)
 	rqst.no_dram_flg = 1;
 
 #ifdef _USE_BASIC_MMAP
+	len=0;
 	return read_mmap_file(&rqst, &len);
 #endif
 	buffer = nv_map_read(&rqst, NULL);
@@ -566,7 +567,7 @@ void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 	}
 
 #ifdef _USE_BASIC_MMAP
-	fprintf(stdout,"creating basic map file \n");
+	//fprintf(stdout,"creating basic map file \n");
 	return create_mmap_file(&rqst);
 #endif
 
@@ -672,6 +673,10 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 	rqst.pid = BASEID_GET()+1;
 
 #ifdef _USE_BASIC_MMAP
+	//if(chunksize){
+	//	*chunksize = rqst.commitsz;
+	//}
+	//fprintf(stderr, "chunksize %u\n",chunksize);
 	return read_mmap_file(&rqst, chunksize);
 #endif
 
