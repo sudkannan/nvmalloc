@@ -1167,6 +1167,7 @@ int nv_record_chunk(rqst_s *rqst, ULONG addr) {
 	 if application has supplied request id, neglect*/
 	if (rqst->var_name) {
 		lcl_rqst.id = gen_id_from_str(rqst->var_name);
+		rqst->id = lcl_rqst.id;
 		DEBUG("generated chunkid %u from variable $$%s$$ \n",lcl_rqst.id, rqst->var_name);
 	} else {
 		lcl_rqst.id = rqst->id;
@@ -1668,10 +1669,10 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 			goto error;
 		}
 	}
-	if (rqst->var_name) {
-		chunk_id = gen_id_from_str(rqst->var_name);
-	} else {
+	if (rqst->id) {
 		chunk_id = rqst->id;
+	} else {
+		chunk_id = gen_id_from_str(rqst->var_name);
 	}
 
 #ifdef _NVRAM_OPTIMIZE
@@ -1940,6 +1941,7 @@ chunkobj_s * get_chunk(rqst_s *rqst) {
 			printf("nv_commit:error generating vma id \n");
 		}
 	} else {
+		DEBUG("using chunkid from user %u\n",rqst->id);
 		chunkid = rqst->id;
 	}
 	/*we always make assumption the

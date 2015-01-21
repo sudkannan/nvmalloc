@@ -530,6 +530,66 @@ fault_handler(int sig, siginfo_t *si, void *unused)
 }*/
 
 extern "C" {
+
+void* p_c_nvalloc_id( size_t size, char *var, 
+		 	unsigned int *objid)
+{
+
+	void *buffer = NULL;
+	rqst_s rqst;
+	int id = BASEID_GET();
+	size_t varsz=0;
+
+	g_mypid = id+1;
+	rqst.pid = id+1;
+	rqst.id =0;
+	rqst.bytes = size;
+	rqst.commitsz = size;
+	rqst.log_ptr = NULL;
+
+#ifdef _USE_SHADOWCOPY
+	rqst.no_dram_flg = 0;
+#else
+	rqst.no_dram_flg = 1;
+#endif
+	assert(var);
+
+	varsz = strlen(var);
+	memcpy(rqst.var_name,var,varsz);
+	rqst.var_name[varsz] = 0;
+
+#ifdef _USE_BASIC_MMAP
+	return create_mmap_file(&rqst);
+#endif
+
+#ifdef _ENABLE_RESTART
+	buffer = nv_map_read(&rqst, NULL);
+	if(buffer) {
+	   //fprintf(stdout,"loading restart data %s \n", rqst.var_name);
+	   return buffer;
+	}
+#endif
+
+#ifdef _USE_SHADOWCOPY
+
+#ifdef _USE_UNDO_LOG
+	buffer = je_malloc_((size_t)size, &rqst);
+	assert(buffer);
+#else
+	je_malloc_((size_t)size, &rqst);
+	buffer = rqst.log_ptr;
+	assert(rqst.log_ptr);
+#endif
+
+#else //NOT _USE_SHADOWCOPY
+	buffer = (void *)je_malloc_((size_t)size, &rqst);
+	assert(buffer);
+#endif
+	*objid=rqst.id;
+
+	return buffer;
+}
+
 void* p_c_nvalloc_( size_t size, char *var, int rqstid)
 {
 	void *buffer = NULL;
@@ -630,6 +690,10 @@ void* nvalloc_( size_t size, char *var, int id){
 	return p_c_nvalloc_(size, var,id);
 }
 
+void *nvalloc_id(size_t size, char *var, unsigned int *objid){
+	return p_c_nvalloc_id(size, var, objid);
+}
+
 void* nvallocref_(size_t size, char *var, int id, unsigned long *ptr){
 	void *ref = p_c_nvalloc_(size, var,id);
 	*ptr = (unsigned long)ref;
@@ -667,12 +731,22 @@ void* p_c_nvread_len(char *var, int id, size_t *chunksize)
 	rqst_s rqst;
 	size_t len=0;
 
-	len = strlen(var);
-	memcpy(rqst.var_name,var,len);
-	rqst.var_name[len] = 0;
+	if(id == 0) {
+		len = strlen(var);
+		memcpy(rqst.var_name,var,len);
+		rqst.var_name[len] = 0;
+		rqst.id = 0;
+	}else {
+		rqst.id = id;
+	}
+		
 	rqst.pid = BASEID_GET()+1;
 
 #ifdef _USE_BASIC_MMAP
+    len = strlen(var);
+	assert(len);
+    memcpy(rqst.var_name,var,len);
+    rqst.var_name[len] = 0;
 	//if(chunksize){
 	//	*chunksize = rqst.commitsz;
 	//}
@@ -721,6 +795,21 @@ void  p_c_nvcommitsz(char *ptr, size_t commitsz){
 	nv_commit_len(&rqst, commitsz);
 }
 
+void  p_c_nvcommitsz_id(unsigned int objid, size_t commitsz){
+
+	rqst_s rqst;
+	int id=0;
+	size_t len =0;
+
+	id = BASEID_GET();
+	rqst.pid = id+1;
+	rqst.id = objid;
+	rqst.var_name[len] = 0;
+	nv_commit_len(&rqst, commitsz);
+}
+
+
+
 
 
 }
@@ -735,6 +824,14 @@ void nvcommitsz(char *ptr, size_t commitsz){
 	p_c_nvcommitsz(ptr,commitsz);
 	return;
 }
+
+void nvcommitsz_id(unsigned int objid, size_t commitsz){
+
+	p_c_nvcommitsz_id(objid,commitsz);
+	return;
+}
+
+
 
 void nvdelete(char *ptr, int id){
 

@@ -37,12 +37,16 @@ void nvdelete(char *var, int id);
 
 //Both same interface. one for c and other for c++
 void* nvalloc_( size_t size, char *var, int id);
+void *nvalloc_id(size_t size, char *var, unsigned int *objid);
+
+
 void* nvallocref_(size_t size, char *var, int id, unsigned long *ptr);
 void nvfree_(void *var);
 void mmap_free(char *varname, void *ptr);
 
 
 void* p_c_nvalloc_( size_t size, char *var, int id);
+void *p_c_nvalloc_id(size_t size, char *var, unsigned int *objid);
 void p_c_free_(void *ptr);
 
 void p_c_mmap_free(char *varname, void *ptr);
@@ -51,12 +55,14 @@ void p_c_mmap_free(char *varname, void *ptr);
 int p_c_nvcommit(size_t size, char *var, int id);
 int p_c_nvcommitobj(void *addr, int id);
 void  p_c_nvcommitsz(char *ptr, size_t commitsz);
+void p_c_nvcommitsz_id(unsigned int objid,size_t commitsz);
 
 int nvcommitobj(void *addr, int id);
 #define NVCOMMITOBJ(addr, id)  nvcommitobj(addr, id);
 
 int nvcommit_(size_t size, char *var, int id);
 void nvcommitsz(char *ptr, size_t commitsz);
+void nvcommitsz_id(unsigned int objid,size_t commitsz);
 
 //need to add for c++ apps
 int nvcommitword_(void *wordaddr);
