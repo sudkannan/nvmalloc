@@ -396,7 +396,7 @@ void* nvread_(char *var, int id)
 
 	id = BASEID_GET();
 	rqst.pid = id+1;
-
+	rqst.id = 0;
 	len = strlen(var);
 	memcpy(rqst.var_name,var,len);
 	rqst.var_name[len] = 0;

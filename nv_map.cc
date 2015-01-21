@@ -108,6 +108,10 @@ uint8_t use_map_cache;
 std::unordered_map <unsigned int, unsigned long> chunkmap_cache;
 #endif
 
+#ifdef _USE_BASIC_MMAP
+std::unordered_map <char *, void*> objname_to_mmapaddr;
+#endif
+
 //chunkobj_s *chunkobj_cache;
 
 //#endif
@@ -2024,6 +2028,13 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 #endif
 
 #ifdef _USE_BASIC_MMAP
+	if(rqst->var_name && strlen(rqst->var_name)){
+		src = (void *)objname_to_mmapaddr[rqst->var_name];
+		if(src) {
+			fprintf(stderr,"calling msync\n");
+			msync(src, size, MS_SYNC);			
+		}
+	}
 	return 0;
 #endif
 
@@ -2041,8 +2052,11 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 		assert(chunk->length);
 		return -1;
 	}
+	if (useCacheFlush) {
+		flush_cache(chunk->nv_ptr, chunk->commitsz);
+	}
 
-
+#if 0
 #ifdef _USE_SHADOWCOPY
 	src = chunk->log_ptr;
 	dest =chunk->nv_ptr;
@@ -2066,6 +2080,7 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 	hash = gen_id_from_str(gen_key);
 
 	chunk->checksum = hash;
+#endif
 #endif
 
 return 0;
@@ -2306,7 +2321,7 @@ void* create_mmap_file(rqst_s *rqst) {
 	strcpy(file_name,BASEPATH);
 	strcat(file_name, rqst->var_name);
 
-	//fprintf(stderr,"creating file %s\n",file_name);
+	fprintf(stderr,"creating file %s\n",file_name);
 
 	fd = setup_map_file(file_name, rqst->bytes);
 	if (fd == -1) {
@@ -2315,6 +2330,9 @@ void* create_mmap_file(rqst_s *rqst) {
 	}
 	ret = mmap((void *)addr, rqst->bytes,PROT_NV_RW, MAP_SHARED, fd, 0);
 	assert(ret);
+
+	objname_to_mmapaddr[rqst->var_name] = (void *)ret;
+
 	close(fd);
 
 	return ret;
