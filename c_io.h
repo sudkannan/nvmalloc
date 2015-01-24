@@ -67,8 +67,8 @@ void nvcommitsz_id(unsigned int objid,size_t commitsz);
 //need to add for c++ apps
 int nvcommitword_(void *wordaddr);
 
-int nvsync(void *ptr);
-#define NVSYNC(addr) nvsync(addr);
+int nvsync(void *ptr, size_t len);
+#define NVSYNC(addr, len) nvsync(addr, len);
 
 char** get_object_name_list(int pid, int *entries);
 

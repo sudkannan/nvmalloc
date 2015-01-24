@@ -1645,7 +1645,6 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	int perm = rqst->access;
 	char *del;
 
-	pthread_mutex_lock( &chkpt_mutex );
 
 #ifdef _USE_DISKMAP
 	char out_fname[256];
@@ -1654,8 +1653,8 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	struct stat statbuf;
 #endif
 
+	//pthread_mutex_lock( &chkpt_mutex );
 	process_id = rqst->pid;
-
 	/*Check if all the process objects are still
 	 *in memory and we are not reading
 	process for the first time*/
@@ -1681,9 +1680,9 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 
 #ifdef _NVRAM_OPTIMIZE
 	chunkobj = (chunkobj_s *)chunkmap_cache[chunk_id];
-	if (!chunkobj) {
+	if (chunkobj && chunkobj->length && chunkobj->chunkid)
+	{	
 #endif
-
 		mmapobj_ptr = find_mmapobj_from_chunkid(chunk_id, proc_obj);
 		if (!mmapobj_ptr) {
 			//fprintf(stdout,"finding chunk %s withid %u failed \n", rqst->var_name,chunk_id);
@@ -1743,11 +1742,11 @@ void* nv_map_read(rqst_s *rqst, void* map) {
 	}
 #endif
 
-	pthread_mutex_unlock( &chkpt_mutex );
+	//pthread_mutex_unlock( &chkpt_mutex );
 	return (void *) rqst->nv_ptr;
 
 	error:
-	pthread_mutex_unlock( &chkpt_mutex );
+	//pthread_mutex_unlock( &chkpt_mutex );
 	rqst->nv_ptr = NULL;
 	rqst->log_ptr = NULL;
 	return NULL;
@@ -1955,7 +1954,7 @@ chunkobj_s * get_chunk(rqst_s *rqst) {
 
 #ifdef _NVRAM_OPTIMIZE
 	chunk = (chunkobj_s *)chunkmap_cache[chunkid];
-	if (chunk) {
+	if (chunk && chunk->length && chunk->chunkid) {
 		return chunk;
 	}
 #endif
@@ -2052,9 +2051,10 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 		assert(chunk->length);
 		return -1;
 	}
-	if (useCacheFlush) {
+
+	/*if (useCacheFlush) {
 		flush_cache(chunk->nv_ptr, chunk->commitsz);
-	}
+	}*/
 
 #if 0
 #ifdef _USE_SHADOWCOPY
@@ -2214,7 +2214,7 @@ int nv_delete(rqst_s *rqst) {
 	}
 
 #ifdef _NVRAM_OPTIMIZE
-	if(chunk) {
+	if (chunk && chunk->length && chunk->chunkid){
 		chunkmap_cache.erase(chunk->chunkid);
 	}
 #endif

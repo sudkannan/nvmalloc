@@ -33,12 +33,13 @@ void flush_cache(void *ptr, size_t size){
 #ifdef _LIBPMEMINTEL
 	pmem_persist(ptr,size, 0);
 #else
-   //fprintf(stdout,"cache flush \n");
+
+   //fprintf(stdout,"cache flush %u\n", size);
    //syscall(__NR_nv_commit, (unsigned long)ptr,
    //                    size, NULL);
   mfence();
-  for (i =0; i < size; i=i+CACHELINESZ) {	
 
+  for (i =0; i < size; i=i+CACHELINESZ) {	
 	//ASMFLUSH(ptr);
 	clflush((volatile char*)ptr);
 	ptr += CACHELINESZ;
@@ -46,10 +47,12 @@ void flush_cache(void *ptr, size_t size){
 #ifdef _NVSTATS
 	incr_cflush_cntr();
 #endif
+
   }
 #endif
 
-  //mfence();
+  mfence();
+
   return;
 
 }

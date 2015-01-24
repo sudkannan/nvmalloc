@@ -331,7 +331,7 @@ int endtime_(int *mype, float *itr) {
 
 unsigned int BASEID_GET(){
 
-	 BASEPROCESSID=900;
+	 BASEPROCESSID=700;
 	 return BASEPROCESSID;
 
 #if 0
@@ -870,7 +870,9 @@ void nv_renameobj(char *src, char *dest){
 the pointer and flushes the cache*/
 int nvsync(void *ptr, size_t len){
 	//return nv_sync_obj(ptr);
+#ifdef USE_CACHEFLUSH
 	return nv_sync_chunk(ptr,len);
+#endif
 }
 
 
