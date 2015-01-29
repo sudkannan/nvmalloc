@@ -24,11 +24,11 @@ CPPFLAGS := $(CPPFLAGS) -D_USENVRAM
 #CPPFLAGS := $(CPPFLAGS) -D_USE_CHECKPOINT
 #CPPFLAGS := $(CPPFLAGS) -D_ENABLE_RESTART
 #CPPFLAGS := $(CPPFLAGS) -D_ENABLE_SWIZZLING
-#CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
+CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
 
 #cache related flags
-#CPPFLAGS := $(CPPFLAGS) -D_USE_CACHEFLUSH
-#CPPFLAGS:= $(CPPFLAGS) -D_LIBPMEMINTEL
+CPPFLAGS := $(CPPFLAGS) -D_USE_CACHEFLUSH
+CPPFLAGS:= $(CPPFLAGS) -D_LIBPMEMINTEL
 #CPPFLAGS := $(CPPFLAGS) -D_USE_HOTPAGE
 
 #allocator usage
@@ -64,7 +64,7 @@ CPPFLAGS := $(CPPFLAGS) -D_USE_FAKE_NVMAP
 #Maintains a list of object names for a process
 CPPFLAGS:= $(CPPFLAGS) -D_OBJNAMEMAP
 CPPFLAGS:= $(CPPFLAGS) -D_USELOCKS
-
+CPPFLAGS:= $(CPPFLAGS) -D_ENABLE_INTEL_LOG
 #Flags that needs to be cleaned later
 #NVFLAGS:= -cpp -D_NOCHECKPOINT $(NVFLAGS)
 #NVFLAGS:= -D_VALIDATE_CHKSM -cpp $(NVFLAGS)
@@ -86,14 +86,14 @@ CC=gcc
 GNUFLAG :=  -std=gnu99 -fPIC -fopenmp 
 CFLAGS := $(DEBUGFLG) -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
 	  -funroll-loops  -Wno-implicit -Wno-uninitialized \
-	  -Wno-unused-function -fPIC -fopenmp #-larmci 
+	  -Wno-unused-function -fPIC -fopenmp -lpmemlog #-larmci 
 
 STDFLAGS :=-std=gnu++0x 
 CPPFLAGS := $(CPPFLAGS) -I$(LOGGING)/include -I$(LOGGING)/include/include -I$(LOGGING)/include/port \
 	    -I$(CMU_MALLOC)/include  -I$(BENCH) -I$(BENCH)/compare_bench/c-hashtable
 
 LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl \
-       -Wl,-z,defs -lpthread -lm -lcrypto -lpthread \
+       -Wl,-z,defs -lpthread -lm -lcrypto -lpthread -L/home/sudarsun/codes/nvmalloc/pmem_nvml/src/debug -lpmemlog \
        -L$(CMU_MALLOC)/lib  #-lrdpmc 
 #	   -lpmem \
 #		-lnvmalloc #-llogging

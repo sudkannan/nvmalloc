@@ -1010,9 +1010,14 @@ int nv_initialize(UINT pid) {
 	enable_stats = 0;
 #endif
 
-	if (enable_trans) {
-		assert(!initialize_logmgr(pid, 1));
-	}
+#ifdef _ENABLE_INTEL_LOG
+        nv_initialize_log(NULL);
+#else
+        if (enable_trans) {
+                assert(!initialize_logmgr(pid, 1));
+        }
+#endif
+
 	/*Finished intialization */
 	g_initialized = 1;
 

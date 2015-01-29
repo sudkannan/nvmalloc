@@ -32,6 +32,7 @@ int nvcommit_noarg(void);
 ////////////////////FLUSH/SYNC RELATED FUNCTIONS///////////////////
 int nv_sync_obj(void *objptr);
 int nv_sync_chunk(void *objptr, size_t len);
+int nv_initialize_log(void *addr);
 
 #ifdef __cplusplus
 };  /* end of extern "C" */

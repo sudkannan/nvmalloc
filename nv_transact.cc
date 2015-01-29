@@ -21,7 +21,6 @@
 #include <unistd.h>
 #include <sys/mman.h>
 
-
 #include "nv_map.h"
 #include "nv_def.h"
 #include "checkpoint.h"
@@ -31,6 +30,11 @@
 #include "LogMngr.h"
 #include "nv_transact.h"
 #include "nv_stats.h"
+
+#ifdef _ENABLE_INTEL_LOG
+#include <libpmemlog.h>
+#endif
+
 
 #define CACHESIZE 32
 
@@ -306,12 +310,78 @@ void print_trans_stats() {
 
 #endif //_USE_TRANSACTION
 
+
+#ifdef _ENABLE_INTEL_LOG
+
+static PMEMlogpool *plp= NULL;
+void *logdataddr=NULL;
+
+int nv_initialize_log(void *addr)
+{
+	size_t nbyte;
+
+	logdataddr = mmap(0, (size_t)TRANS_DATA_LOGSZ, PROT_NV_RW, MAP_PRIVATE|MAP_ANONYMOUS,-1, 0);
+
+
+#ifdef _USE_FAKE_NVMAP
+
+	int fd;
+	char *str;
+
+
+	/* create file on PMEM-aware file system */
+	if ((fd = open(PROCLOG_DATA_PATH, O_CREAT|O_RDWR, 0666)) < 0) {
+		perror("open");
+		exit(1);
+	}
+	/* pre-allocate 2GB of persistent memory */
+	if ((errno = posix_fallocate(fd, (off_t)0,
+					(size_t)TRANS_DATA_LOGSZ)) != 0) {
+		perror("posix_fallocate");
+		exit(1);
+	}
+	close(fd);
+
+	/* create a persistent memory resident log */
+	if ((plp = pmemlog_pool_open(PROCLOG_DATA_PATH)) == NULL) {
+		perror("pmemlog_pool_open");
+		exit(1);
+	}
+#else
+	plp = pmemlog_pool_open_nvm(logdataddr, PROCLOG_DATA_PATH, (size_t)TRANS_DATA_LOGSZ);
+	//plp = pmemlog_pool_open(PROCLOG_DATA_PATH);
+#endif
+	/* how many bytes does the log hold? */
+	nbyte = pmemlog_nbyte(plp);
+	printf("log holds %zu bytes\n", nbyte);
+
+}
+
+int nv_append_log(void *addr, size_t size){
+
+	if (pmemlog_append(plp, addr,size) < 0) {
+		perror("pmemlog_append");
+		exit(1);
+	}
+	/* print the log contents */
+	printf("log contains:\n");
+	//pmemlog_walk(plp, 0, printit, NULL);
+	//pmemlog_pool_close(plp);
+}
+
+#endif
+
+
 int nv_sync_chunk(void *objptr, size_t len) {
 
 	assert(len);
 	flush_cache(objptr, len);
+
+#ifdef _ENABLE_INTEL_LOG
+	nv_append_log(objptr, len);
+#endif
+
 	return 0;
 }
-
 
 
