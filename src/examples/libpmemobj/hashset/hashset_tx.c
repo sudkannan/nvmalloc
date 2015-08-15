@@ -211,7 +211,6 @@ hs_insert(PMEMobjpool *pop, uint64_t value)
 			return 0;
 		num++;
 	}
-
 	TX_BEGIN(pop) {
 		TX_ADD_FIELD(D_RO(hashset)->buckets, bucket[h]);
 		TX_ADD_FIELD(hashset, count);
@@ -220,7 +219,6 @@ hs_insert(PMEMobjpool *pop, uint64_t value)
 		D_RW(e)->value = value;
 		D_RW(e)->next = D_RO(buckets)->bucket[h];
 		D_RW(buckets)->bucket[h] = e;
-
 		D_RW(hashset)->count++;
 		num++;
 	} TX_ONABORT {

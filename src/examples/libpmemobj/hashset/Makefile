@@ -33,7 +33,8 @@
 PROGS = hashset_atomic hashset_tx
 
 INCDIR ?= ../../../include
-LIBDIR ?= ../../../debug
+#LIBDIR ?= ../../../debug
+LIBDIR ?= ../../../nondebug
 
 INCS = -I$(INCDIR)
 LIBS = -Wl,-rpath=$(LIBDIR) -L$(LIBDIR) -lpmemobj -lpmem -pthread
@@ -49,7 +50,7 @@ cstyle:  TARGET = cstyle
 all: $(PROGS)
 
 clean: $(DIRS)
-	$(RM) *.o core a.out
+	$(RM) *.o core a.out hashset_tx
 
 clobber: clean $(DIRS)
 	$(RM) $(PROGS)

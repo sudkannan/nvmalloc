@@ -41,7 +41,8 @@
 
 #include "hashset.h"
 
-#define	PM_HASHSET_POOL_SIZE	(8 * 1024 * 1024)
+#define ITEM_COUNT 1000000
+#define	PM_HASHSET_POOL_SIZE	(512 * 1024 * 1024)
 
 static PMEMobjpool *pop;
 
@@ -147,7 +148,68 @@ unknown_command(const char *str)
 	fprintf(stderr, "unknown command '%c', use 'h' for help\n", str[0]);
 }
 
+
+
 #define	INPUT_BUF_LEN 1000
+
+
+void gen_insert_val(char *key, int val) {
+
+		char tmp[INPUT_BUF_LEN];
+		bzero(key, INPUT_BUF_LEN);
+		strcpy(key, "i");
+		//strcat(key, "key");
+		sprintf(tmp,"%d",val);
+		strcat(key,tmp);
+		strcat(key,"\0");
+#ifdef _DEBUG
+		fprintf(stdout,"KEY: %s \n",key);
+#endif
+		return;
+	}
+
+
+void operation(char *buf) {
+		//while (fgets(buf, sizeof (buf), stdin)) {
+		if (buf[0] == 0 || buf[0] == '\n')
+			return;
+
+		switch (buf[0]) {
+			case 'i':
+				str_insert(buf + 1);
+				break;
+			case 'r':
+				str_remove(buf + 1);
+				break;
+			case 'c':
+				str_check(buf + 1);
+				break;
+			case 'n':
+				str_insert_random(buf + 1);
+				break;
+			case 'p':
+				hs_print(pop);
+				break;
+			case 'd':
+				hs_debug(pop);
+				break;
+#ifdef DEBUG
+			case 'b':
+				str_rebuild(buf + 1);
+				break;
+#endif
+			case 'q':
+				fclose(stdin);
+				break;
+			case 'h':
+				help();
+				break;
+			default:
+				unknown_command(buf);
+				break;
+		}
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -190,48 +252,18 @@ main(int argc, char *argv[])
 
 	char buf[INPUT_BUF_LEN];
 	printf("Type 'h' for help\n$ ");
-	while (fgets(buf, sizeof (buf), stdin)) {
-		if (buf[0] == 0 || buf[0] == '\n')
-			continue;
-
-		switch (buf[0]) {
-			case 'i':
-				str_insert(buf + 1);
-				break;
-			case 'r':
-				str_remove(buf + 1);
-				break;
-			case 'c':
-				str_check(buf + 1);
-				break;
-			case 'n':
-				str_insert_random(buf + 1);
-				break;
-			case 'p':
-				hs_print(pop);
-				break;
-			case 'd':
-				hs_debug(pop);
-				break;
-#ifdef DEBUG
-			case 'b':
-				str_rebuild(buf + 1);
-				break;
-#endif
-			case 'q':
-				fclose(stdin);
-				break;
-			case 'h':
-				help();
-				break;
-			default:
-				unknown_command(buf);
-				break;
-		}
-
-		printf("$ ");
+	/*****************************************************************************/
+	/* Insertion */
+	int i=0;
+	for (i = 0; i < ITEM_COUNT; i++)
+	{
+		gen_insert_val(buf,i);
+		//printf("%s \n",buf);
+		operation(buf);
+		//printf("$ ");
 	}
-
+	//}
+	/*****************************************************************************/
 	pmemobj_close(pop);
 
 	return 0;

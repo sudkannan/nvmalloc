@@ -71,7 +71,7 @@ clobber: $(CLOBBER_TARGETS:=-clobber)
 cstyle: $(CSTYLE_TARGETS:=-cstyle)
 examples benchmarks: $(TARGETS)
 
-custom_build = $(DEBUG)$(OBJDIR)
+#custom_build = $(DEBUG)$(OBJDIR)
 
 libvmmalloc libvmem: jemalloc
 tools: libpmem libpmemblk libpmemlog
