@@ -1,4 +1,4 @@
-# Install script for directory: /home/sudarsun/NVM_EMUL/third_party
+# Install script for directory: /home/stewart/codes/nvmalloc/NVM_EMUL/third_party
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0/cmake_install.cmake")
+  INCLUDE("/home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

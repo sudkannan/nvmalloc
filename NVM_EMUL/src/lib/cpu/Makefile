@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_SOURCE_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_BINARY_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,14 +79,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles /home/sudarsun/NVM_EMUL/src/lib/cpu/CMakeFiles/progress.marks
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/CMakeFiles/progress.marks
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/clean
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/clean
 .PHONY : clean
 
 # The main clean target
@@ -95,22 +95,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/lib/cpu/CMakeFiles/cpu.dir/rule:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/CMakeFiles/cpu.dir/rule
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/cpu/CMakeFiles/cpu.dir/rule
 .PHONY : src/lib/cpu/CMakeFiles/cpu.dir/rule
 
 # Convenience name for target.
@@ -119,7 +119,7 @@ cpu: src/lib/cpu/CMakeFiles/cpu.dir/rule
 
 # fast build rule for target.
 cpu/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/build
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/build
 .PHONY : cpu/fast
 
 cpu.o: cpu.c.o
@@ -127,7 +127,7 @@ cpu.o: cpu.c.o
 
 # target to build an object file
 cpu.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o
 .PHONY : cpu.c.o
 
 cpu.i: cpu.c.i
@@ -135,7 +135,7 @@ cpu.i: cpu.c.i
 
 # target to preprocess a source file
 cpu.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.i
 .PHONY : cpu.c.i
 
 cpu.s: cpu.c.s
@@ -143,7 +143,7 @@ cpu.s: cpu.c.s
 
 # target to generate assembly for a file
 cpu.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/cpu/CMakeFiles/cpu.dir/build.make src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.s
 .PHONY : cpu.c.s
 
 # Help Target
@@ -170,6 +170,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

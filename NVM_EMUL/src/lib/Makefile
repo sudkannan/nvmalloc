@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_SOURCE_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_BINARY_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,14 +79,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles /home/sudarsun/NVM_EMUL/src/lib/CMakeFiles/progress.marks
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/CMakeFiles/progress.marks
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/clean
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/clean
 .PHONY : clean
 
 # The main clean target
@@ -95,22 +95,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/lib/CMakeFiles/nvmemul.dir/rule:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/CMakeFiles/nvmemul.dir/rule
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/lib/CMakeFiles/nvmemul.dir/rule
 .PHONY : src/lib/CMakeFiles/nvmemul.dir/rule
 
 # Convenience name for target.
@@ -119,7 +119,7 @@ nvmemul: src/lib/CMakeFiles/nvmemul.dir/rule
 
 # fast build rule for target.
 nvmemul/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/build
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/build
 .PHONY : nvmemul/fast
 
 config.o: config.c.o
@@ -127,7 +127,7 @@ config.o: config.c.o
 
 # target to build an object file
 config.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.o
 .PHONY : config.c.o
 
 config.i: config.c.i
@@ -135,7 +135,7 @@ config.i: config.c.i
 
 # target to preprocess a source file
 config.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.i
 .PHONY : config.c.i
 
 config.s: config.c.s
@@ -143,7 +143,7 @@ config.s: config.c.s
 
 # target to generate assembly for a file
 config.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/config.c.s
 .PHONY : config.c.s
 
 debug.o: debug.c.o
@@ -151,7 +151,7 @@ debug.o: debug.c.o
 
 # target to build an object file
 debug.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.o
 .PHONY : debug.c.o
 
 debug.i: debug.c.i
@@ -159,7 +159,7 @@ debug.i: debug.c.i
 
 # target to preprocess a source file
 debug.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.i
 .PHONY : debug.c.i
 
 debug.s: debug.c.s
@@ -167,7 +167,7 @@ debug.s: debug.c.s
 
 # target to generate assembly for a file
 debug.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/debug.c.s
 .PHONY : debug.c.s
 
 dev.o: dev.c.o
@@ -175,7 +175,7 @@ dev.o: dev.c.o
 
 # target to build an object file
 dev.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.o
 .PHONY : dev.c.o
 
 dev.i: dev.c.i
@@ -183,7 +183,7 @@ dev.i: dev.c.i
 
 # target to preprocess a source file
 dev.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.i
 .PHONY : dev.c.i
 
 dev.s: dev.c.s
@@ -191,7 +191,7 @@ dev.s: dev.c.s
 
 # target to generate assembly for a file
 dev.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/dev.c.s
 .PHONY : dev.c.s
 
 init.o: init.c.o
@@ -199,7 +199,7 @@ init.o: init.c.o
 
 # target to build an object file
 init.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.o
 .PHONY : init.c.o
 
 init.i: init.c.i
@@ -207,7 +207,7 @@ init.i: init.c.i
 
 # target to preprocess a source file
 init.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.i
 .PHONY : init.c.i
 
 init.s: init.c.s
@@ -215,7 +215,7 @@ init.s: init.c.s
 
 # target to generate assembly for a file
 init.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/init.c.s
 .PHONY : init.c.s
 
 interpose.o: interpose.c.o
@@ -223,7 +223,7 @@ interpose.o: interpose.c.o
 
 # target to build an object file
 interpose.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.o
 .PHONY : interpose.c.o
 
 interpose.i: interpose.c.i
@@ -231,7 +231,7 @@ interpose.i: interpose.c.i
 
 # target to preprocess a source file
 interpose.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.i
 .PHONY : interpose.c.i
 
 interpose.s: interpose.c.s
@@ -239,7 +239,7 @@ interpose.s: interpose.c.s
 
 # target to generate assembly for a file
 interpose.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/interpose.c.s
 .PHONY : interpose.c.s
 
 measure_bw.o: measure_bw.c.o
@@ -247,7 +247,7 @@ measure_bw.o: measure_bw.c.o
 
 # target to build an object file
 measure_bw.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.o
 .PHONY : measure_bw.c.o
 
 measure_bw.i: measure_bw.c.i
@@ -255,7 +255,7 @@ measure_bw.i: measure_bw.c.i
 
 # target to preprocess a source file
 measure_bw.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.i
 .PHONY : measure_bw.c.i
 
 measure_bw.s: measure_bw.c.s
@@ -263,7 +263,7 @@ measure_bw.s: measure_bw.c.s
 
 # target to generate assembly for a file
 measure_bw.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/measure_bw.c.s
 .PHONY : measure_bw.c.s
 
 model_bw.o: model_bw.c.o
@@ -271,7 +271,7 @@ model_bw.o: model_bw.c.o
 
 # target to build an object file
 model_bw.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.o
 .PHONY : model_bw.c.o
 
 model_bw.i: model_bw.c.i
@@ -279,7 +279,7 @@ model_bw.i: model_bw.c.i
 
 # target to preprocess a source file
 model_bw.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.i
 .PHONY : model_bw.c.i
 
 model_bw.s: model_bw.c.s
@@ -287,7 +287,7 @@ model_bw.s: model_bw.c.s
 
 # target to generate assembly for a file
 model_bw.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_bw.c.s
 .PHONY : model_bw.c.s
 
 model_lat.o: model_lat.c.o
@@ -295,7 +295,7 @@ model_lat.o: model_lat.c.o
 
 # target to build an object file
 model_lat.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.o
 .PHONY : model_lat.c.o
 
 model_lat.i: model_lat.c.i
@@ -303,7 +303,7 @@ model_lat.i: model_lat.c.i
 
 # target to preprocess a source file
 model_lat.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.i
 .PHONY : model_lat.c.i
 
 model_lat.s: model_lat.c.s
@@ -311,7 +311,7 @@ model_lat.s: model_lat.c.s
 
 # target to generate assembly for a file
 model_lat.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/model_lat.c.s
 .PHONY : model_lat.c.s
 
 monotonic_timer.o: monotonic_timer.c.o
@@ -319,7 +319,7 @@ monotonic_timer.o: monotonic_timer.c.o
 
 # target to build an object file
 monotonic_timer.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.o
 .PHONY : monotonic_timer.c.o
 
 monotonic_timer.i: monotonic_timer.c.i
@@ -327,7 +327,7 @@ monotonic_timer.i: monotonic_timer.c.i
 
 # target to preprocess a source file
 monotonic_timer.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.i
 .PHONY : monotonic_timer.c.i
 
 monotonic_timer.s: monotonic_timer.c.s
@@ -335,7 +335,7 @@ monotonic_timer.s: monotonic_timer.c.s
 
 # target to generate assembly for a file
 monotonic_timer.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/monotonic_timer.c.s
 .PHONY : monotonic_timer.c.s
 
 pmalloc.o: pmalloc.c.o
@@ -343,7 +343,7 @@ pmalloc.o: pmalloc.c.o
 
 # target to build an object file
 pmalloc.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.o
 .PHONY : pmalloc.c.o
 
 pmalloc.i: pmalloc.c.i
@@ -351,7 +351,7 @@ pmalloc.i: pmalloc.c.i
 
 # target to preprocess a source file
 pmalloc.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.i
 .PHONY : pmalloc.c.i
 
 pmalloc.s: pmalloc.c.s
@@ -359,7 +359,7 @@ pmalloc.s: pmalloc.c.s
 
 # target to generate assembly for a file
 pmalloc.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/pmalloc.c.s
 .PHONY : pmalloc.c.s
 
 stat.o: stat.c.o
@@ -367,7 +367,7 @@ stat.o: stat.c.o
 
 # target to build an object file
 stat.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.o
 .PHONY : stat.c.o
 
 stat.i: stat.c.i
@@ -375,7 +375,7 @@ stat.i: stat.c.i
 
 # target to preprocess a source file
 stat.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.i
 .PHONY : stat.c.i
 
 stat.s: stat.c.s
@@ -383,7 +383,7 @@ stat.s: stat.c.s
 
 # target to generate assembly for a file
 stat.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/stat.c.s
 .PHONY : stat.c.s
 
 thread.o: thread.c.o
@@ -391,7 +391,7 @@ thread.o: thread.c.o
 
 # target to build an object file
 thread.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.o
 .PHONY : thread.c.o
 
 thread.i: thread.c.i
@@ -399,7 +399,7 @@ thread.i: thread.c.i
 
 # target to preprocess a source file
 thread.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.i
 .PHONY : thread.c.i
 
 thread.s: thread.c.s
@@ -407,7 +407,7 @@ thread.s: thread.c.s
 
 # target to generate assembly for a file
 thread.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/thread.c.s
 .PHONY : thread.c.s
 
 topology.o: topology.c.o
@@ -415,7 +415,7 @@ topology.o: topology.c.o
 
 # target to build an object file
 topology.c.o:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.o
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.o
 .PHONY : topology.c.o
 
 topology.i: topology.c.i
@@ -423,7 +423,7 @@ topology.i: topology.c.i
 
 # target to preprocess a source file
 topology.c.i:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.i
 .PHONY : topology.c.i
 
 topology.s: topology.c.s
@@ -431,7 +431,7 @@ topology.s: topology.c.s
 
 # target to generate assembly for a file
 topology.c.s:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/lib/CMakeFiles/nvmemul.dir/build.make src/lib/CMakeFiles/nvmemul.dir/topology.c.s
 .PHONY : topology.c.s
 
 # Help Target
@@ -494,6 +494,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

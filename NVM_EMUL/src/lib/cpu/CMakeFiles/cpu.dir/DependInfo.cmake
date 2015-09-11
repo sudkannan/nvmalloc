@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.c" "/home/sudarsun/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o"
+  "/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.c" "/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 

@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/sudarsun/NVM_EMUL/test/test_dev.cc" "/home/sudarsun/NVM_EMUL/test/CMakeFiles/test_dev.dir/test_dev.cc.o"
+  "/home/stewart/codes/nvmalloc/NVM_EMUL/test/test_dev.cc" "/home/stewart/codes/nvmalloc/NVM_EMUL/test/CMakeFiles/test_dev.dir/test_dev.cc.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/sudarsun/NVM_EMUL/src/lib/CMakeFiles/nvmemul.dir/DependInfo.cmake"
+  "/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/CMakeFiles/nvmemul.dir/DependInfo.cmake"
   )
 
 # The include file search paths:

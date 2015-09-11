@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_SOURCE_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_BINARY_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,14 +79,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles /home/sudarsun/NVM_EMUL/src/dev/CMakeFiles/progress.marks
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sudarsun/NVM_EMUL/CMakeFiles 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev/CMakeFiles/progress.marks
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/clean
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/clean
 .PHONY : clean
 
 # The main clean target
@@ -95,22 +95,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/preinstall
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/dev/CMakeFiles/dev_build.dir/rule:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/CMakeFiles/dev_build.dir/rule
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f CMakeFiles/Makefile2 src/dev/CMakeFiles/dev_build.dir/rule
 .PHONY : src/dev/CMakeFiles/dev_build.dir/rule
 
 # Convenience name for target.
@@ -119,7 +119,7 @@ dev_build: src/dev/CMakeFiles/dev_build.dir/rule
 
 # fast build rule for target.
 dev_build/fast:
-	cd /home/sudarsun/NVM_EMUL && $(MAKE) -f src/dev/CMakeFiles/dev_build.dir/build.make src/dev/CMakeFiles/dev_build.dir/build
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(MAKE) -f src/dev/CMakeFiles/dev_build.dir/build.make src/dev/CMakeFiles/dev_build.dir/build
 .PHONY : dev_build/fast
 
 # Help Target
@@ -143,6 +143,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

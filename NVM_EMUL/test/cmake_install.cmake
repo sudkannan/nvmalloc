@@ -1,4 +1,4 @@
-# Install script for directory: /home/sudarsun/NVM_EMUL/test
+# Install script for directory: /home/stewart/codes/nvmalloc/NVM_EMUL/test
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_SOURCE_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_BINARY_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # Utility rule file for dev_build.
 
@@ -48,10 +48,10 @@ include src/dev/CMakeFiles/dev_build.dir/progress.make
 src/dev/CMakeFiles/dev_build: src/dev/nvmemul.ko
 
 src/dev/nvmemul.ko: src/dev/pmc.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/sudarsun/NVM_EMUL/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold Device]
-	cd /home/sudarsun/NVM_EMUL/src/dev && /usr/bin/cmake -E copy_directory /home/sudarsun/NVM_EMUL/src/dev /home/sudarsun/NVM_EMUL/src/dev
-	cd /home/sudarsun/NVM_EMUL/src/dev && /usr/bin/make -j
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev && /usr/bin/cmake -E copy_directory /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev && /usr/bin/make -j
 
 dev_build: src/dev/CMakeFiles/dev_build
 dev_build: src/dev/nvmemul.ko
@@ -63,10 +63,10 @@ src/dev/CMakeFiles/dev_build.dir/build: dev_build
 .PHONY : src/dev/CMakeFiles/dev_build.dir/build
 
 src/dev/CMakeFiles/dev_build.dir/clean:
-	cd /home/sudarsun/NVM_EMUL/src/dev && $(CMAKE_COMMAND) -P CMakeFiles/dev_build.dir/cmake_clean.cmake
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev && $(CMAKE_COMMAND) -P CMakeFiles/dev_build.dir/cmake_clean.cmake
 .PHONY : src/dev/CMakeFiles/dev_build.dir/clean
 
 src/dev/CMakeFiles/dev_build.dir/depend:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sudarsun/NVM_EMUL /home/sudarsun/NVM_EMUL/src/dev /home/sudarsun/NVM_EMUL /home/sudarsun/NVM_EMUL/src/dev /home/sudarsun/NVM_EMUL/src/dev/CMakeFiles/dev_build.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stewart/codes/nvmalloc/NVM_EMUL /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev /home/stewart/codes/nvmalloc/NVM_EMUL /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev /home/stewart/codes/nvmalloc/NVM_EMUL/src/dev/CMakeFiles/dev_build.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/dev/CMakeFiles/dev_build.dir/depend
 

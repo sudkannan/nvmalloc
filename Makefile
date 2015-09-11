@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 LOGGING=/usr/lib64/logging
 #NVMALLOC_HOME=/home/stewart/codes/nvmalloc
 INCLUDE=$(NVMALLOC_HOME)
@@ -6,7 +5,6 @@ src_path=$(NVMALLOC_HOME)
 LIB_PATH := $(NVMALLOC_HOME)
 BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
-
 LDFLAGS=-ldl
 DEBUGFLG=-O2 #-g
 
@@ -28,8 +26,8 @@ CPPFLAGS := $(CPPFLAGS) -D_USENVRAM
 CPPFLAGS := $(CPPFLAGS) -D_NVRAM_OPTIMIZE
 
 #cache related flags
-CPPFLAGS := $(CPPFLAGS) -D_USE_CACHEFLUSH
-CPPFLAGS:= $(CPPFLAGS) -D_LIBPMEMINTEL
+#CPPFLAGS := $(CPPFLAGS) -D_USE_CACHEFLUSH
+#CPPFLAGS:= $(CPPFLAGS) -D_LIBPMEMINTEL
 #CPPFLAGS := $(CPPFLAGS) -D_USE_HOTPAGE
 
 #allocator usage
@@ -65,7 +63,7 @@ CPPFLAGS := $(CPPFLAGS) -D_USE_FAKE_NVMAP
 #Maintains a list of object names for a process
 CPPFLAGS:= $(CPPFLAGS) -D_OBJNAMEMAP
 CPPFLAGS:= $(CPPFLAGS) -D_USELOCKS
-CPPFLAGS:= $(CPPFLAGS) -D_ENABLE_INTEL_LOG
+#CPPFLAGS:= $(CPPFLAGS) -D_ENABLE_INTEL_LOG
 #Flags that needs to be cleaned later
 #NVFLAGS:= -cpp -D_NOCHECKPOINT $(NVFLAGS)
 #NVFLAGS:= -D_VALIDATE_CHKSM -cpp $(NVFLAGS)
@@ -207,7 +205,6 @@ uninstall:
 	rm -rf /usr/lib64/nvmalloc/lib/libnvmchkpt.so*
 	sudo rm -rf /usr/local/lib/libnvmchkpt.so*
 	sudo rm -rf /usr/lib/libnvmchkpt.so*
-=======
 #
 # Copyright (c) 2014-2015, Intel Corporation
 #
@@ -317,4 +314,3 @@ install uninstall:
 
 .PHONY: all clean clobber test check cstyle install uninstall\
 	source rpm dpkg pkg-clean $(SUBDIRS)
->>>>>>> 6655540f4be49e7c5c33c728c16a08d970f464a6

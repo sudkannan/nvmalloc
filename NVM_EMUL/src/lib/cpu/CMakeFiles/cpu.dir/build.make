@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_SOURCE_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sudarsun/NVM_EMUL
+CMAKE_BINARY_DIR = /home/stewart/codes/nvmalloc/NVM_EMUL
 
 # Include any dependencies generated for this target.
 include src/lib/cpu/CMakeFiles/cpu.dir/depend.make
@@ -51,17 +51,17 @@ include src/lib/cpu/CMakeFiles/cpu.dir/flags.make
 
 src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o: src/lib/cpu/CMakeFiles/cpu.dir/flags.make
 src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o: src/lib/cpu/cpu.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/sudarsun/NVM_EMUL/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/stewart/codes/nvmalloc/NVM_EMUL/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o"
-	cd /home/sudarsun/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/cpu.dir/cpu.c.o   -c /home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.c
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/cpu.dir/cpu.c.o   -c /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.c
 
 src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cpu.dir/cpu.c.i"
-	cd /home/sudarsun/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.c > CMakeFiles/cpu.dir/cpu.c.i
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.c > CMakeFiles/cpu.dir/cpu.c.i
 
 src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cpu.dir/cpu.c.s"
-	cd /home/sudarsun/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.c -o CMakeFiles/cpu.dir/cpu.c.s
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.c -o CMakeFiles/cpu.dir/cpu.c.s
 
 src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o.requires:
 .PHONY : src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o.requires
@@ -84,10 +84,10 @@ src/lib/cpu/CMakeFiles/cpu.dir/requires: src/lib/cpu/CMakeFiles/cpu.dir/cpu.c.o.
 .PHONY : src/lib/cpu/CMakeFiles/cpu.dir/requires
 
 src/lib/cpu/CMakeFiles/cpu.dir/clean:
-	cd /home/sudarsun/NVM_EMUL/src/lib/cpu && $(CMAKE_COMMAND) -P CMakeFiles/cpu.dir/cmake_clean.cmake
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu && $(CMAKE_COMMAND) -P CMakeFiles/cpu.dir/cmake_clean.cmake
 .PHONY : src/lib/cpu/CMakeFiles/cpu.dir/clean
 
 src/lib/cpu/CMakeFiles/cpu.dir/depend:
-	cd /home/sudarsun/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sudarsun/NVM_EMUL /home/sudarsun/NVM_EMUL/src/lib/cpu /home/sudarsun/NVM_EMUL /home/sudarsun/NVM_EMUL/src/lib/cpu /home/sudarsun/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/stewart/codes/nvmalloc/NVM_EMUL && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stewart/codes/nvmalloc/NVM_EMUL /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu /home/stewart/codes/nvmalloc/NVM_EMUL /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu /home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/lib/cpu/CMakeFiles/cpu.dir/depend
 

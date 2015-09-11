@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0/src/gtest_main.cc
+/home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0/src/gtest_main.cc
 stdio.h
 -
 gtest/gtest.h
-/home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0/src/gtest/gtest.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0/src/gtest/gtest.h
 
 third_party/gtest-1.7.0/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

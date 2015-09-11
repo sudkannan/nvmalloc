@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.c
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.c
 stdio.h
 -
 stdlib.h
@@ -16,25 +16,25 @@ regex.h
 string.h
 -
 cpu.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.h
 dev.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/dev.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/dev.h
 error.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/error.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/error.h
 known_cpus.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/known_cpus.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/known_cpus.h
 
-/home/sudarsun/NVM_EMUL/src/lib/cpu/cpu.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/cpu.h
 stdint.h
 -
 
-/home/sudarsun/NVM_EMUL/src/lib/cpu/known_cpus.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/known_cpus.h
 xeon-e5.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/xeon-e5.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/xeon-e5.h
 
-/home/sudarsun/NVM_EMUL/src/lib/cpu/xeon-e5.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/xeon-e5.h
 dev.h
-/home/sudarsun/NVM_EMUL/src/lib/cpu/dev.h
+/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/dev.h
 
 src/lib/config.h
 stdio.h

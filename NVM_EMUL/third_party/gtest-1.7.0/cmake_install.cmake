@@ -1,4 +1,4 @@
-# Install script for directory: /home/sudarsun/NVM_EMUL/third_party/gtest-1.7.0
+# Install script for directory: /home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
