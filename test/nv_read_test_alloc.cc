@@ -16,8 +16,8 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "include/nv_map.h"
-#include "include/c_io.h"
+#include <nv_map.h>
+#include <c_io.h>
 
 #ifdef ENABLE_MPI_RANKS 
 #include "mpi.h"
@@ -44,6 +44,9 @@ int main(int argc, char *argv[])
 		fprintf(stdout, "enter read (r) or write(w) mode \n");
 		exit(0);		
 	}
+
+      nvinit_(600);
+
 
 #ifdef ENABLE_MPI_RANKS	
 	MPI_Init (&argc, &argv);	
