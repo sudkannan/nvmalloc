@@ -199,18 +199,9 @@ void *mmap_wrap(void *addr, size_t size, int mode, int prot, int fd,
 #ifdef _USE_FAKE_NVMAP
 	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
 #else
-	//nvmap = (void *)mmap(addr, size, mode, prot, -1, 0);
-	//if(size > 16*1024*1024)
 	nvmap = (void *)syscall(__NR_nv_mmap_pgoff,addr,size,mode,prot, s);
-	//else
-	//	nvmap = (void *)mmap(addr, size, mode, prot, fd, 0);
-
-	//memset(nvmap,0, size);
-	//fprintf(stderr,"calling mmap_wrap sys nvmmap %lu, "
-	//"addr %lu, size %u\n", nvmap, addr, size);
-	assert(nvmap);
 #endif
-
+	assert(nvmap);
 #ifdef _USEPIN
 	//creates shared memory. if shared memory already created
 	// then returns pointer
@@ -2057,9 +2048,13 @@ int nv_commit_len(rqst_s *rqst, size_t size) {
 		return -1;
 	}
 
-	/*if (useCacheFlush) {
+	if (useCacheFlush) {
+#ifdef _USE_FAKE_NVMAP
+		msync(chunk->nv_ptr, chunk->commitsz, MS_SYNC);
+#else
 		flush_cache(chunk->nv_ptr, chunk->commitsz);
-	}*/
+#endif
+	}
 
 #if 0
 #ifdef _USE_SHADOWCOPY

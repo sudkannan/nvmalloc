@@ -15,5 +15,9 @@ if [[ x$1 == x ]];
 
  mkdir /mnt/pmfs; chmod 777 /mnt/pmfs
 
- sudo mount -t tmpfs -o size=$1M tmpfs /mnt/pmfs
+if mount | grep /mnt/pmfs > /dev/null; then
+	echo "/mnt/pmfs already mounted"
+else
+	 sudo mount -t tmpfs -o size=$1M tmpfs /mnt/pmfs
+fi
 
