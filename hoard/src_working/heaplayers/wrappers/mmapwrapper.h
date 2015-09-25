@@ -220,7 +220,7 @@ namespace HL {
 	g_currptr += sz;
 
 #else
-	 //fprintf(stdout, "nv_mmap_pgoff \n");
+	 fprintf(stdout, "nv_mmap_pgoff \n");
 	 ptr = (void *)syscall(__NR_nv_mmap_pgoff,0, sz, HL_MMAP_PROTECTION_MASK, MAP_PRIVATE | MAP_ANONYMOUS, &nvarg);
 #endif
      //np_nvmap  = (char *)syscall(__NR_nv_mmap_pgoff,0 ,s,  PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, &a);

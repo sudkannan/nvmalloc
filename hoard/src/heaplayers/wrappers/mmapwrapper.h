@@ -52,14 +52,14 @@
 #endif
 
 
-#define SINGLE_LARGE_MMAP
+//#define SINGLE_LARGE_MMAP
 #ifdef SINGLE_LARGE_MMAP
 #define MAX 1024*1024*1024*1
 static void *g_ptr=NULL;
 static void *g_currptr=NULL;
 #endif
 
-//#define _USE_NVMAP
+#define _USE_NVMAP
 #ifdef _USE_NVMAP
 #include <time.h> 
 static unsigned int BASEPROCID=0;
