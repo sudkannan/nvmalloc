@@ -31,7 +31,7 @@
 
 unsigned int procid;
 void run_test(char a);
-static unsigned size = 1024 * 1024 * 1;
+static unsigned size = 10487657; /* 1MB */
 static int total_iterations = 10;
 
 int main(int argc, char *argv[])
