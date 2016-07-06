@@ -1,8 +1,10 @@
 LOGGING=/usr/lib64/logging
-#NVMALLOC_HOME=/home/stewart/codes/nvmalloc
 INCLUDE=$(NVMALLOC_HOME)
+
 src_path=$(NVMALLOC_HOME)
 alloc_path=$(NVMALLOC_HOME)/allocs
+pin_path=$(NVMALLOC_HOME)/pin_interface
+
 LIB_PATH := $(NVMALLOC_HOME)
 BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
@@ -115,13 +117,15 @@ RBTREE_OBJS= 	$(src_path)/rbtree.o
 
 NVM_OBJS = $(src_path)/util_func.o $(src_path)/cache_flush.o \
 	   $(src_path)/hash_maps.o  $(src_path)/LogMngr.o\
-	   $(src_path)/checkpoint.o $(src_path)/nv_map.o \
+	   $(src_path)/nv_map.o \
 	   $(src_path)/nv_transact.o $(src_path)/nv_stats.o\
 	   $(src_path)/gtthread_spinlocks.o  \
 	   $(src_path)/c_io.o  $(src_path)/nv_debug.o \
-	   $(src_path)/pin_mapper.o
+	   #$(src_path)/checkpoint.o 
 	   #$(src_path)/nv_rmtckpt.cc 
 	   #$(src_path)/armci_checkpoint.o  \
+	   
+PIN_OBJS = $(pin_path)/pin_mapper.o 	   
 
 BENCHMARK_OBJS = $(BENCH)/c-hashtable/hashtable.o $(BENCH)/c-hashtable/tester.o \
 		 $(BENCH)/c-hashtable/hashtable_itr.o $(BENCH)/malloc_bench/nvmalloc_bench.o \
@@ -154,11 +158,11 @@ $(src_path)/cache_flush.o: $(src_path)/cache_flush.cc
 $(src_path)/nv_debug.o: $(src_path)/nv_debug.cc
 	$(CXX) -c $(src_path)/nv_debug.cc -o $(src_path)/nv_debug.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
 
-$(src_path)/pin_mapper.o: $(src_path)/pin_mapper.cc
-	$(CXX) -c $(src_path)/pin_mapper.cc -o $(src_path)/pin_mapper.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
+$(pin_path)/pin_mapper.o: $(pin_path)/pin_mapper.cc
+	$(CXX) -c $(pin_path)/pin_mapper.cc -o $(pin_path)/pin_mapper.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
 
 				
-OBJLIST= $(RBTREE_OBJS) $(NVM_OBJS)  $(JEMALLOC_OBJS)
+OBJLIST= $(RBTREE_OBJS) $(NVM_OBJS)  $(JEMALLOC_OBJS) #$(PIN_OBJS)
 SHARED_LIB: $(RBTREE_OBJS) $(JEMALLOC_OBJS) $(NVM_OBJS)
 	#$(CC) -c $(RBTREE_OBJS) -I$(INCLUDE) $(CFLAGS) 
 	#$(CC) -c $(JEMALLOC_OBJS) -I$(INCLUDE) $(CFLAGS) $(NVFLAGS)
@@ -166,7 +170,7 @@ SHARED_LIB: $(RBTREE_OBJS) $(JEMALLOC_OBJS) $(NVM_OBJS)
 	#ar crf  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)  
 	#ar rv  libnvmchkpt.a $(OBJLIST) $(NVFLAGS)
 	$(CXX) -shared -fPIC -o libnvmchkpt.so $(OBJLIST) $(NVFLAGS) $(LIBS) $(LDFLAGS)
-	$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
+	#$(CXX) -g varname_commit_test.cc -o varname_commit_test $(OBJLIST) -I$(INCLUDE) $(CPPFLAGS) $(NVFLAGS)  $(LIBS)
 	#$(CXX) -g varname_commit_test.cc -o varname_commit_test util_func.o -I$(INCLUDE) $(CPPFLAGS) $(LIBS)
 
 BENCHMARK: $(JEMALLOC_OBJS) $(NVM_OBJS) $(BENCHMARK_OBJS)
@@ -178,6 +182,7 @@ NVMTEST:
 
 clean:
 	rm -f *.o *.so.0 *.so *.so* nv_read_test
+	rm -f allocs/*.o 
 	rm -f nvmalloc_bench
 	rm -f test_dirtypgcnt test_dirtypgcpy
 	rm -f ../*.o
