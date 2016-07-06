@@ -108,11 +108,11 @@ benchmark: SHARED_LIB BENCHMARK
 JEMALLOC_OBJS= 	$(alloc_path)/jemalloc.o $(alloc_path)/arena.o $(alloc_path)/atomic.o \
         $(alloc_path)/base.o $(alloc_path)/ckh.o $(alloc_path)/ctl.o $(alloc_path)/extent.o \
         $(alloc_path)/hash.o $(alloc_path)/huge.o $(alloc_path)/mb.o \
-	    $(alloc_path)/mutex.o $(alloc_path)/prof.o $(alloc_path)/quarantine.o \
-	    $(alloc_path)/rtree.o $(alloc_path)/stats.o $(alloc_path)/tcache.o \
-	    $(alloc_path)/util.o $(alloc_path)/tsd.o $(alloc_path)/chunk.o \
-	    $(alloc_path)/bitmap.o $(alloc_path)/chunk_mmap.o $(alloc_path)/chunk_dss.o \
-	    $(alloc_path)/np_malloc.o #$(src_path)/malloc_hook.o
+	$(alloc_path)/mutex.o $(alloc_path)/prof.o $(alloc_path)/quarantine.o \
+	$(alloc_path)/rtree.o $(alloc_path)/stats.o $(alloc_path)/tcache.o \
+	$(alloc_path)/util.o $(alloc_path)/tsd.o $(alloc_path)/chunk.o \
+	$(alloc_path)/bitmap.o $(alloc_path)/chunk_mmap.o $(alloc_path)/chunk_dss.o \
+	$(alloc_path)/np_malloc.o #$(src_path)/malloc_hook.o
 
 RBTREE_OBJS= 	$(pvmobj_path)/rbtree.o
 
@@ -183,7 +183,8 @@ NVMTEST:
 
 clean:
 	rm -f *.o *.so.0 *.so *.so* nv_read_test
-	rm -f allocs/*.o 
+	rm -f $(alloc_path)/*.o 
+	rm -f $(pvmobj_path)/*.o
 	rm -f nvmalloc_bench
 	rm -f test_dirtypgcnt test_dirtypgcpy
 	rm -f ../*.o
