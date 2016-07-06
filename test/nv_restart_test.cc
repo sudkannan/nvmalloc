@@ -18,7 +18,7 @@
 #endif
 
 /*************************************************************/
-/*          Example of writing arrays in NVCHPT               */
+/*          Example of writing arrays in NVCHKPT               */
 /*                                                           */
 /*************************************************************/
 int main (int argc, char ** argv)
