@@ -1,3 +1,4 @@
+
 /*
  *  malloc-test
  *  cel - Thu Jan  7 15:49:16 EST 1999
@@ -9,45 +10,55 @@
  *  malloc-test [ size [ iterations [ thread count ]]]
  *
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <unistd.h>
 #include <pthread.h>
 
-//#define USE_NVMALLOC
+#include "mpi.h"
 
-#ifdef USE_NVMALLOC
 #include "nv_def.h"
 #include "nv_map.h"
+#ifdef USE_NVMALLOC
+	#include "nvmalloc_wrap.h"
 #endif
 
-
+#define NULL 0
 
 #define USECSPERSEC 1000000
 #define pthread_attr_default NULL
-#define MAX_THREADS 50
+#define MAX_THREADS 2
 
+unsigned int proc_id;
 void run_test(void);
 void * dummy(unsigned);
+static unsigned size = 1024 * 1024 * 4;
+static unsigned iteration_count = 10; 
 
-static unsigned size = 512;
-static unsigned iteration_count = 1000000;
-
-int malloc_main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	unsigned i;
-	unsigned thread_count = 5;
+	unsigned thread_count = 10;
 	pthread_t thread[MAX_THREADS];
 
+#ifdef ENABLE_MPI_RANKS	
+	MPI_Init (&argc, &argv);	
+#endif
 	/*
 	 * Parse our arguments
 	 */
 	switch (argc) {
-	case 4:
+
+	case 5:
 		/* size, iteration count, and thread count were specified */
-		thread_count = atoi(argv[3]);
+		thread_count = atoi(argv[4]);
 		if (thread_count > MAX_THREADS) thread_count = MAX_THREADS;
+
+	case 4:
+		proc_id = atoi(argv[3]);
+
 	case 3:
 		/* size and iteration count were specified; others default */
 		iteration_count = atoi(argv[2]);
@@ -80,13 +91,28 @@ int malloc_main(int argc, char *argv[])
 	exit(0);
 }
 
+void * dummy(unsigned i)
+{
+	return NULL;
+}
+
 void run_test(void)
 {
 	register unsigned int i;
-	register unsigned rqstsz = size;
+	register unsigned request_size = size;
 	register unsigned total_iterations = iteration_count;
 	struct timeval start, end, null, elapsed, adjusted;
 
+#ifdef ENABLE_MPI_RANKS 
+	int rank;
+	MPI_Comm_rank (MPI_COMM_WORLD, &rank);
+	fprintf(stderr,"rank %d \n",rank);
+#endif
+
+
+#ifdef USE_NVMALLOC
+    struct rqst_struct rqst;
+#endif
 	/*
 	 * Time a null loop.  We'll subtract this from the final
 	 * malloc loop results to get a more accurate value.
@@ -108,6 +134,17 @@ void run_test(void)
 		null.tv_usec += USECSPERSEC;
 	}
 
+#ifdef USE_NVMALLOC
+	rqst.bytes = MAXSIZE;
+	if(proc_id) {
+		rqst.pid = proc_id;
+	}else {
+	    rqst.pid = PROC_ID;
+	}
+    rqst.id = CHUNK_ID;
+	pnvinitalize(&rqst);
+	pnvmalloc(request_size, &rqst);
+#endif
 	/*
 	 * Run the real malloc test
 	 */
@@ -115,14 +152,24 @@ void run_test(void)
 
 	for (i = 0; i < total_iterations; i++) {
 		register void * buf;
+
 #ifdef USE_NVMALLOC
-		//buf = je_malloc_(rqstsz, NULL);
-		buf = p_c_nvalloc_(rqstsz,NULL, i+1);
+		buf = pnvmalloc(request_size, &rqst);
+		rqst.id++;
+		nv_free(buf);
 #else
-		buf = malloc(rqstsz);
-		free(buf);
+		rqst_s rqst;
+		rqst.id = 1;
+		rqst.pid = 400;
+		buf = je_malloc_(size, &rqst);
+		char *ptr = rqst.src;
+		for (i = 0; i < size; i++) {
+			ptr[i] = 'a';
+		}
+		//free(buf);
 #endif
 	}
+
 	gettimeofday(&end, NULL);
 
 	elapsed.tv_sec = end.tv_sec - start.tv_sec;
@@ -144,12 +191,9 @@ void run_test(void)
 	printf("Thread %d adjusted timing: %d.%06d seconds for %d requests"
 		" of %d bytes.\n", pthread_self(),
 		adjusted.tv_sec, adjusted.tv_usec, total_iterations,
-		rqstsz);
+		request_size);
 
 	pthread_exit(NULL);
 }
 
-void * dummy(unsigned i)
-{
-	return NULL;
-}
+
