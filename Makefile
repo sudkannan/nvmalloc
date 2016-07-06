@@ -4,6 +4,7 @@ INCLUDE=$(NVMALLOC_HOME)
 src_path=$(NVMALLOC_HOME)
 alloc_path=$(NVMALLOC_HOME)/allocs
 pin_path=$(NVMALLOC_HOME)/pin_interface
+pvmobj_path=$(NVMALLOC_HOME)/pvmobj
 
 LIB_PATH := $(NVMALLOC_HOME)
 BENCH:= $(NVMALLOC_HOME)/compare_bench
@@ -113,14 +114,14 @@ JEMALLOC_OBJS= 	$(alloc_path)/jemalloc.o $(alloc_path)/arena.o $(alloc_path)/ato
 	    $(alloc_path)/bitmap.o $(alloc_path)/chunk_mmap.o $(alloc_path)/chunk_dss.o \
 	    $(alloc_path)/np_malloc.o #$(src_path)/malloc_hook.o
 
-RBTREE_OBJS= 	$(src_path)/rbtree.o
+RBTREE_OBJS= 	$(pvmobj_path)/rbtree.o
 
-NVM_OBJS = $(src_path)/util_func.o $(src_path)/cache_flush.o \
-	   $(src_path)/hash_maps.o  $(src_path)/LogMngr.o\
-	   $(src_path)/nv_map.o \
-	   $(src_path)/nv_transact.o $(src_path)/nv_stats.o\
-	   $(src_path)/gtthread_spinlocks.o  \
-	   $(src_path)/c_io.o  $(src_path)/nv_debug.o \
+NVM_OBJS = $(pvmobj_path)/util_func.o $(pvmobj_path)/cache_flush.o \
+	   $(pvmobj_path)/hash_maps.o  $(pvmobj_path)/LogMngr.o\
+	   $(pvmobj_path)/nv_map.o \
+	   $(pvmobj_path)/nv_transact.o $(pvmobj_path)/nv_stats.o\
+	   $(pvmobj_path)/gtthread_spinlocks.o  \
+	   $(pvmobj_path)/c_io.o  $(pvmobj_path)/nv_debug.o \
 	   #$(src_path)/checkpoint.o 
 	   #$(src_path)/nv_rmtckpt.cc 
 	   #$(src_path)/armci_checkpoint.o  \
