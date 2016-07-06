@@ -1,7 +1,0 @@
-/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/cpu/CMakeFiles/cpu.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/src/dev/CMakeFiles/dev_build.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0/CMakeFiles/gtest.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/third_party/gtest-1.7.0/CMakeFiles/gtest_main.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib/CMakeFiles/nvmemul.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/test/CMakeFiles/test_dev.dir
-/home/stewart/codes/nvmalloc/NVM_EMUL/test/CMakeFiles/test_interpose.dir

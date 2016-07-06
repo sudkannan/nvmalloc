@@ -1,8 +1,0 @@
-1. Install cmake (apt-get install cmake)
-2. Run cmake pointed to the directory with the source code
-$ cmake tools/techcon14-nvram
-3. Run make in the directory to build memthrottle target
-$ cd tools/techcon14-nvram; make memthrottle
-4. Run memthrottle in the background when running your application. It will output the throughput achieved by each of the threads.
-$ cd memthrottle; ./memthrottle <number of threads> <target BW per thread>
-

@@ -69,7 +69,7 @@ extern "C" {
 
   static void my_init_hook (void) {
     // Store the old hooks.
-    /*old_malloc_hook = __malloc_hook;
+    old_malloc_hook = __malloc_hook;
     old_free_hook = __free_hook;
     old_realloc_hook = __realloc_hook;
     old_memalign_hook = __memalign_hook;
@@ -80,11 +80,11 @@ extern "C" {
     __realloc_hook = my_realloc_hook;
     __memalign_hook = my_memalign_hook;
 
-    initialized = true;*/
+    initialized = true;
   }
 
   static void * my_malloc_hook (size_t size, const void *) {
-	//fprintf(stderr,"calling xxmalloc \n");
+    fprintf(stderr,"calling xxmalloc \n");
     return xxmalloc(size);
   }
 

@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/memthrottle.dir/main.o CMakeFiles/memthrottle.dir/memcpy.o CMakeFiles/memthrottle.dir/model.o  -o memthrottle -rdynamic -lpthread 

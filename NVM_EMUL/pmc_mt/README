@@ -1,2 +1,0 @@
-build command
-gcc nvm_emul_mt.c test.c -lpthread -lrdpmc

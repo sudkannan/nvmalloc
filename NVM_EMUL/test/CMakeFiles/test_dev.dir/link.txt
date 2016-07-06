@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/test_dev.dir/test_dev.cc.o  -o test_dev -rdynamic -lpthread ../src/lib/libnvmemul.so -ldl -lconfig -lnuma -lrt -lgomp -Wl,-rpath,/home/stewart/codes/nvmalloc/NVM_EMUL/src/lib 

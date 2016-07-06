@@ -37,7 +37,7 @@ DEPS = $(MACOS_SRC) $(UNIX_SRC) source/libhoard.cpp
 # Include directories
 #
 
-INCLUDES = -I. -Iinclude -Iinclude/util -Iinclude/hoard -Iinclude/superblocks -Iheaplayers -Iheaplayers/arch-specific -Iheaplayers/wrappers -Iheaplayers/utility -Iheaplayers/locks -Iheaplayers/threads -Iheaplayers/heaps/buildingblock -Iheaplayers/heaps/threads -Iheaplayers/heaps/utility -Iheaplayers/heaps/general -Iheaplayers/heaps/combining -Iheaplayers/heaps/objectrep -Iheaplayers/heaps/top -Iheaplayers/heaps/debug -Iheaplayers/heaps/special -D_APPDIRMALLOC
+INCLUDES = -I. -Iinclude -Iinclude/util -Iinclude/hoard -Iinclude/superblocks -Iheaplayers -Iheaplayers/arch-specific -Iheaplayers/wrappers -Iheaplayers/utility -Iheaplayers/locks -Iheaplayers/threads -Iheaplayers/heaps/buildingblock -Iheaplayers/heaps/threads -Iheaplayers/heaps/utility -Iheaplayers/heaps/general -Iheaplayers/heaps/combining -Iheaplayers/heaps/objectrep -Iheaplayers/heaps/top -Iheaplayers/heaps/debug -Iheaplayers/heaps/special -D_DEBUG #-D_APPDIRMALLOC
 
 WIN_INCLUDES = /I. /Iinclude /Iinclude/util /Iinclude/hoard /Iinclude/superblocks /Iheaplayers /Iheaplayers/arch-specific /Iheaplayers/wrappers /Iheaplayers/utility /Iheaplayers/locks /Iheaplayers/threads /Iheaplayers/heaps/buildingblock /Iheaplayers/heaps/threads /Iheaplayers/heaps/utility /Iheaplayers/heaps/general /Iheaplayers/heaps/combining /Iheaplayers/heaps/objectrep /Iheaplayers/heaps/top /Iheaplayers/heaps/debug -Iheaplayers/heaps/special
 

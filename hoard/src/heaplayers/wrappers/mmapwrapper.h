@@ -59,7 +59,7 @@ static void *g_ptr=NULL;
 static void *g_currptr=NULL;
 #endif
 
-#define _USE_NVMAP
+//#define _USE_NVMAP
 #ifdef _USE_NVMAP
 #include <time.h> 
 static unsigned int BASEPROCID=0;

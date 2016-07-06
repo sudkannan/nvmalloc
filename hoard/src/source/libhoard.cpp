@@ -127,15 +127,15 @@ extern "C" {
   static size_t xxtotalloc;
  
   void addallocsz(size_t sz){	 
-		xxactalloc += sz;
-		xxtotalloc += sz;
+    xxactalloc += sz;
+    xxtotalloc += sz;
   }	
 
   void suballocsz(size_t sz){	 
-		xxactalloc -= sz;
+    xxactalloc -= sz;
   }		 	
   void printallocsz(size_t sz){
-		fprintf(stderr,"active alloc size %zu, tot alloc %zu\n",xxactalloc, xxtotalloc);	
+    fprintf(stderr,"active alloc size %zu, tot alloc %zu\n",xxactalloc, xxtotalloc);	
   }
 
 
@@ -155,30 +155,28 @@ struct timespec spec;
 unsigned int migrate_off;
 	 	 
 
-  void * xxmalloc (size_t sz) {
-
-    TheCustomHeapType * h = getCustomHeap();
-    void * ptr = h->malloc (sz);
+void * xxmalloc (size_t sz) {
+  TheCustomHeapType * h = getCustomHeap();
+  void * ptr = h->malloc (sz);
 #ifdef _DEBUG
-	addallocsz(sz);
-	printallocsz(sz);
+  addallocsz(sz);
+  printallocsz(sz);
 #endif
-	//fprintf(stdout,"recording address \n");
-	//record_addr(ptr,sz);
-    return ptr;
-  }
+  //fprintf(stdout,"recording address \n");
+  //record_addr(ptr,sz);
+  return ptr;
+}
 
-  void xxfree (void * ptr) {
+void xxfree (void * ptr) {
 #ifdef _DEBUG
-	if(ptr)
-		suballocsz(getCustomHeap()->getSize (ptr));	
+   if(ptr)
+     suballocsz(getCustomHeap()->getSize (ptr));	
 #endif
     getCustomHeap()->free (ptr);
   }
 
 
 #if 0
-
 //int init = 0;
 struct bitmask *old_nodes;
 struct bitmask *new_nodes;
