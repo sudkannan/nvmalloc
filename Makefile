@@ -2,6 +2,7 @@ LOGGING=/usr/lib64/logging
 #NVMALLOC_HOME=/home/stewart/codes/nvmalloc
 INCLUDE=$(NVMALLOC_HOME)
 src_path=$(NVMALLOC_HOME)
+alloc_path=$(NVMALLOC_HOME)/allocs
 LIB_PATH := $(NVMALLOC_HOME)
 BENCH:= $(NVMALLOC_HOME)/compare_bench
 CMU_MALLOC:=$(NVMALLOC_HOME)/compare_bench/cmu_nvram/nvmalloc
@@ -94,33 +95,33 @@ CPPFLAGS := $(CPPFLAGS) -I$(LOGGING)/include -I$(LOGGING)/include/include -I$(LO
 LIBS= -lpthread -L$(LOGGING)/lib64  -lm -lssl \
        -Wl,-z,defs -lpthread -lm -lcrypto -lpthread -L/home/sudarsun/codes/nvmalloc/pmem_nvml/src/debug #-lpmemlog \
        -L$(CMU_MALLOC)/lib  #-lrdpmc 
-#	   -lpmem \
-#		-lnvmalloc #-llogging
+#      -lpmem \
+#      -lnvmalloc #-llogging
 
 all:  SHARED_LIB NVMTEST
 test:  SHARED_LIB NVMTEST
 benchmark: SHARED_LIB BENCHMARK
 
-JEMALLOC_OBJS= 	$(src_path)/jemalloc.o $(src_path)/arena.o $(src_path)/atomic.o \
-		$(src_path)/base.o $(src_path)/ckh.o $(src_path)/ctl.o $(src_path)/extent.o \
-        $(src_path)/hash.o $(src_path)/huge.o $(src_path)/mb.o \
-	    $(src_path)/mutex.o $(src_path)/prof.o $(src_path)/quarantine.o \
-	    $(src_path)/rtree.o $(src_path)/stats.o $(src_path)/tcache.o \
-	    $(src_path)/util.o $(src_path)/tsd.o $(src_path)/chunk.o \
-		$(src_path)/bitmap.o $(src_path)/chunk_mmap.o $(src_path)/chunk_dss.o \
-		$(src_path)/np_malloc.o #$(src_path)/malloc_hook.o
+JEMALLOC_OBJS= 	$(alloc_path)/jemalloc.o $(alloc_path)/arena.o $(alloc_path)/atomic.o \
+        $(alloc_path)/base.o $(alloc_path)/ckh.o $(alloc_path)/ctl.o $(alloc_path)/extent.o \
+        $(alloc_path)/hash.o $(alloc_path)/huge.o $(alloc_path)/mb.o \
+	    $(alloc_path)/mutex.o $(alloc_path)/prof.o $(alloc_path)/quarantine.o \
+	    $(alloc_path)/rtree.o $(alloc_path)/stats.o $(alloc_path)/tcache.o \
+	    $(alloc_path)/util.o $(alloc_path)/tsd.o $(alloc_path)/chunk.o \
+	    $(alloc_path)/bitmap.o $(alloc_path)/chunk_mmap.o $(alloc_path)/chunk_dss.o \
+	    $(alloc_path)/np_malloc.o #$(src_path)/malloc_hook.o
 
 RBTREE_OBJS= 	$(src_path)/rbtree.o
 
 NVM_OBJS = $(src_path)/util_func.o $(src_path)/cache_flush.o \
-		 $(src_path)/hash_maps.o  $(src_path)/LogMngr.o\
-	  	 $(src_path)/checkpoint.o $(src_path)/nv_map.o \
-		 $(src_path)/nv_transact.o $(src_path)/nv_stats.o\
-		 $(src_path)/gtthread_spinlocks.o  \
-		 $(src_path)/c_io.o  $(src_path)/nv_debug.o \
-		 $(src_path)/pin_mapper.o
-		 #$(src_path)/nv_rmtckpt.cc 
-		 #$(src_path)/armci_checkpoint.o  \
+	   $(src_path)/hash_maps.o  $(src_path)/LogMngr.o\
+	   $(src_path)/checkpoint.o $(src_path)/nv_map.o \
+	   $(src_path)/nv_transact.o $(src_path)/nv_stats.o\
+	   $(src_path)/gtthread_spinlocks.o  \
+	   $(src_path)/c_io.o  $(src_path)/nv_debug.o \
+	   $(src_path)/pin_mapper.o
+	   #$(src_path)/nv_rmtckpt.cc 
+	   #$(src_path)/armci_checkpoint.o  \
 
 BENCHMARK_OBJS = $(BENCH)/c-hashtable/hashtable.o $(BENCH)/c-hashtable/tester.o \
 		 $(BENCH)/c-hashtable/hashtable_itr.o $(BENCH)/malloc_bench/nvmalloc_bench.o \
