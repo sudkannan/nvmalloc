@@ -25,7 +25,7 @@ LIBS= -lpthread -lnvmchkpt
 	  load_file	read_file  varname_alloc_test 
 	 #nv_remote_chkpt_test nv_rmtckpt_nodirtchk nv_test_spinlock nv_chckpt_test
 	 
-all: nonpersist_alloc persist_alloc
+all: nonpersist_alloc persist_alloc persist_alloc_read
 
 nonpersist_alloc: nonpersist_alloc.cc
 	$(CXX) nonpersist_alloc.cc -o nonpersist_alloc  $(CFLAGS_STRICT) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
@@ -34,11 +34,15 @@ persist_alloc: persist_alloc.cc
 	$(CXX) persist_alloc.cc -o persist_alloc  $(CFLAGS) $(LIBS) -I$(INCLUDE) $(DEFINES)
 
 
+persist_alloc_read:  persist_alloc_read.cc
+	$(CXX) persist_alloc_read.cc -o persist_alloc_read  $(CFLAGS) $(LIBS) $(DEFINES)
+
+
+
+
 nv_read_test:  nv_read_test.cc
 	$(CXX) nv_read_test.cc -o nv_read_test  $(CFLAGS) $(LIBS) $(DEFINES)
 
-nv_read_test_alloc:  nv_read_test_alloc.cc
-	$(CXX) nv_read_test_alloc.cc -o nv_read_test_alloc  $(CFLAGS) $(LIBS) $(DEFINES)
 
 
 varname_alloc_test: varname_alloc_test.cc
@@ -87,7 +91,7 @@ nv_test_spinlock:  nv_test_spinlock.cc
 
 clean:
 	rm -f *.o *.so.0 *.so nv_read_test
-	rm -f persist_alloc nv_read_test_alloc nvmap_bench
+	rm -f persist_alloc persist_alloc_read nonpersist_alloc
 	rm -f test_dirtypgcnt test_dirtypgcpy varname_alloc_test
 	rm -f varname_read_test nv_chckpt_test nv_restart_test
 	rm -f nv_remote_chkpt_test nv_rmtckpt_nodirtchk
