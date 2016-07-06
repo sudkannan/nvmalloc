@@ -7,18 +7,32 @@ INCLUDE=$(NVMALLOC_HOME)
 DEFINES := -DMALLOC_PRODUCTION -lstdc++
 
 
-CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
+#CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
       -funroll-loops  -Wno-implicit -Wno-uninitialized \
       -Wno-unused-function -Wno-unused-variable -lm -lssl  -fPIC
+
+CFLAGS := -g -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
+     -funroll-loops -lm -lssl  -fPIC
+
+
 
 #LIBS= -ljemalloc -lpthread
 LIBS= -lpthread -lnvmchkpt
 
-all:  nv_read_test nv_read_test_alloc test_dirtypgcpy nvmalloc_bench varname_read_test varname_commit_test \
+#all:  nv_read_test nv_read_test_alloc persist_alloc varname_read_test varname_commit_test \
       nvmap_bench \
-      nvmalloc_non_persist_bench nvmalloc_cc_test nvmalloc_c_test nv_restart_test test_del \
+      nvmalloc_non_persist_bench nonpersist_alloc nvmalloc_c_test nv_restart_test test_del \
 	  load_file	read_file  varname_alloc_test 
 	 #nv_remote_chkpt_test nv_rmtckpt_nodirtchk nv_test_spinlock nv_chckpt_test
+	 
+all: nonpersist_alloc persist_alloc
+
+nonpersist_alloc: nonpersist_alloc.cc
+	$(CXX) nonpersist_alloc.cc -o nonpersist_alloc  $(CFLAGS_STRICT) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
+
+persist_alloc: persist_alloc.cc
+	$(CXX) persist_alloc.cc -o persist_alloc  $(CFLAGS) $(LIBS) -I$(INCLUDE) $(DEFINES)
+
 
 nv_read_test:  nv_read_test.cc
 	$(CXX) nv_read_test.cc -o nv_read_test  $(CFLAGS) $(LIBS) $(DEFINES)
@@ -26,11 +40,6 @@ nv_read_test:  nv_read_test.cc
 nv_read_test_alloc:  nv_read_test_alloc.cc
 	$(CXX) nv_read_test_alloc.cc -o nv_read_test_alloc  $(CFLAGS) $(LIBS) $(DEFINES)
 
-nvmalloc_bench: nvmalloc_bench.cc
-	$(CXX) nvmalloc_bench.cc -o nvmalloc_bench  $(CFLAGS) $(LIBS) -I$(INCLUDE) $(DEFINES)
-
-test_dirtypgcpy: test_dirtypgcpy.c
-	$(CXX) test_dirtypgcpy.c -o test_dirtypgcpy  $(CFLAGS) $(LIBS) $(DEFINES)
 
 varname_alloc_test: varname_alloc_test.cc
 	$(CXX)	varname_alloc_test.cc -o varname_alloc_test  $(CFLAGS) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
@@ -50,9 +59,6 @@ nv_restart_test:  nv_restart_test.cc
 
 nvmap_bench: nvmap_bench.cc
 	$(CXX) nvmap_bench.cc -o nvmap_bench  $(CFLAGS) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
-
-nvmalloc_cc_test: nvmalloc_cc_test.cc
-	$(CXX) nvmalloc_cc_test.cc -o nvmalloc_cc_test  $(CFLAGS) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
 
 nvmalloc_c_test: nvmalloc_c_test.c
 	$(CC) nvmalloc_c_test.c -o nvmalloc_c_test  $(CFLAGS) $(LIBS) -I$(INCLUDE)/jemalloc $(DEFINES)
@@ -81,9 +87,9 @@ nv_test_spinlock:  nv_test_spinlock.cc
 
 clean:
 	rm -f *.o *.so.0 *.so nv_read_test
-	rm -f nvmalloc_bench nv_read_test_alloc nvmap_bench
+	rm -f persist_alloc nv_read_test_alloc nvmap_bench
 	rm -f test_dirtypgcnt test_dirtypgcpy varname_alloc_test
 	rm -f varname_read_test nv_chckpt_test nv_restart_test
 	rm -f nv_remote_chkpt_test nv_rmtckpt_nodirtchk
 	rm -f nvmalloc_non_persist_bench
-	rm -f nvmalloc_cc_test nvmalloc_c_test hello_world  load_file
+	rm -f nonpersist_alloc nvmalloc_c_test hello_world  load_file
