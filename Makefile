@@ -86,7 +86,7 @@ CPPFLAGS:= $(CPPFLAGS) -D_USELOCKS
 CXX=g++
 CC=gcc
 
-GNUFLAG :=  -std=gnu99 -fPIC -fopenmp 
+GNUFLAG :=  -std=gnu99 -std=gnu++11 -fPIC -fopenmp 
 CFLAGS := $(DEBUGFLG) -I$(INCLUDE) -Wall -pipe -fvisibility=hidden \
 	  -funroll-loops  -Wno-implicit -Wno-uninitialized \
 	  -Wno-unused-function -fPIC -fopenmp #-lpmemlog #-larmci 
@@ -132,32 +132,32 @@ BENCHMARK_OBJS = $(BENCH)/c-hashtable/hashtable.o $(BENCH)/c-hashtable/tester.o 
 		 $(BENCH)/c-hashtable/hashtable_itr.o $(BENCH)/malloc_bench/nvmalloc_bench.o \
 		 $(BENCH)/benchmark.o
 
-$(src_path)/c_io.o: $(src_path)/c_io.cc 
-	$(CXX) -c $(src_path)/c_io.cc -o $(src_path)/c_io.o $(LIBS) $(CPPFLAGS)
+$(pvmobj_path)/c_io.o: $(pvmobj_path)/c_io.cc 
+	$(CXX) -c $(pvmobj_path)/c_io.cc -o $(pvmobj_path)/c_io.o $(LIBS) $(CPPFLAGS)
 
-$(src_path)/nv_map.o: $(src_path)/nv_map.cc 
-	$(CXX) -c $(src_path)/nv_map.cc -o $(src_path)/nv_map.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
+$(pvmobj_path)/nv_map.o: $(pvmobj_path)/nv_map.cc 
+	$(CXX) -c $(pvmobj_path)/nv_map.cc -o $(pvmobj_path)/nv_map.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
 
-$(src_path)/hash_maps.o: $(src_path)/hash_maps.cc 
-	$(CXX) -c $(src_path)/hash_maps.cc -o $(src_path)/hash_maps.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
+$(pvmobj_path)/hash_maps.o: $(pvmobj_path)/hash_maps.cc 
+	$(CXX) -c $(pvmobj_path)/hash_maps.cc -o $(pvmobj_path)/hash_maps.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
 
-$(src_path)/rbtree.o: $(src_path)/rbtree.cc
-	$(CXX) -c $(src_path)/rbtree.cc -o $(src_path)/rbtree.o $(LIBS) $(CFLAGS)
+$(pvmobj_path)/rbtree.o: $(pvmobj_path)/rbtree.cc
+	$(CXX) -c $(pvmobj_path)/rbtree.cc -o $(pvmobj_path)/rbtree.o $(LIBS) $(CFLAGS)
 
-$(src_path)/LogMngr.o: $(src_path)/LogMngr.cc
-	$(CXX) -c $(src_path)/LogMngr.cc -o $(src_path)/LogMngr.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
+$(pvmobj_path)/LogMngr.o: $(pvmobj_path)/LogMngr.cc
+	$(CXX) -c $(pvmobj_path)/LogMngr.cc -o $(pvmobj_path)/LogMngr.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
 
-$(src_path)/nv_transact.o: $(src_path)/nv_transact.cc
-	$(CXX) -c $(src_path)/nv_transact.cc -o $(src_path)/nv_transact.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
+$(pvmobj_path)/nv_transact.o: $(pvmobj_path)/nv_transact.cc
+	$(CXX) -c $(pvmobj_path)/nv_transact.cc -o $(pvmobj_path)/nv_transact.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)
 
-$(src_path)/nv_stats.o: $(src_path)/nv_stats.cc
-	$(CXX) -c $(src_path)/nv_stats.cc -o $(src_path)/nv_stats.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
+$(pvmobj_path)/nv_stats.o: $(pvmobj_path)/nv_stats.cc
+	$(CXX) -c $(pvmobj_path)/nv_stats.cc -o $(pvmobj_path)/nv_stats.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
 
-$(src_path)/cache_flush.o: $(src_path)/cache_flush.cc
-	$(CXX) -c $(src_path)/cache_flush.cc -o $(src_path)/cache_flush.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
+$(pvmobj_path)/cache_flush.o: $(pvmobj_path)/cache_flush.cc
+	$(CXX) -c $(pvmobj_path)/cache_flush.cc -o $(pvmobj_path)/cache_flush.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
 
-$(src_path)/nv_debug.o: $(src_path)/nv_debug.cc
-	$(CXX) -c $(src_path)/nv_debug.cc -o $(src_path)/nv_debug.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
+$(pvmobj_path)/nv_debug.o: $(pvmobj_path)/nv_debug.cc
+	$(CXX) -c $(pvmobj_path)/nv_debug.cc -o $(pvmobj_path)/nv_debug.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
 
 $(pin_path)/pin_mapper.o: $(pin_path)/pin_mapper.cc
 	$(CXX) -c $(pin_path)/pin_mapper.cc -o $(pin_path)/pin_mapper.o $(LIBS) $(CPPFLAGS) $(STDFLAGS)	
