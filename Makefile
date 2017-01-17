@@ -197,10 +197,10 @@ install:
 	mkdir -p /usr/lib64/nvmalloc/lib
 	mkdir -p /usr/lib64/nvmalloc/include
 	cp libnvmchkpt.so libnvmchkpt.so.1
-	sudo cp libnvmchkpt.so /usr/lib64/nvmalloc/lib/
-	sudo cp libnvmchkpt.so.* /usr/lib64/nvmalloc/lib/
+	#sudo cp libnvmchkpt.so /usr/lib64/nvmalloc/lib/
+	#sudo cp libnvmchkpt.so.* /usr/lib64/nvmalloc/lib/
 	sudo cp libnvmchkpt.so.* /usr/lib/
-	sudo cp -r *.h /usr/lib64/nvmalloc/include/
+	#sudo cp -r *.h /usr/lib64/nvmalloc/include/
 	sudo cp -r *.h /usr/include/
 	sudo cp -r *.h /usr/local/include/
 	sudo cp libnvmchkpt.so.* /usr/local/lib/
@@ -214,7 +214,7 @@ uninstall:
 	rm -rf /usr/lib64/nvmalloc/lib/libnvmchkpt.so*
 	sudo rm -rf /usr/local/lib/libnvmchkpt.so*
 	sudo rm -rf /usr/lib/libnvmchkpt.so*
-	sudo rm -rf /usr/lib64/libnvmchkpt.so*
+	#sudo rm -rf /usr/lib64/libnvmchkpt.so*
 	sudo rm -rf /usr/lib/libnvmchkpt.a
 
 
